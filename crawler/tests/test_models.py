@@ -2,12 +2,12 @@ from django.test import TestCase
 from django.db.utils import IntegrityError
 from django.db import transaction
 
-from crawler.models import Seller, Advertisement
+from crawler.models import Seller, Advertisement, Vehicle
 
 class SellerTest(TestCase):
 
     def setUp(self):
-       self.phone_number1 = '67309726'
+       self.phone_number1 = '66666666'
 
     def test_uniq_seller_creation(self):
         '''
@@ -47,3 +47,19 @@ class AdvertisementTest(TestCase):
         self.advert.uid = 10
         self.advert.save()
         self.assertIsNotNone(self.advert.id)
+
+class VehicleTest(TestCase):
+
+    def setUp(self):
+        self.vehicle = Vehicle()
+        self.seller = Seller.objects.create(phone_number='')
+        self.advert = Advertisement.objects.create(seller=self.seller, uid=10)
+    
+    def test_vehicle_creation(self):
+        '''
+        Test simple vehicle creation
+        '''
+        self.vehicle.seller = self.seller
+        self.vehicle.advertisement = self.advert
+        self.vehicle.save()
+        self.assertIsNotNone(self.vehicle.id)

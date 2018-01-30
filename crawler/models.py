@@ -24,22 +24,20 @@ class Advertisement(models.Model):
 
 class Vehicle(models.Model):
     manufacturer = models.CharField(max_length=20)
-    model = models.CharField(max_length=20)
-    year = models.DateField()
-    odometr_value = models.DecimalField(decimal_places=2, max_digits=7)
-    deffects = models.BooleanField()
+    model = models.CharField(max_length=20, null=True)
+    year = models.DateField(null=True)
+    odometr_value = models.DecimalField(decimal_places=2, max_digits=7, null=True)
+    deffects = models.BooleanField(default=False)
     engine = models.CharField(max_length=30)
-    transmission = models.CharField(max_length=20)
-    fuel = models.CharField(max_length=20)
-    technical_inspection = models.DateField()
+    transmission = models.CharField(max_length=20, null=True)
+    fuel = models.CharField(max_length=20, null=True)
+    technical_inspection = models.DateField(null=True)
     seller = models.ForeignKey(Seller,
         on_delete=models.CASCADE,
-        null=False,
-        blank=False, 
+        null=False, 
         default=None)
     advertisement = models.OneToOneField(Advertisement,
         on_delete=models.CASCADE,
         null=False,
-        blank=False, 
         default=None)
 
