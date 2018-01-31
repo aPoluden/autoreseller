@@ -126,7 +126,6 @@ class AutoPCarScraper(VehicleScraper):
         advert_info = soup.find_all(class_='classifieds-info')[0]
         vehicle_specs = advert_info.find_all(class_='announcement-parameters')
         advert['uid'] = element.attrs['data-id']
-        advert['name'] = advert_info.h1.text
         advert['location'] = self.remove_spaces(soup.find(class_='owner-location').text)
         seller['number'] = self.remove_spaces(soup.find(class_="announcement-owner-contacts").a.text)
         for param in vehicle_specs:
@@ -138,6 +137,7 @@ class AutoPCarScraper(VehicleScraper):
                 if spec_name == 'Kaina Lietuvoje': 
                     advert['price'] = spec_value
                 vehicle[spec_name] = spec_value
+            vehicle['name'] = advert_info.h1.text
         try:
             # Advert attributes that could be not defined
             advert['comment'] = advert_info.find(class_='announcement-description').text

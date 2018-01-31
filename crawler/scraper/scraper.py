@@ -24,7 +24,8 @@ class Scraper:
  
     def scrape_entire_adverts(self):
         '''
-        Write description
+        Scrapes all adverts
+        returns generator
         '''
         return self.scraper.scrape_entire_adverts()
 

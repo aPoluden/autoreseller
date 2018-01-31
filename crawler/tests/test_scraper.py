@@ -34,7 +34,15 @@ class AutoPliusScraperTest(TestCase):
         self.assertEquals('5004458', advert['uid'])
         self.assertEquals('Panevėžys,Lietuva', advert['location'])
         self.assertEquals('10 900 €', advert['price'])
-        self.assertEquals('BMW 520, 2.0 l., universalas', advert['name'])
+        self.assertEquals('BMW 520, 2.0 l., universalas', vehicle['name'])
+        # self.assertEquals('BMW 520, 2.0 l., universalas', advert['name'])
+
+    def test_entire_portal_advert_scrape(self):
+        '''
+        Test entire portal adverisement scrape
+        '''
+        # TODO implement test
+        pass
 
     def test_bad_webpage_url_or_path(self):
         '''
