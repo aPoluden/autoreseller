@@ -137,7 +137,10 @@ class AutoPCarScraper(VehicleScraper):
                 if spec_name == 'Kaina Lietuvoje': 
                     advert['price'] = spec_value
                 vehicle[spec_name] = spec_value
-            vehicle['name'] = advert_info.h1.text
+            # Split vehicle name to Model and Make
+            make_model = advert_info.h1.text.split(',')[0]
+            vehicle['make'] = make_model.split(' ')[0]
+            vehicle['model'] = make_model.split(' ')[1]
         try:
             # Advert attributes that could be not defined
             advert['comment'] = advert_info.find(class_='announcement-description').text

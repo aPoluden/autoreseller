@@ -61,5 +61,7 @@ class VehicleTest(TestCase):
         '''
         self.vehicle.seller = self.seller
         self.vehicle.advertisement = self.advert
+        self.vehicle.make = 'Nissan'
+        self.vehicle.model = 'Almera'
         self.vehicle.save()
         self.assertIsNotNone(self.vehicle.id)

@@ -34,8 +34,8 @@ class AutoPliusScraperTest(TestCase):
         self.assertEquals('5004458', advert['uid'])
         self.assertEquals('Panevėžys,Lietuva', advert['location'])
         self.assertEquals('10 900 €', advert['price'])
-        self.assertEquals('BMW 520, 2.0 l., universalas', vehicle['name'])
-        # self.assertEquals('BMW 520, 2.0 l., universalas', advert['name'])
+        self.assertEquals('BMW', vehicle['make'])
+        self.assertEquals('520', vehicle['model'])
 
     def test_entire_portal_advert_scrape(self):
         '''
