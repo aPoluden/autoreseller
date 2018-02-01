@@ -1,4 +1,4 @@
-import logging
+import logging, time
 
 from crawler.scraper.scraper import Scraper
 from crawler.scraper.classes.options import AdvertOptions
@@ -6,6 +6,8 @@ from crawler.models import Vehicle, Advertisement, Seller
 
 logging.basicConfig(level = logging.DEBUG)
 logger = logging.getLogger(__name__)
+
+crawl_delay = 2
 
 def daily_advert_check_task():
     '''
@@ -15,7 +17,7 @@ def daily_advert_check_task():
     scraper = Scraper()
     scraper.set_autop(AdvertOptions.CARS)
     adverts = scraper.scrape_entire_adverts()
-    advert_data = next(adverts) # json
+    advert_data = next(adverts)
     if advert_data:
         advert_uid = advert_data['advert']['uid']
         if not Advertisement.objects.filter(uid = advert_uid).exists():
@@ -29,8 +31,11 @@ def daily_advert_check_task():
             vehicle.seller = seller
             vehicle.save()
             logger.info('Advert {} created'.format(advert_uid))
+            # Time delay between Advertising scraping
+            time.sleep(crawl_delay)
         else: 
             # Advertisement exists
+            # TODO track advert changes
             logger.info('Advert {} updated'.format(advert_uid))
     else:
         # advertisements left to scrape
@@ -42,4 +47,5 @@ def instant_advert_notification_task():
     Checks for new adverts. Creates new adverts in db.
     Notifies by email about new advert.
     '''
+    # TODO
     pass

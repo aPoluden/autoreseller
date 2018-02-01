@@ -54,6 +54,7 @@ class CrawlerTaskTest(TestCase):
           }
         }
 
+    @mock.patch('crawler.tasks.crawl_delay', 0)
     @mock.patch('crawler.scraper.scraper.Scraper.scrape_entire_adverts')
     def test_new_advertisement_creation(self, scrape_method):
         '''
@@ -61,35 +62,36 @@ class CrawlerTaskTest(TestCase):
         creation wich doesn't exits in DB
         '''
         # imitates generator
-        scrape_method.return_value = iter([self.advert_data]) 
+        scrape_method.return_value = iter([self.advert_data])
         daily_advert_check_task()
         self.assertEquals(1, Advertisement.objects.all().count())
         self.assertEquals(1, Seller.objects.all().count())
         self.assertEquals(1, Vehicle.objects.all().count())
 
-    @unittest.skip('Logic not implemented yet')
+    @mock.patch('crawler.tasks.crawl_delay', 0)
     @mock.patch('crawler.scraper.scraper.Scraper.scrape_entire_adverts')
     def test_new_advertisement_creation_when_seller_exists(self, scrape_method):
         seller = Seller.objects.create(phone_number=self.advert_phone)
         # imitates generator
         scrape_method.return_value = iter([self.advert_data])
         daily_advert_check_task()
-        advert = Advert.objects.all()[0]
+        advert = Advertisement.objects.all()[0]
         self.assertEquals(seller, advert.seller)
         self.assertEquals(1, Vehicle.objects.all().count())
 
-    @unittest.skip('Logic not implemented yet')
+    @mock.patch('crawler.tasks.crawl_delay', 0)
     @mock.patch('crawler.scraper.scraper.Scraper.scrape_entire_adverts')
     def test_when_no_advertisements_data(self, scrape_method):
         '''
         Test when no advertisements has been crawled, 
         or no advertisements left to scrape
         '''
-        scrape_method.return_value = None
+        scrape_method.return_value = iter([None])
         daily_advert_check_task()
         self.assertEquals(0, Seller.objects.all().count())
         self.assertEquals(0, Advertisement.objects.all().count())
         self.assertEquals(0, Vehicle.objects.all().count())
 
 # TODO test advertisement UPDATE
-# TODO scraping delay
+# TODO scraping agent
+# TODO session ID 

@@ -53,3 +53,5 @@ class AutoPliusScraperTest(TestCase):
         scraper = AutoPCarScraper()
         self.assertIsNone(scraper.page_content(wrong_url))
         self.assertIsNone(scraper.page_content(None, wrong_path))
+
+    
