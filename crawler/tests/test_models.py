@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.db.utils import IntegrityError
 from django.db import transaction
 
-import datetime
+import datetime, dateparser
 
 from crawler.models import Seller, Advertisement, Vehicle
 
@@ -63,10 +63,10 @@ class VehicleTest(TestCase):
         self.engine = 'turbo'
         self.transmission = 'mech'
         self.fuel = 'pepsi'
-        self.year = '2000-01'
+        self.year = '2000'
         self.ti = '2000-01'
-        self.converted_year = datetime.datetime.strptime(self.year, '%Y-%m').date()
-        self.converted_ti = datetime.datetime.strptime(self.ti, '%Y-%m').date()
+        self.converted_year = dateparser.parse(self.year)
+        self.converted_ti = dateparser.parse(self.ti)
         self.vhcl_dict = { 'make': self.make,
                         'model': self.model, 
                         'Rida' : self.odometr, 
@@ -85,6 +85,7 @@ class VehicleTest(TestCase):
         self.vehicle.advertisement = self.advert
         self.vehicle.make = 'Nissan'
         self.vehicle.model = 'Almera'
+        self.vehicle.year = self.converted_year
         self.vehicle.save()
         self.assertIsNotNone(self.vehicle.id)
 

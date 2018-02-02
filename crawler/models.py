@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone 
 from model_utils import Choices
 
-import datetime
+import datetime, dateparser
 from enum import Enum
 
 class Seller(models.Model):
@@ -80,7 +80,6 @@ class Vehicle(models.Model):
         vehicle.engine = vhcl[Vehicle.Field.ENGINE]
         vehicle.transmission = vhcl[Vehicle.Field.GEARBOX]
         vehicle.fuel = vhcl[Vehicle.Field.FUEL]
-        vehicle.year = datetime.datetime.strptime(vhcl[Vehicle.Field.AGE], '%Y-%m').date()
-        vehicle.technical_inspection = datetime.datetime.strptime(
-            vhcl[Vehicle.Field.INSPECT], '%Y-%m').date()
+        vehicle.year = dateparser.parse(vhcl[Vehicle.Field.AGE])
+        vehicle.technical_inspection = dateparser.parse(vhcl[Vehicle.Field.INSPECT])
         return vehicle
