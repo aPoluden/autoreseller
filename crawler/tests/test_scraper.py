@@ -27,7 +27,7 @@ class AutoPliusScraperTest(TestCase):
         Test crawling bot selection
         '''
         self.assertIsNotNone(self.scraper.bot())
-        self.assertEquals(YandexRobot, tautoresellerype(self.scraper.bot()))
+        self.assertEquals(YandexRobot, type(self.scraper.bot()))
 
     @mock.patch('crawler.scraper.classes.robot.DefaultRobot.visit_url')
     def test_particular_lt_advert_scrape(self, visit_url):
@@ -95,7 +95,6 @@ class RobotsTest(TestCase):
         self.assertEquals(self.user_agnt_dflt, self.dflt_bot.get_user_agent())
 
     def test_response_yandex_robot(self):
-        # TODO
         content = self.yndx_bot.visit_url('https://google.com')
         self.assertIsNotNone(content)
 
