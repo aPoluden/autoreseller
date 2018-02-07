@@ -2,11 +2,12 @@ from bs4 import BeautifulSoup
 import urllib, requests, logging
 from requests.exceptions import ConnectionError, TooManyRedirects, Timeout, RequestException
 
-from crawler.scraper.classes.options import AdvertOptions
+from crawler.scraper.classes.options import AdvertOptions, Bot
 from crawler.scraper.classes.models import Advertisement
+from crawler.scraper.classes.robot import DefaultRobot, YandexRobot
 from crawler.scraper.utils import tor
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # handler = logging.RotatingFileHandler('hello.log')
@@ -17,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 class PortalScraper:
 
-    def __init__(self, advert_type):
+    def __init__(self, advert_type, ):
         self.advert_type = advert_type
 
     def scrape_particular_advert(self, url, path=None):
@@ -28,10 +29,10 @@ class PortalScraper:
 
 class AutoPScraper(PortalScraper):
 
-    def __init__(self, advert_type):
+    def __init__(self, advert_type, robot_type = None):
         super(AutoPScraper, self).__init__(advert_type)
         if advert_type == AdvertOptions.CARS:
-            self.scraper = AutoPCarScraper()
+            self.scraper = AutoPCarScraper(robot_type)
     
     def scrape_particular_advert(self, url, path=None):
         return self.scraper.get_particular_vehicle(url, path)
@@ -45,57 +46,19 @@ class AutoPScraper(PortalScraper):
         '''
         return self.scraper
 
+    def bot(self):
+        '''
+        returns: scraper bot
+        '''
+        return self.scraper.bot()
+
 class VehicleScraper:
 
-    def __init__(self):
-        self.ip_blocked = False
-        # Default content requestor
-        self.request = requests.get 
-    
-    def page_content(self, page_url, page_path=None):
-        '''
-        Returns WEB page HTML content
-        params:
-            page_url - web page resource url
-            page_path - web page resource path
-        returns:
-            HTML content
-        '''
-        content = None
-        resp = None
+    def __init__(self, robot_type=None):
+        self.robot = (YandexRobot() if robot_type is Bot.YANDEX else DefaultRobot())
 
-        if self.ip_blocked:
-            # Change ip if it was blocked
-            tor.change_ip()
-            self.ip_blocked = False
-
-        try:
-            if page_path:
-                content = urllib.request.urlopen(page_path).read()
-            else:
-                headers = requests.utils.default_headers()
-                headers.update({
-                    'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0',
-                })
-                resp = self.request(page_url)
-                # Check if not blacklisted
-                if resp.status_code == 429:
-                    self.ip_blocked = True
-                    self.request = tor.request
-                    self.page_content(page_url)
-                    logger.warn('IP blacklisted')
-                content = resp.content
-        except requests.exceptions.Timeout:
-            logger.error('Timeout')
-        except TooManyRedirects:
-            logger.error('Too many redirects')
-        except RequestException:
-            logger.error('Request Exception')
-        except ConnectionError:
-            logger.error('Connection Error')
-        except urllib.error.URLError:
-            logger.error('URL Error')
-        return content
+    def bot(self): 
+        return self.robot
 
     def get_particular_vehicle(self, url, path=None):
         pass
@@ -105,8 +68,8 @@ class VehicleScraper:
 
 class AutoPCarScraper(VehicleScraper):
     
-    def __init__(self):
-        super(AutoPCarScraper, self).__init__()
+    def __init__(self, robot_type=None):
+        super(AutoPCarScraper, self).__init__(robot_type)
 
     def remove_spaces(self, raw): 
         return raw.replace(' ', '').replace('\n', '')
@@ -117,7 +80,8 @@ class AutoPCarScraper(VehicleScraper):
         returns: advertisement data
         '''
         advert, seller, vehicle = {}, {}, {}
-        content = self.page_content(url, path)
+        # content = self.page_content(url, path)
+        content = self.robot.visit_url(url)
         if content is None:
             logger.warn('Advert %s not reachable', url)
             return None
@@ -134,6 +98,7 @@ class AutoPCarScraper(VehicleScraper):
             for row in param_rows:
                 spec_name = row.th.text
                 spec_value = row.td.text
+                # Price in Lithiania 
                 if spec_name == 'Kaina Lietuvoje': 
                     advert['price'] = spec_value
                 vehicle[spec_name] = spec_value
@@ -151,7 +116,7 @@ class AutoPCarScraper(VehicleScraper):
     def get_all_car_adverts_data(self):
         '''
         Scrapes all STORE car advertisements
-        returns: all STORE car advertisements 
+        returns: all STORE car advertisements
         '''
         soup = None
         current_page = 1
@@ -159,7 +124,8 @@ class AutoPCarScraper(VehicleScraper):
         list_page = '/skelbimai/naudoti-automobiliai?page_nr={}'
         while True:
             list_url = url + list_page.format(current_page)
-            content = self.page_content(list_url)
+            #content = self.page_content(list_url)
+            content = self.robot.visit_url(list_url)
             if content is None:
                 logger.warn('Advert list %s not reachable')
                 yield None

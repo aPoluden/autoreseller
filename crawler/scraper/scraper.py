@@ -1,5 +1,6 @@
 from crawler.scraper.classes.autopscrapers import AutoPScraper
 
+# Scraper description - scrape content from web page response
 class Scraper:
     '''
     Entrypoint
@@ -7,13 +8,14 @@ class Scraper:
     def __init__(self):
         self.scraper = None
 
-    def set_autop(self, advert_type):
+    def set_autop(self, advert_type, robot_type=None):
         '''
         Sets PortalScraper type
         params:
             advert_type type of advertisement
+            robot_type type of robot
         '''
-        self.scraper = AutoPScraper(advert_type)
+        self.scraper = AutoPScraper(advert_type, robot_type)
 
     def scrape_particular_advert(self, advert_url, path=None):
         '''
@@ -34,3 +36,9 @@ class Scraper:
         returns: Scraper instance
         '''
         return self.scraper
+
+    def bot(self):
+        '''
+        Returns scraper Robot instance
+        '''
+        return self.scraper.bot()
