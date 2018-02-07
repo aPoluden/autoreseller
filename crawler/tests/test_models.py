@@ -89,9 +89,9 @@ class VehicleTest(TestCase):
         self.vehicle.save()
         self.assertIsNotNone(self.vehicle.id)
 
-    def test_vehicle_param_merge(self):
+    def test_vehicle_param_merge_with_all_params(self):
         '''
-        Test vehicle field merge with dict params
+        Test vehicle field merge with all available dict params
         '''
         vhcl = Vehicle.merge_params(self.vhcl_dict)
         self.assertEquals(self.make, vhcl.make)
@@ -99,6 +99,22 @@ class VehicleTest(TestCase):
         self.assertEquals(self.odometr, vhcl.odometr_value)
         self.assertEquals(self.deffects, vhcl.deffects)
         self.assertEquals(self.engine, vhcl.engine)
+        self.assertEquals(self.transmission, vhcl.transmission)
+        self.assertEquals(self.fuel, vhcl.fuel)
+        self.assertEquals(self.converted_year, vhcl.year)
+        self.assertEquals(self.converted_ti, vhcl.technical_inspection)
+
+    def test_vehicle_param_merge_with_not_existing_keys(self): 
+        '''
+        Test vehicle field merge when not all fields provided
+        '''
+        pop_dict = self.vhcl_dict
+        pop_dict.pop('Variklis' ,None)
+        pop_dict.pop('Rida', None)
+        vhcl = Vehicle.merge_params(pop_dict)
+        self.assertEquals(self.make, vhcl.make)
+        self.assertEquals(self.model, vhcl.model)
+        self.assertEquals(self.deffects, vhcl.deffects)
         self.assertEquals(self.transmission, vhcl.transmission)
         self.assertEquals(self.fuel, vhcl.fuel)
         self.assertEquals(self.converted_year, vhcl.year)

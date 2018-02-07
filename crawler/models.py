@@ -69,17 +69,17 @@ class Vehicle(models.Model):
         '''
         Merge provided vehicle data params with Vehicle model params 
         params:
-            advert: advert data dict
-        returns: model instance
+            vhcl: advert data dict
+        returns: Vehicle model instance
         '''
         vehicle = Vehicle()
-        vehicle.make = vhcl[Vehicle.Field.MAKE]
-        vehicle.model = vhcl[Vehicle. Field.MODEL]
-        vehicle.odometr_value = vhcl[Vehicle.Field.RANGE]
-        vehicle.deffects = vhcl[Vehicle.Field.ISSUES]
-        vehicle.engine = vhcl[Vehicle.Field.ENGINE]
-        vehicle.transmission = vhcl[Vehicle.Field.GEARBOX]
-        vehicle.fuel = vhcl[Vehicle.Field.FUEL]
-        vehicle.year = dateparser.parse(vhcl[Vehicle.Field.AGE])
-        vehicle.technical_inspection = dateparser.parse(vhcl[Vehicle.Field.INSPECT])
+        vehicle.make = vhcl[Vehicle.Field.MAKE] if Vehicle.Field.MAKE in vhcl else None
+        vehicle.model = vhcl[Vehicle. Field.MODEL] if Vehicle.Field.MODEL in vhcl else None
+        vehicle.engine = vhcl[Vehicle.Field.ENGINE] if Vehicle.Field.ENGINE in vhcl else None
+        vehicle.transmission = vhcl[Vehicle.Field.GEARBOX] if Vehicle.Field.GEARBOX in vhcl else None
+        vehicle.fuel = vhcl[Vehicle.Field.FUEL] if Vehicle.Field.FUEL in vhcl else None
+        vehicle.deffects = vhcl[Vehicle.Field.ISSUES] if Vehicle.Field.ISSUES in vhcl else None
+        vehicle.odometr_value = vhcl[Vehicle.Field.RANGE] if Vehicle.Field.RANGE in vhcl else None
+        vehicle.year = dateparser.parse(vhcl[Vehicle.Field.AGE]) if Vehicle.Field.AGE else None
+        vehicle.technical_inspection = dateparser.parse(vhcl[Vehicle.Field.INSPECT]) if Vehicle.Field.INSPECT in vhcl else None
         return vehicle
