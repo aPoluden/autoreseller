@@ -39,8 +39,6 @@ def daily_advert_check_task():
                 # Advertisement exists
                 # TODO track advert changes
                 logger.info('Advert {} updated'.format(advert_uid))
-                has_adverts = False
-                break
         else:
             # advertisements left to scrape
             logger.info('Entire advert check task finished')
