@@ -78,6 +78,18 @@ class AutoPliusScraperTest(TestCase):
         advert = scraped_advert['advert']
         price = advert['price']
         self.assertEquals('33 000 €', advert['price'])
+
+    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.visit_url')
+    def test_particular_lt_advert_phone_number_occasion(self, visit_url):
+        '''
+        Test phone number assignement special occasion
+        '''
+        page_path = 'file:///home/apoluden/Programming/workspace/autoreseller/crawler/tests/volvo-xc60-2-4-l-visureigis-2014-dyzelinas-6604091.html'
+        visit_url.return_value = urllib.request.urlopen(page_path).read()
+        self.scraper.set_autop(AdvertOptions.CARS)
+        scraped_advert = self.scraper.scrape_particular_advert('https://google.com')
+        seller = scraped_advert['seller']
+        self.assertEquals('+37069994997', seller['number'])
     
     @unittest.skip('Not implemented yet')
     def test_entire_portal_advert_scrape(self):

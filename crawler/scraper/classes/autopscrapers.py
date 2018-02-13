@@ -71,7 +71,7 @@ class AutoPCarScraper(VehicleScraper):
     def __init__(self, robot_type=None):
         super(AutoPCarScraper, self).__init__(robot_type)
 
-    def remove_spaces(self, raw): 
+    def remove_spaces(self, raw):
         return raw.replace(' ', '').replace('\n', '')
 
     def get_car_advert_data(self, url, path=None):
@@ -92,7 +92,7 @@ class AutoPCarScraper(VehicleScraper):
         vehicle_specs = advert_info.find_all(class_='announcement-parameters')
         advert['uid'] = element.attrs['data-id']
         advert['location'] = self.remove_spaces(soup.find(class_='owner-location').text)
-        seller['number'] = self.remove_spaces(soup.find(class_="announcement-owner-contacts").a.text)
+        seller['number'] = self.remove_spaces(soup.find(class_="owner-phone").text)
         for param in vehicle_specs:
             # Vehicle specials
             param_rows = param.find_all('tr')
