@@ -67,7 +67,7 @@ class AutoPliusScraperTest(TestCase):
         self.assertEquals('E240', vehicle['model'])
 
     @mock.patch('crawler.scraper.classes.robot.DefaultRobot.visit_url')
-    def test_particular_lt_advert_scrape_with_mixed_price(self, visit_url):
+    def test_particular_lt_advert_special_price_occasion(self, visit_url):
         '''
         Tests advert mixed price scrapes
         '''
