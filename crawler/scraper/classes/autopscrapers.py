@@ -98,9 +98,10 @@ class AutoPCarScraper(VehicleScraper):
             for row in param_rows:
                 spec_name = row.th.text
                 spec_value = row.td.text
-                # Price in Lithiania 
-                if spec_name == 'Kaina Lietuvoje': 
-                    advert['price'] = spec_value
+                # Price in Lithiania
+                if spec_name == 'Kaina Lietuvoje':
+                    # Special price occasion
+                    advert['price'] = spec_value.split('€')[0] + '€'
                 vehicle[spec_name] = spec_value
             # Split vehicle name to Model and Make
             make_model = advert_info.h1.text.split(',')[0]

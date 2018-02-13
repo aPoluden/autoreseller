@@ -48,8 +48,11 @@ class AutoPliusScraperTest(TestCase):
         self.assertEquals('BMW', vehicle['make'])
         self.assertEquals('520', vehicle['model'])
 
-    @unittest.skip('Not finished')
-    def test_particular_lt_advert_scrape_en(self): 
+    @unittest.skip('Logic not implemented')
+    def test_particular_en_advert_scrape(self):
+        '''
+        Tests particular English car advertisement scrape 
+        ''' 
         # TODO FIX IT USE PYTHONPATH
         url = 'file:///home/apoluden/Programming/workspace/autoreseller/crawler/tests/mb_advertisement_eng.html'
         scraped_advert = self.scraper.scrape_particular_advert(None, path=url)
@@ -63,6 +66,19 @@ class AutoPliusScraperTest(TestCase):
         self.assertEquals('Mercedes-Benz', vehicle['make'])
         self.assertEquals('E240', vehicle['model'])
 
+    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.visit_url')
+    def test_particular_lt_advert_scrape_with_mixed_price(self, visit_url):
+        '''
+        Tests advert mixed price scrapes
+        '''
+        page_path = 'file:///home/apoluden/Programming/workspace/autoreseller/crawler/tests/bmw-m6-4-4-l-sedanas-2015-benzinas-6698601.html'
+        visit_url.return_value = urllib.request.urlopen(page_path).read()
+        self.scraper.set_autop(AdvertOptions.CARS)
+        scraped_advert = self.scraper.scrape_particular_advert('https://google.com')
+        advert = scraped_advert['advert']
+        price = advert['price']
+        self.assertEquals('33 000 €', advert['price'])
+    
     @unittest.skip('Not implemented yet')
     def test_entire_portal_advert_scrape(self):
         '''
