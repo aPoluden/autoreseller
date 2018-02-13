@@ -85,6 +85,7 @@ class AutoPCarScraper(VehicleScraper):
         if content is None:
             logger.warn('Advert %s not reachable', url)
             return None
+        advert['url'] = url
         soup = BeautifulSoup(content, 'html.parser')
         element = soup.find_all(class_='add-to-bookmark')[0]
         advert_info = soup.find_all(class_='classifieds-info')[0]
