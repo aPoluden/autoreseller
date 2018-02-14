@@ -3,7 +3,6 @@ import urllib, requests, logging
 from requests.exceptions import RequestException
 # Robot description - send requests. Fake user agent. Fake session. Handle RequestExceptions
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class DefaultRobot():

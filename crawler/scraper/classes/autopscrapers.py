@@ -7,14 +7,7 @@ from crawler.scraper.classes.models import Advertisement
 from crawler.scraper.classes.robot import DefaultRobot, YandexRobot
 from crawler.scraper.utils import tor
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-# handler = logging.RotatingFileHandler('hello.log')
-# handler.setLevel(logging.INFO)
-# formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-# handler.setFormatter(formatter)
-# logger.addHandler(handler)
 
 class PortalScraper:
 
