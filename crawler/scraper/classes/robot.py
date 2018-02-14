@@ -21,6 +21,7 @@ class DefaultRobot():
             # Check if not blacklisted
             if self.resp.status_code == 429:
                 logger.warn('IP blacklisted')
+                return None
         except RequestException as e:
             logger.warn(e)
             return None
