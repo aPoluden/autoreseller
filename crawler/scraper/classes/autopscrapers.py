@@ -133,6 +133,33 @@ class AutoPCarScraper(VehicleScraper):
                 yield advert_data
             current_page += 1
     
+    def get_instant_car_advert_data(self):
+        '''
+        Scrapes only new car adverisements
+        returns: scraped car advert data
+        '''
+        #https://autoplius.lt/mano-paieskos?slist=430359403&category_id=2&older_not=-1
+        #https://autoplius.lt/mano-paieskos?slist=430359403&category_id=2&older_not=-1&page_nr=2
+        self.robot = DefaultRobot()
+        instant_url = self.robot.init_session()
+        current_page = 1
+        while True:
+            content = self.robot.visit_url(instant_url)
+            soup = BeautifulSoup(content, 'html.parser')
+            new_adverts = soup.find_all(class_='auto-lists lt cl')
+            if len(new_adverts) > 0: 
+                new_cars_html = new_adverts[0].find_all(class_='announcement-item')
+                for new_car_html in new_cars_html:
+                    yield self.get_car_advert_data(new_car_html['href'])
+                if len(new_cars_html) is 20:
+                    # More than one advert page to scrape
+                    current_page += 1
+                    instant_url = instant_url + '&page_nr={}'.format(current_page)
+                else:
+                    yield None
+            else:
+                yield None
+
     def get_particular_vehicle(self, url, path=None):
         return self.get_car_advert_data(url, path)
 

@@ -34,7 +34,7 @@ class AutoPliusScraperTest(TestCase):
         '''
         Tests paricular Lithuanian car advetisement scrape
         '''
-        page_path = 'file:///home/apoluden/Programming/workspace/autoreseller/crawler/tests/bmw_advertisement.html'
+        page_path = 'file:///home/apoluden/Programming/workspace/autoreseller/crawler/tests/resources/bmw_advertisement.html'
         visit_url.return_value = urllib.request.urlopen(page_path).read()
         self.scraper.set_autop(AdvertOptions.CARS)
         scraped_advert = self.scraper.scrape_particular_advert('https://google.com')
@@ -71,7 +71,7 @@ class AutoPliusScraperTest(TestCase):
         '''
         Tests advert mixed price scrapes
         '''
-        page_path = 'file:///home/apoluden/Programming/workspace/autoreseller/crawler/tests/bmw-m6-4-4-l-sedanas-2015-benzinas-6698601.html'
+        page_path = 'file:///home/apoluden/Programming/workspace/autoreseller/crawler/tests/resources/bmw-m6-4-4-l-sedanas-2015-benzinas-6698601.html'
         visit_url.return_value = urllib.request.urlopen(page_path).read()
         self.scraper.set_autop(AdvertOptions.CARS)
         scraped_advert = self.scraper.scrape_particular_advert('https://google.com')
@@ -84,7 +84,7 @@ class AutoPliusScraperTest(TestCase):
         '''
         Test phone number assignement special occasion
         '''
-        page_path = 'file:///home/apoluden/Programming/workspace/autoreseller/crawler/tests/volvo-xc60-2-4-l-visureigis-2014-dyzelinas-6604091.html'
+        page_path = 'file:///home/apoluden/Programming/workspace/autoreseller/crawler/tests/resources/volvo-xc60-2-4-l-visureigis-2014-dyzelinas-6604091.html'
         visit_url.return_value = urllib.request.urlopen(page_path).read()
         self.scraper.set_autop(AdvertOptions.CARS)
         scraped_advert = self.scraper.scrape_particular_advert('https://google.com')
@@ -99,6 +99,48 @@ class AutoPliusScraperTest(TestCase):
         # TODO implement test
         pass
 
+    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.init_session')
+    @mock.patch('crawler.scraper.classes.autopscrapers.AutoPCarScraper.get_car_advert_data')
+    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.visit_url')
+    def test_instant_advert_scrape_single_page(self, visit_url, get_data, init):
+        '''
+        Tests instant advert scraping on single page
+        '''
+        cars = []
+        page_path = 'file:///home/apoluden/Programming/workspace/autoreseller/crawler/tests/resources/instant_adverts_single_page.html'
+        crawler = AutoPCarScraper()
+        visit_url.return_value = urllib.request.urlopen(page_path).read()
+        get_data.return_value = 'data'
+        init.return_value = 'url'
+        car = crawler.get_instant_car_advert_data()
+        cars.append(next(car)) 
+        cars.append(next(car))
+        cars.append(next(car))
+        cars.append(next(car))
+        self.assertEquals(4, len(cars))
+        self.assertIsNone(cars[3])
+    
+    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.init_session')
+    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.visit_url')
+    def test_instant_advert_scrape_multiple_pages(self):
+        '''
+        Tests instant/new advert scraping on multiple pages
+        '''
+        scraper = AutoPCarScraper()
+
+    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.init_session')
+    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.visit_url')
+    def test_no_instant_adverts_to_scrape(self, visit_url, init_session):
+        '''
+        Tests if no instant/new available to scrape
+        '''
+        scraper = AutoPCarScraper()
+        page_path = 'file:///home/apoluden/Programming/workspace/autoreseller/crawler/tests/resources/no_new_car_adverts.html'
+        visit_url.return_value = urllib.request.urlopen(page_path).read()
+        init_session.return_value = 'any_url'
+        gen = scraper.get_instant_car_advert_data()
+        self.assertIsNone(next(gen))
+        
     @unittest.skip('Outdated')
     def test_bad_webpage_url_or_path(self):
         '''

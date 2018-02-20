@@ -1,5 +1,5 @@
-import urllib, requests, logging
-
+import urllib, requests, logging, time
+from selenium import webdriver
 from requests.exceptions import RequestException
 # Robot description - send requests. Fake user agent. Fake session. Handle RequestExceptions
 
@@ -7,17 +7,17 @@ logger = logging.getLogger(__name__)
 
 class DefaultRobot():
 
-    user_agent = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
+    user_agent = 'Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0'
+    top_url = 'https://autoplius.lt'
+    instant_cars_advert_search_url = 'https://autoplius.lt/skelbimai/naudoti-automobiliai?older_not=-1'
 
-    def __init__(self): 
-        self.headers = requests.utils.default_headers()
-        self.headers.update({
-            'User-Agent': self.user_agent,
-    })
+    def __init__(self):
+        self.session = requests.Session()
+        self.session.headers.update({ 'User-Agent': self.user_agent })
 
     def visit_url(self, url):
         try: 
-            self.resp = requests.get(url)
+            self.resp = self.session.get(url)
             # Check if not blacklisted
             if self.resp.status_code == 429:
                 logger.warn('IP blacklisted')
@@ -27,6 +27,32 @@ class DefaultRobot():
             return None
         return self.resp.content
 
+    def fake_browsing(self):
+        '''
+        Fakes browsing over website
+        returns: browser instance 
+        '''
+        browser = webdriver.Firefox()
+        browser.get(self.top_url)
+        browser.get(self.instant_cars_advert_search_url)
+        time.sleep(2)
+        browser.get(self.top_url)
+        # find search preference element
+        item = browser.find_element_by_class_name('search-item')
+        item.click()
+        return browser
+
+    def init_session(self):
+        '''
+        Initilizes session using browser session
+        '''
+        browser = self.fake_browsing()
+        instant_advert = browser.current_url
+        # Sets fake browser cookies to requests session
+        self.session.cookies.update({c['name']:c['value'] for c in browser.get_cookies()})
+        browser.close()
+        return instant_advert
+    
     def say_hello(self):
         return "Hello, I'm Default robot"
 
@@ -35,54 +61,5 @@ class DefaultRobot():
 
 class YandexRobot(DefaultRobot):
 
-    session = ''
+    sessionID = ''
     user_agent = 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)'
-
-# Old request logic
-# def page_content(self, page_url, page_path=None):
-#     '''
-#     Returns WEB page HTML content
-#     params:
-#         page_url - web page resource url
-#         page_path - web page resource path
-#     returns:
-#         HTML content
-#     '''
-#     content = None
-#     resp = None
-
-#     user_agent = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
-#     # https://yandex.com/support/webmaster/robot-workings/check-yandex-robots.html
-#     yandex_indexing_bot_agent = 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)'
-
-#     if self.ip_blocked:
-#         # Change ip if it was blocked
-#         tor.change_ip()
-#         self.ip_blocked = False
-#     try:
-#         if page_path:
-#             content = urllib.request.urlopen(page_path).read()
-#         else:
-#             headers = requests.utils.default_headers()
-#             headers.update({
-#                 'User-Agent': yandex_indexing_bot_agent,
-#             })
-#             resp = self.request(page_url)
-#             # Check if not blacklisted
-#             if resp.status_code == 429:
-#                 self.ip_blocked = True
-#                 self.request = tor.request
-#                 self.page_content(page_url)
-#                 logger.warn('IP blacklisted')
-#             content = resp.content
-#     except requests.exceptions.Timeout:
-#         logger.error('Timeout')
-#     except TooManyRedirects:
-#         logger.error('Too many redirects')
-#     except RequestException:
-#         logger.error('Request Exception')
-#     except ConnectionError:
-#         logger.error('Connection Error')
-#     except urllib.error.URLError:
-#         logger.error('URL Error')
-#     return content

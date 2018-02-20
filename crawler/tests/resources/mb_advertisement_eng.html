@@ -1,0 +1,1495 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" /><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script><![endif]-->
+<title>Mercedes-Benz E240, 2.6 l., saloon / sedan 2003 m.,  | A6640147 | Autoplius.lt</title>
+<meta name="description" content="Mercedes-Benz E240 Avantgarde!  Gerame stovyje ir labai tvarkingas.  Vazinejo moteris. Automobilyje nerukyta.  Idealiam techniniam stovyje.  Lietuviska TECH-..." />
+<meta name="keywords" content="Mercedes-Benz E240, 2.6 l., saloon / sedan, Cars, A6640147, Date of manufacture 2003, Mileage 155 000 km, Engine 2597 cm³, 176 HP (130kW), Fuel type Petrol, Body type Saloon / sedan, Number of doors 4/5, Gearbox Automatic, Climate control Air conditioning, Color Gray / silver, Damage No damages, Steering wheel Left hand drive (LHD), MOT test expiry 2020-01, Wheel size R16, First registration country Germany" />
+<meta name="verify-v1" content="WCNMSK2DM610zz0Zxo7erqsKJf5lxkj5ghAJKUOwQx8=" />
+<meta property="og:title" content="Mercedes-Benz E240, 2.6 l., saloon / sedan 2003 m.,  | A6640147 | Autoplius.lt" />
+<meta property="og:description" content="Mercedes-Benz E240 Avantgarde!  Gerame stovyje ir labai tvarkingas.  Vazinejo moteris. Automobilyje nerukyta.  Idealiam techniniam stovyje.  Lietuviska TECH-..." /><meta name="author" lang="en" content="UAB Diginet LTU | pagalba@autoplius.lt" /><link rel="icon" type="image/x-icon" href="https://autoplius-static.dgn.lt/static/images/favicon.ico" /><meta property="fb:admins" content="663029941" /><meta name="application-name" content="Autoplius.lt" />
+        <meta name="msapplication-tooltip" content="Search, Post an ad, Ket, GAZAS.LT" />
+        <meta name="msapplication-task" content="name=Search;action-uri=https://en.autoplius.lt/search/;icon-uri=https://autoplius-static.dgn.lt/static/images/favicon.ico" />
+        <meta name="msapplication-task" content="name=Post an ad;action-uri=https://en.autoplius.lt/search/;icon-uri=https://autoplius-static.dgn.lt/static/images/favicon.ico" />
+        <meta name="msapplication-task" content="name=Ket;action-uri=https://en.autoplius.lt/ket/;icon-uri=https://autoplius-static.dgn.lt/static/images/favicon.ico" />
+        <meta name="msapplication-task" content="name=GAZAS.LT;action-uri=https://www.15min.lt/naujienos/gazas;icon-uri=https://autoplius-static.dgn.lt/static/images/favicon.ico" />
+    <link rel="alternate" href="https://autoplius.lt" hreflang="lt" /><link rel="alternate" href="https://ru.autoplius.lt" hreflang="ru" /><link rel="alternate" href="https://en.autoplius.lt" hreflang="en" /><meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0,width=device-width" /><link rel="apple-touch-icon-precomposed" href="https://autoplius-static.dgn.lt/static/images/ico/apple_icons/autoplius/auto_57x57.png" /><link rel="apple-touch-icon" href="https://autoplius-static.dgn.lt/static/images/ico/apple_icons/autoplius/auto_57x57.png" /><link rel="apple-touch-icon" sizes="76x76" href="https://autoplius-static.dgn.lt/static/images/ico/apple_icons/autoplius/auto_76x76.png" /><link rel="apple-touch-icon" sizes="120x120" href="https://autoplius-static.dgn.lt/static/images/ico/apple_icons/autoplius/auto_120x120.png" /><link rel="apple-touch-icon" sizes="152x152" href="https://autoplius-static.dgn.lt/static/images/ico/apple_icons/autoplius/auto_152x152.png" />
+	<link rel="canonical" href="https://en.autoplius.lt/ads/mercedes-benz-e240-2-6-l-saloon-sedan-2003-petrol-6640147.html" />
+	<meta property="og:url" content="https://en.autoplius.lt/ads/mercedes-benz-e240-2-6-l-saloon-sedan-2003-petrol-6640147.html" /><meta property="og:image" content="https://autoplius-img.dgn.lt/ann_6_58204159/mercedes-benz-e240-2-6-l-saloon-sedan-2003-petrol.jpg" /><meta property="og:image:type" content="image/jpeg" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta property="og:image" content="https://autoplius-img.dgn.lt/ann_6_58204175/mercedes-benz-e240-2-6-l-saloon-sedan-2003-petrol.jpg" /><meta property="og:image:type" content="image/jpeg" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta property="og:image" content="https://autoplius-img.dgn.lt/ann_6_58204215/mercedes-benz-e240-2-6-l-saloon-sedan-2003-petrol.jpg" /><meta property="og:image:type" content="image/jpeg" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><!-- DYNAMICTAGS -->
+												            <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/global.css?id=ncncwbo13499" type="text/css" />
+                    <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/header.css?id=ncncwbo13499">
+            <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/footer.css?id=ncncwbo13499">
+            <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/pagination.css?id=ncncwbo13499">
+            <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/flashbag.css?id=ncncwbo13499">
+            <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/placement/15min-sidebar.css?id=ncncwbo13499">
+
+            <!--[if IE]>
+                <link href="https://autoplius-static.dgn.lt/static/css/ie.css" rel="stylesheet" type="text/css"/>
+            <![endif]-->
+            <!--[if IE 6]>
+                <link href="https://autoplius-static.dgn.lt/static/css/ie6.css" rel="stylesheet" type="text/css"/>
+            <![endif]-->
+                                <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/announcement.css?id=ncncwbo13499" type="text/css" />
+                                <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/breadcrumb.css?id=ncncwbo13499" type="text/css" />
+                                <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/grid.css?id=ncncwbo13499" type="text/css" />
+                                <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/media-gallery.css?id=ncncwbo13499" type="text/css" />
+                                <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/popup.css?id=ncncwbo13499" type="text/css" />
+                    		<script type="text/javascript" src="https://autoplius-static.dgn.lt/static/js/plius_main.js?cache=ncncwbo13499"></script>
+
+
+<script src="https://autoplius-static.dgn.lt/static/vendor/eventEmitter/EventEmitter.min.js?cache=ncncwbo13499"></script>
+<script src="https://autoplius-static.dgn.lt/static/js/showads.js?cache=ncncwbo13499"></script>
+<script src="https://autoplius-static.dgn.lt/static/js/App.js?cache=ncncwbo13499"></script>
+<script src="https://autoplius-static.dgn.lt/static/js/FlashBag.js?cache=ncncwbo13499"></script>
+<script src="https://autoplius-static.dgn.lt/static/js/Validator/EmailValidator.js?cache=ncncwbo13499"></script>
+
+
+
+
+
+
+<script type="text/javascript" src="https://autoplius-static.dgn.lt/static/js/ann_view.js?cache=ncncwbo13499"></script>
+
+
+
+    
+
+
+
+
+		
+
+<script type="text/javascript">
+        var saved_searches_ajax_block = 'saved_searches_loader_0_plius';
+</script>
+</head>
+<body>
+
+
+    <div class="leader-board-wrapper">
+		<div id="div-gpt-ad-1481789405582-6" class="dfp-zone"></div>    </div>
+
+    <div class="body-wrapper">
+
+        <div class="page-wrapper">
+
+            <div class="header-container">
+		
+<div class="navbar">
+
+    <a class="header-logo" href="https://en.autoplius.lt" onclick="openLink(this); return false" title="Autoplius">
+        <img src="https://autoplius-static.dgn.lt/static/images/svg/autoplius-logo.svg" alt="Autoplius" />
+    </a>
+
+
+    <ul class="header-menu">
+        
+
+        <li class="announcement-bookmark-count">
+            <a href="https://en.autoplius.lt/marked-ads">
+                <span class="header-ico ico-bookmarks">
+                    <span id="bookmarked-anns" class="icon-badge"></span>
+                </span>
+                <span class="header-label">Marked ads</span>
+            </a>
+        </li>
+
+
+        <li>
+            <a href="https://en.autoplius.lt/my-searches">
+                <span class="header-ico ico-searches">
+                                    </span>
+                <span class="header-label">My searches</span>
+            </a>
+        </li>
+
+
+        <li>
+                            <a
+                    href="https://en.autoplius.lt/passport/options"
+                    title="Log in"
+                    onclick="gaqPush(['_trackEvent', 'Title page actions', 'Top menu', 'Login']); return openLink(this);">
+                    <span class="header-ico ico-login"></span>
+                    <span class="header-label">Log in</span>
+                </a>
+            
+                        <a href="#" class="create-ann-btn top" onclick="location.href='https://en.autoplius.lt/editing'">
+                <span>+</span> Post an ad            </a>
+        </li>
+    </ul>
+
+</div>
+
+
+<script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Announcement/Events.js?cache=ncncwbo13499"></script>
+<script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Announcement/Model.js?cache=ncncwbo13499"></script>
+<script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Announcement/View.js?cache=ncncwbo13499"></script>
+<script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Announcement/Controller.js?cache=ncncwbo13499"></script>
+<script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Announcement/App.js?cache=ncncwbo13499"></script>
+<script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Announcement/BookmarkButtonBinder.js?cache=ncncwbo13499"></script>
+<script>
+    var selectedLabel = ' Mark';
+    var unselectedLabel = ' Marked';
+</script>
+            </div>
+
+            <div class="navigation-container">
+		
+
+<nav>
+
+            <a
+            href="https://en.autoplius.lt/lyderio-privalumai"
+            title="Leader benefits"
+            class="leader-benefits lang-en"></a>
+    
+    <ul class="navigation-items">
+        <li class="active">
+            <a
+                href="https://en.autoplius.lt/"
+                onclick="gaqPush(['_trackEvent', 'Title page actions','Top menu', 'Cars']); return openLink(this);"
+                title="Used cars in Lithuania" tabindex="1">Classified ads</a>
+        </li>
+
+        <li class="">
+            <a
+                href="https://en.autoplius.lt/new-cars"
+                onclick="gaqPush(['_trackEvent', 'Title page actions','Top menu', 'New Cars']); return openLink(this);"
+                title="New cars in Lithuania"
+                tabindex="2">New cars</a>
+        </li>
+
+            </ul>
+
+    <ul class="navigation-languages">
+                    <li>
+                <a href="https://autoplius.lt/" onclick="gaqPush(['_trackEvent', 'Title page actions', 'Top menu', 'Change to LT lang'])" title="Autoplius in Lithuanian">
+                    LT                </a>
+            </li>
+                    <li>
+                <a href="https://ru.autoplius.lt/" onclick="gaqPush(['_trackEvent', 'Title page actions', 'Top menu', 'Change to RU lang'])" title="Auto.plius in Russian">
+                    RU                </a>
+            </li>
+                    <li class="active">
+                <a href="https://en.autoplius.lt/" onclick="gaqPush(['_trackEvent', 'Title page actions', 'Top menu', 'Change to EN lang'])" title="Autoplius in English">
+                    EN                </a>
+            </li>
+            </ul>
+</nav>
+
+
+
+
+
+
+
+
+
+<div id="banner_139"></div>
+<script type="text/javascript">
+    //<![CDATA[
+    var top_menu_ajax_block = 'top_menu_0';
+    //]]>
+</script>
+            </div>
+
+            <div class="content-container">
+				
+
+<script type="text/javascript">
+    var ann_ajax_block = 'ann_ajax_0_plius';
+    var ajax_block = 'ann_ajax_0_plius';
+    var language = 'en';
+    var default_currency = 'eur';
+</script>
+		
+	        <script type="text/javascript">
+            var annViewAjaxBlock = 'ann_view_0_plius';
+        </script>
+    
+	
+
+
+
+
+<div class="row">
+    <div class="col-12">
+
+        <ol class="breadcrumbs">
+            <li class="crumb">
+                <a href="https://en.autoplius.lt/ads">Classifieds</a>
+            </li>
+
+                            <li class="crumb">
+                    <a href="https://en.autoplius.lt/ads/used-cars">Cars</a>
+                </li>
+                            <li class="crumb">
+                    <a href="https://en.autoplius.lt/ads/used-cars/mercedes_benz">Mercedes-Benz</a>
+                </li>
+                            <li class="crumb">
+                    <a href="https://en.autoplius.lt/ads/used-cars/mercedes_benz/e240">E240</a>
+                </li>
+                    </ol>
+
+        <ul class="breadcrumbs-buttons">
+            <li>
+                <a
+                    class="add-to-bookmark "
+                    data-id="6640147"
+                    data-category-id="2"
+                    href="#"
+                    >
+                    Remember                </a>
+            </li>
+            <li class="social-buttons">
+                <div class="fb-send" data-href="https://en.autoplius.lt/ads/mercedes-benz-e240-2-6-l-saloon-sedan-2003-petrol-6640147.html" data-layout="button_count"></div>
+
+                                    <div class="fb-like" data-href="https://en.autoplius.lt/ads/mercedes-benz-e240-2-6-l-saloon-sedan-2003-petrol-6640147.html" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+                            </li>
+        </ul>
+
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-7">
+
+        
+
+<div class="announcement-media-gallery">
+    <div class="thumbnail" data-index="0" style="background-image: url('https://autoplius-img.dgn.lt/ann_25_58204159/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')">
+                                <div class="zoom-in"></div>
+            </div>
+
+            <div class="thumbnail" data-index="1" style="background-image: url('https://autoplius-img.dgn.lt/ann_4_58204175/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')">
+            <div class="zoom-in"></div>
+        </div>
+            <div class="thumbnail" data-index="2" style="background-image: url('https://autoplius-img.dgn.lt/ann_4_58204215/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')">
+            <div class="zoom-in"></div>
+        </div>
+            <div class="thumbnail" data-index="3" style="background-image: url('https://autoplius-img.dgn.lt/ann_4_58204197/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')">
+            <div class="zoom-in"></div>
+        </div>
+            <div class="thumbnail" data-index="4" style="background-image: url('https://autoplius-img.dgn.lt/ann_4_58204191/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')">
+            <div class="zoom-in"></div>
+        </div>
+    
+
+            <div class="thumbnail has-more-items" data-index="6" style="background-image: url('https://autoplius-img.dgn.lt/ann_4_58204397/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')">
+            <div class="has-more-items-wrapper">
+                <p>+17</p>
+                Photos            </div>
+        </div>
+    
+
+            <script>(function () {
+            'use strict';
+
+            window.carPrice = 4900.00;
+            window.carName = 'Mercedes-Benz E240';
+
+        }());
+        </script>
+    <div class="gllery-placement" style="display:inline-block;position: relative;"><a
+    target="_blank"
+    href="https://www.mokilizingas.lt/paskola/paskola-automobiliui/?utm_source=Autoplius&amp;utm_medium=Display&amp;utm_campaign=Loan_calculator&amp;utm_content=version4_static&amp;model=Mercedes-Benz E240&amp;amount=4900.00"
+    onclick="ga('send', 'event', 'mokilizingas', 'mokilizingas_click_v4');"
+><img src="https://autoplius-static.dgn.lt/static/images/banners/mokilizingas/504x120-mokizlingas-static.jpg" /></a>
+</div></div>
+
+
+
+
+    
+
+<div class="media-gallery-wrapper" >
+    <div class="media-gallery-items-container">
+        <div class="photo-container">
+            <div class="photo"></div>
+        </div>
+        <div class="prev-media"></div>
+        <div class="next-media"></div>
+        <div class="close-gallery"></div>
+
+    </div>
+
+    <div class="media-gallery-info-container">
+        <div class="media-gallery-info"></div>
+        <div class="media-gallery-thumbnails"></div>
+    </div>
+
+    </div>
+
+    <script src="https://autoplius-static.dgn.lt/static/js/Desktop/MediaGallery/View.js?cache=ncncwbo13499"></script>
+    <script src="https://autoplius-static.dgn.lt/static/js/Desktop/MediaGallery/Model.js?cache=ncncwbo13499"></script>
+    <script src="https://autoplius-static.dgn.lt/static/js/Desktop/MediaGallery/Controller.js?cache=ncncwbo13499"></script>
+    <script>
+
+        (function () {
+
+            var Gallery = Autoplius.Desktop.MediaGallery;
+
+            var model = new Gallery.Model();
+            var view = new Gallery.View(model, {
+                title: ' Mercedes-Benz E240 | 2003 | Petrol | Automatic | 130 kW | 155 000 km | Kaunas | <strong>+370 605 46054</strong>',
+                body: document.getElementsByTagName('body')[0],
+                gallery: document.getElementsByClassName('media-gallery-wrapper')[0]
+            });
+
+            var controller = new Gallery.Controller(model, view);
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204159/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204159/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204175/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204175/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204215/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204215/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204197/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204197/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204191/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204191/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204225/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204225/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204397/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204397/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204097/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204097/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204205/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204205/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204423/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204423/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204347/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204347/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204355/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204355/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204363/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204363/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204371/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204371/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204433/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204433/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204443/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204443/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204451/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204451/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204465/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204465/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204379/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204379/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204513/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204513/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204095/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204095/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+                model.addItem(
+                   new Gallery.ItemModel('photo', 'https://autoplius-img.dgn.lt/ann_2_58204509/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg', 'https://autoplius-img.dgn.lt/ann_4_58204509/mercedes-benz-e240-2-6-l-sedanas-2003-benzinas.jpg')
+                );
+
+            
+
+            
+
+
+            var miniGallery = document.getElementsByClassName('announcement-media-gallery')[0];
+            var galleryItems = miniGallery.getElementsByClassName('thumbnail');
+
+            for (var i = 0, length = galleryItems.length; i < length; i++) {
+                galleryItems[i].addEventListener('click', function () {
+                    var index = this.getAttribute('data-index');
+
+                    controller.open(index, function () {
+                        ga('send', 'event', 'gallery', 'gallery_view_desktop');
+                    });
+                });
+            }
+
+        })();
+
+    </script>
+
+
+        
+
+<div class="heading">Seller</div>
+<div class="divider"></div>
+
+<div class="announcement-owner-contacts">
+
+    <div class="owner-info">
+        <div class="owner-name ">
+            MBauto        </div>
+
+            </div>
+
+    <div class="owner-contacts">
+                    <div class="owner-location">
+                Kaunas, Lietuva            </div>
+        
+        <ul class="owner-phone">
+                            <li>
+                    <a href="tel:0037060546054">
+                        +370 605 46054                    </a>
+                </li>
+                    </ul>
+            </div>
+
+</div>
+
+
+    <div class="announcement-owner-page">
+        More ads from this seller:
+        <a href="/mbauto" target="_blank">
+            autoplius.lt/mbauto        </a>
+    </div>
+
+
+
+<div class="heading">More ads from this seller</div>
+<div class="divider"></div>
+
+<ul class="seller-announcements-list">
+
+    
+        <li class="announcements-list-item">
+            <a
+                class="announcement-item"
+                href="https://en.autoplius.lt/ads/bmw-635-3-5-l-coupe-1986-petrol-4849003.html"
+                title="BMW 635, 3.5 l., coupe"
+                target="_blank"
+                >
+
+                <div class="announcement-item-photo" style="background-image: url('https://autoplius-img.dgn.lt/ann_26_36108841/bmw-635-3-5-l-kupe-coupe-1986-benzinas.jpg')"></div>
+
+                <div class="announcement-item-info">
+                    <div class="announcement-item-title">
+                        BMW 635, 3.5 l., coupe                    </div>
+                    <div class="announcement-item-price">
+                        5700 &euro;                    </div>
+                </div>
+
+            </a>
+        </li>
+    
+</ul>
+
+
+        
+    </div>
+
+
+    <div class="col-5 classifieds-info">
+        <div class="divider thin"></div>
+
+        
+        <h1>Mercedes-Benz E240, 2.6 l., saloon / sedan</h1>
+
+
+
+        
+    <div class="citadele-black">
+        <a class="citadele-text" onclick="ga('send', 'event', 'Citadele', 'citadele_click_desktop'); " target="_blank" href="https://www.citadele.lt/lt/privatiems-klientams/paskola-automobiliui?loan_amount=4900.00&utm_source=autoplius.lt&utm_campaign=vk_2017&utm_medium=banner&utm_content=integracija" title="Paskaičiuok mėnesio įmoką">
+            <img src="https://autoplius-static.dgn.lt/static/images/desktop/placement/Citadele/citadele-text.png?v=ncncwbo13499" alt="citadele" />
+        </a>
+        <a class="citadele-logo" onclick="ga('send', 'event', 'Citadele', 'citadele_click_desktop');" target="_blank" href="https://www.citadele.lt">
+            <img src="https://autoplius-static.dgn.lt/static/images/desktop/placement/Citadele/citadele-logo.png?v=ncncwbo13499" alt="citadele" />
+        </a>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+
+
+    
+                    <table class="announcement-parameters is-price" style="margin-bottom: 0;">
+                <tbody><tr><th>Price in Lithuania</th><td><strong><span class="view-price" itemprop="price">4 900</span> <span class="view-price default-currency">€</span><meta itemprop="currency" content="eur"/></strong><a class="auto-leasing-link" onclick="gaqPush(['_trackEvent', 'generalFinancing', 'generalfinancing_click_desktop']); pirkautolizingu();"><img src="https://autoplius-static.dgn.lt/static/images/banner/general_financing/autolizingas.gif" alt="" /></a></td></tr></tbody>
+            </table>
+        
+
+                    <table class="announcement-parameters">
+                <tbody>
+                    <tr><th>Date of manufacture</th><td><strong>2003</strong></td></tr><tr><th>Mileage</th><td><strong>155 000 km</strong></td></tr><tr><th>Engine</th><td><strong>2597 cm³, 176 HP (130kW)</strong></td></tr><tr><th>Fuel type</th><td><strong>Petrol</strong></td></tr><tr><th>Body type</th><td><strong>Saloon / sedan</strong></td></tr><tr><th>Number of doors</th><td><strong>4/5</strong></td></tr><tr><th>Gearbox</th><td><strong>Automatic</strong></td></tr><tr><th>Climate control</th><td><strong>Air conditioning</strong></td></tr><tr><th>Color</th><td><strong>Gray / silver</strong></td></tr><tr><th>Damage</th><td><strong>No damages</strong></td></tr><tr><th>Steering wheel</th><td><strong>Left hand drive (LHD)</strong></td></tr><tr><th>MOT test expiry</th><td><strong>2020-01</strong></td></tr><tr><th>Wheel size</th><td><strong>R16</strong></td></tr><tr><th>First registration country</th><td><strong>Germany</strong></td></tr><tr><th>VIN check</th><td><a onclick="ga('send', 'event', 'autodna', 'autodna_click_desktop_noVIN');" class="block link" target="_blank" href="https://afilio.autodna.lt/ext/log/0302011420/100/vin/?vin=&r_url=https://autodna.lt/vin/&url=https://en.autoplius.lt/ads/mercedes-benz-e240-2-6-l-saloon-sedan-2003-petrol-6640147.html" style="padding: 10px 78px 0 0; margin-top: -7px; width: 142px;line-height:normal;background:url(https://autoplius-static.dgn.lt/static/images/banners/autodna/logo.gif) 100% 30% no-repeat;">Get a VIN check!</a></td></tr>                </tbody>
+            </table>
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+                    <div class="heading">
+                Features / equipment            </div>
+            <div class="divider"></div>
+
+            <table class="announcement-parameters">
+                <tbody>
+                    <tr><th>Security</th><td><ul><li>Central locking,</li><li>Alarm</li></ul></td></tr><tr><th>Audio/video equipment</th><td><ul><li>Navigation/GPS</li></ul></td></tr><tr><th>Exterior</th><td><ul><li>Light alloy rims,</li><li>Metallic paint,</li><li>Fog lights,</li><li>Xenon lights,</li><li>Headlights washers</li></ul></td></tr><tr><th>Electronics</th><td><ul><li>Electric mirrors,</li><li>Electric windows,</li><li>Automatic headlamps,</li><li>Outside temperature sensor,</li><li>On-board computer,</li><li>Electrically adjustable steering wheel,</li><li>Rainfall sensor,</li><li>Heated mirrors,</li><li>Parking sensors,</li><li>Electric sunroof,</li><li>Keyless engine start,</li><li>Cruise control</li></ul></td></tr><tr><th>Interior</th><td><ul><li>Multifunctional steering wheel,</li><li>Heated seats,</li><li>Leather seats,</li><li>Sunroof,</li><li>Vairo stiprintuvas,</li><li>Electric seats,</li><li>Panoramic roof,</li><li>Electric seats with memory</li></ul></td></tr><tr><th>Safety</th><td><ul><li>ABS,</li><li>Traction control system,</li><li>ESP <a id="rel_ESP_infobox" class="load-local" href="#"><span>i</span></a><div style="display:none" id="ESP_infoBox">Electronic stability program</div><script type="text/javascript">$("#rel_ESP_infobox").attr("rel", "#ESP_infoBox");</script>,</li><li>Airbags</li></ul></td></tr><tr><th>Other features</th><td><ul><li>Service book,</li><li>Catalytic converter</li></ul></td></tr>
+                                    </tbody>
+            </table>
+        
+
+
+        
+
+
+        
+
+
+                    <div class="heading">Comments</div>
+            <div class="divider"></div>
+
+            <div class="announcement-description">
+                Mercedes-Benz E240 Avantgarde!<br />
+Gerame stovyje ir labai tvarkingas.<br />
+Vazinejo moteris. Automobilyje nerukyta.<br />
+Idealiam techniniam stovyje.<br />
+Lietuviska TECH- 2020/01m.<br />
+Ziemines geros padangos.<br />
+Lietuvoje neeksplotuota!
+                
+
+            </div>
+        
+
+
+                    <div class="heading">Additional information</div>
+            <div class="divider"></div>
+
+            <div class="company-info">
+                <a href="http://www.autoplius.lt/MBauto" class="" >www.autoplius.lt/MBauto</a>            </div>
+        
+
+
+        
+
+        
+
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-12">
+
+        
+
+<ul class="announcement-controls">
+
+    
+    <li>
+        <a
+            class="icon icon-fb-share share-on-facebook"
+            onclick="gaqPush(['_trackEvent', 'Ann_management_buttons', 'Bottom_facebook']); return true;"
+            href="http://www.facebook.com/sharer.php?u=https://en.autoplius.lt/ads/mercedes-benz-e240-2-6-l-saloon-sedan-2003-petrol-6640147.html"
+            target="_blank"
+            >
+            Share on Facebook        </a>
+    </li>
+
+    <li>
+        <a
+            class="icon icon-send-to-friend"
+            href="javascript: void(0);"
+            onclick="gaqPush(['_trackEvent', 'Ann_management_buttons', 'Bottom_send_to_friend']); openSendToFriendDialog('Send to friend', '6640147', '2', 'autoplius')"
+            >
+            Send to friend        </a>
+    </li>
+
+    <li>
+        <a
+            class="icon icon-bookmark-announcement "
+            data-id="6640147"
+            data-category-id="2"
+            href="#"
+            >
+            Remember        </a>
+    </li>
+
+    <li>
+        <a
+            class="icon icon-report-announcement bad-advert"
+            href="javascript: void(0);"
+            onclick="gaqPush(['_trackEvent', 'Ann_management_buttons', 'Bottom_bad_ann']); openBadAnnDialog('Nusiųsti pranešimą administratoriams', 0)"
+            >
+            Report advert        </a>
+    </li>
+
+    <li>
+                    <a
+                rel="nofollow"
+                href="https://en.autoplius.lt/ads/print/mercedes-benz-e240-2-6-l-saloon-sedan-2003-petrol-6640147.html?print=1"
+                onclick="gaqPush(['_trackEvent', 'Ann_management_buttons', 'Bottom_print_ann']);"
+                class="icon icon-print-announcement"
+                >
+                Print            </a>
+            </li>
+
+    <li class="announcement-id">
+        <strong>ID: A6640147</strong>
+    </li>
+</ul>
+
+
+
+
+
+<script>
+
+    (function () {
+
+        var bookmarkEvents = Autoplius.Desktop.AnnouncementBookmark.Events;
+        var controlsElement = document.getElementsByClassName('announcement-controls')[0];
+        var bookmarkAnnouncementBtn = controlsElement.getElementsByClassName('icon-bookmark-announcement')[0];
+
+        bookmarkAnnouncementBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            Autoplius.EventEmitter.emit(bookmarkEvents.TOGGLE_BOOKMARK, {
+                announcementId: this.getAttribute('data-id'),
+                categoryId: this.getAttribute('data-category-id')
+            });
+
+        });
+
+        Autoplius.EventEmitter.addListener(bookmarkEvents.BOOKMARK_CHANGED, function (event) {
+            if (event.status == 'created') {
+                bookmarkAnnouncementBtn.classList.add('is-bookmarked');
+            } else {
+                bookmarkAnnouncementBtn.classList.remove('is-bookmarked');
+            }
+        });
+
+    })();
+
+</script>
+
+    </div>
+</div>
+
+    <div class="row">
+        <div class="col-12">
+
+            <div class="auto_leasing" id="auto_leasing">
+    <div class="auto-leasing-left rel fl">
+        <div class="auto-leasing-content">
+            <div class="gfcontent-title">
+                Išsirinkite ir vairuokite <br/>
+                dar šiandien!</div>
+            <ul>
+                <li>nereikalaujame KASKO draudimo;</li>
+                <li>nereikia pradinio įnašo;</li>
+                <li>iš karto tampate automobilio savininku.</li>
+            </ul>
+        </div>
+        <div class="auto-leasing-footer">
+            Sudarykite sutartį telefonu: <strong>1851</strong> arba<br/>
+            „General Financing“ <a href="https://www.gf.lt/puslapiai/aptarnavimo-vietos" target="_blank">klientų aptarnavimo skyriuje</a>
+        </div>
+    </div>
+    <div class="auto-leasing-right">
+        <div class="auto_leasing_content leasing-details">
+            <div id="auto_leasing_content">
+                <strong class="car-title">Mercedes-Benz E240, 2.6 l., sedanas</strong><br/>
+                <div class="leasing-car-price">Kaina: <strong>4 900 €</strong></div>
+                <div class="auto_leasing_slider_wraper">
+                    3 mėn. <span class="auto_leasing_slider"><input autocomplete="off" id="SliderSingle" type="text" name="price" value="84" /></span>
+                    84 mėn.
+                </div>
+                <span style="display:none" class="auto_period">84</span>
+                <span style="display:none" class="auto_price">95.58</span>
+                <div class="center">
+                    <a class="auto_leasing_button" href="#" onclick="gaqPush(['_trackEvent', 'GeneralFinancing click', 'GF submit']); pirkautolizingu(); return false;">Sužinok mėnesio įmoką ›</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<script type="text/javascript">
+    $().ready(function () {
+        $("#SliderSingle")
+            .slider({
+                from: 3,
+                to: 84,
+                step: 1,
+                dimension: "",
+                scale: [],
+                round: 0,
+                value: 84,
+                skin: "round_plastic",
+                onstatechange: function(value) {
+                    $(".auto_period").html(value);
+                    document.querySelector('.jslider_round_plastic .jslider-pointer i').innerHTML = value + ' mėn.';
+                },
+                callback: function() {
+                    sendGFquery();
+                }
+            });
+    });
+
+    function pirkautolizingu() {
+        var url = '&creferer=Autoplius&cname=';
+        url += 'Mercedes-Benz%20E240%202.6%20l.%20sedanas';
+        url += '&cprice=4900.00';
+        url += '&cmonth=' + $(".auto_period").html();
+        url += '&mprice=' + document.querySelector(".auto_price").innerHTML;
+        url += '&utm_source=autoplius&utm_medium=referral&utm_campaign=Autoplius_Skaiciuokle';
+
+        window.open('https://www.gf.lt/gfautolizingas?gfp=1'+url);
+    }
+
+    function sendGFquery() {
+        var data = {
+            userprice: '4900.00',
+            credit: $(".auto_period").html()
+        };
+
+        apAJAX.send(annViewAjaxBlock, 'getGFData', data, function (resp) {
+            document.querySelector(".auto_price").innerHTML = resp;
+        });
+    }
+</script>
+
+        </div>
+    </div>
+
+
+
+<div class="row">
+    <div class="col-12" id="similar_anns_container">
+
+        <div class="heading">Similar ads</div>
+        <div class="divider"></div>
+
+        
+
+<div id="similar_anns_block">
+    <div class="similar-anns-preloader">
+        <img src="https://autoplius-static.dgn.lt/static/images/bg/ajax-loader.gif" alt="" />
+    </div>
+</div>
+<div class="similar-announcements-link">
+    <a href="https://en.autoplius.lt/ads/used-cars?make_id_list=67&amp;make_id%5B67%5D=10945&amp;make_date_from=1998&amp;make_date_to=2008&amp;has_damaged_id=10924">
+        View more  Mercedes-Benz E240 ads    </a>
+</div>
+
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+
+    (function () {
+
+        var bookmarkEvents = Autoplius.Desktop.AnnouncementBookmark.Events;
+        var breadcrumbsButtons = document.getElementsByClassName('breadcrumbs-buttons')[0];
+        var bookmarkAnnouncementBtn = breadcrumbsButtons.getElementsByClassName('add-to-bookmark')[0];
+
+        bookmarkAnnouncementBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            Autoplius.EventEmitter.emit(bookmarkEvents.TOGGLE_BOOKMARK, {
+                announcementId: this.getAttribute('data-id'),
+                categoryId: this.getAttribute('data-category-id')
+            });
+        });
+
+        Autoplius.EventEmitter.addListener(bookmarkEvents.BOOKMARK_CHANGED, function (event) {
+            if (event.status == 'created') {
+                bookmarkAnnouncementBtn.classList.add('is-bookmarked');
+            } else {
+                bookmarkAnnouncementBtn.classList.remove('is-bookmarked');
+            }
+        });
+
+    })();
+
+</script>
+
+
+<script type="text/javascript">
+	var similar_anns_block = document.getElementById('similar_anns_block');
+	var ann_id = 6640147;
+	var category_id = 2
+	if (similar_anns_block != undefined)
+	{
+		var similar_anns_pos 	= $("#similar_anns_block").offset().top;
+		var similar_anns_shown 	= false;
+
+		if (similar_anns_pos < ($(window).scrollTop() + $(window).height() + 100)) {
+            preloadSimilarAnns();
+        } else {
+            $(window).scroll(function () {
+                preloadSimilarAnns();
+            });
+        }
+	}
+</script>
+            </div>
+
+        </div>
+
+        <div class="promotions-wrapper">
+		
+
+
+<ul class="announcement">
+    <li id="banner_right" class="ads-items">
+        <div id="div-gpt-ad-1481789405582-1" class="dfp-zone"></div>    </li>
+
+    </ul>
+<div class="clear"><!-- --></div>
+
+
+
+
+
+
+
+
+    
+
+<div class="news-15min-sidebar">
+    <div class="heading-15min">News</div>
+
+    
+        <a
+            onclick="gaqPush(['_trackEvent', '15min', '15min_side']); return openLink(this);"
+            class="item-15min" target="_blank" href="https://www.15min.lt/gazas/naujiena/autosportas/f-1-etape-malaizijoje-pirmoji-siemet-maxo-verstappeno-pergale-25-860930?utm_source=autoplius&utm_medium=autoplius_int&utm_campaign=skelbimas" title="F-1 etape Malaizijoje – pirmoji šiemet Maxo Verstappeno pergalė">
+            <div class="thumb-15min">
+                <div class="thumb-15min-placeholder" style="background-image: url('https://s2.15min.lt/static/cache/NDIweDIxMCw5MDd4ODA1LDYyMzI3NCxvcmlnaW5hbCwsaWQ9MzM4NTk1NCZkYXRlPTIwMTclMkYxMCUyRjAxLDM4NjIzMTczNzY=/varzybu-akimirka-59d0cb413b704.jpg')">
+                </div>
+            </div>
+
+            <div class="title-15min">
+                F-1 etape Malaizijoje – pirmoji šiemet Maxo Verstappeno pergalė            </div>
+        </a>
+
+        
+        <a
+            onclick="gaqPush(['_trackEvent', '15min', '15min_side']); return openLink(this);"
+            class="item-15min" target="_blank" href="https://www.15min.lt/gazas/naujiena/saugukelyje-lt/6-taisykles-kurios-pades-vaikams-buti-saugiems-kelyje-787-861284?utm_source=autoplius&utm_medium=autoplius_int&utm_campaign=skelbimas" title="6 taisyklės, kurios padės vaikams būti saugiems kelyje">
+            <div class="thumb-15min">
+                <div class="thumb-15min-placeholder" style="background-image: url('https://s1.15min.lt/static/cache/NDIweDIxMCw5NTR4NTQwLDYxNjIwOSxvcmlnaW5hbCwsaWQ9MzM2MjQwNiZkYXRlPTIwMTclMkYwOSUyRjIxLDIyNTYxNTQxOA==/vilniaus-policijos-pareigunai-tikrino-ar-saugiai-vazami-vaikai-59c34ed5cb557.jpg')">
+                </div>
+            </div>
+
+            <div class="title-15min">
+                6 taisyklės, kurios padės vaikams būti saugiems kelyje            </div>
+        </a>
+
+        </div>
+
+    <div class="wrap300" id="banner_136"></div>
+
+
+    <div id="sticky-right-side">
+        <div id="div-gpt-ad-1481789405582-2" class="dfp-zone"></div>    </div>
+    
+
+
+
+    <script>
+        window.addEventListener('load', function () {
+
+            function getDistanceFromTop(elem) {
+                var box = elem.getBoundingClientRect();
+                var body = document.body;
+                var docEl = document.documentElement;
+                var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+                var clientTop = docEl.clientTop || body.clientTop || 0;
+                var top  = box.top +  scrollTop - clientTop;
+                //console.log('window.scrollY= '+window.scrollY+'scrollTop='+scrollTop+' clientTop='+clientTop+' box.top='+box.top+' top='+top);
+
+                return Math.round(top);
+            }
+
+            function isStickyEnabled(stickyElement, contentSize, sidebarSize) {
+                if (typeof(stickyElement) == 'undefined' || stickyElement == null) {
+                    return false;
+                }
+
+                return contentSize > sidebarSize;
+            }
+
+            function getContentSize() {
+                var wrapper;
+
+                wrapper = document.getElementsByClassName('page-wrapper')[0];
+                if (wrapper) {
+                    return wrapper.offsetHeight;
+                }
+
+                wrapper = document.getElementsByClassName('content-wrapper')[0];
+                if (wrapper) {
+                    return wrapper.offsetHeight;
+                }
+
+                return false;
+            }
+
+            function getSidebarSize() {
+                var sidebar = document.getElementById('sticky-right-side');
+                if (sidebar) {
+                    return sidebar.parentNode.offsetHeight
+                }
+
+                return false;
+            }
+            
+            function crashedIntoFooter() {
+                var bottomBanner = document.querySelector('footer').getBoundingClientRect();
+                var stickyBox = stickyElement.getBoundingClientRect();
+
+                return bottomBanner.top <= stickyBox.bottom;
+            }
+
+            function needToBeSticky (height, stickyEnabled) {
+                return (window.scrollY >= height && stickyEnabled);
+            }
+
+            var isSticky = false;
+            var isStickyBottom = false;
+            var contentSize = getContentSize();
+            var sidebarSize = getSidebarSize();
+            var stickyElementWrapper = document.querySelector('.col_3');
+            var contentWrapper = document.querySelector('.content-wrapper');
+            var stickyElement = document.getElementById('sticky-right-side');
+            var stickyEnabled = isStickyEnabled(stickyElement, contentSize, sidebarSize);
+
+            if (stickyEnabled) {
+                var height = getDistanceFromTop(stickyElement);
+                window.addEventListener("scroll", function () {
+                    if (!isSticky) {
+                        height = getDistanceFromTop(stickyElement);
+                    }
+                    var contentSize = getContentSize();
+                    var sidebarSize = getSidebarSize();
+                    var stickyEnabled = isStickyEnabled(stickyElement, contentSize, sidebarSize);
+
+                    if (needToBeSticky(height, stickyEnabled)) {
+                        if (!isSticky) {
+                            isSticky = true;
+                            stickyElement.classList.add('sticked');
+                        } else {
+                            if (crashedIntoFooter() && !isStickyBottom) {
+                                isStickyBottom = true;
+                                stickyElement.classList.remove('sticked');
+                                stickyElement.classList.add('sticked-bottom');
+
+                                stickyElementWrapper.style.height = contentWrapper.offsetHeight +"px";
+                                stickyElementWrapper.style.position = "relative";
+                            }
+                            if (isStickyBottom && stickyElement.getBoundingClientRect().top > 0) {
+                                isStickyBottom = false;
+                                stickyElement.classList.add('sticked');
+                                stickyElement.classList.remove('sticked-bottom');
+                            }
+                        }
+                    } else {
+                        if (isSticky) {
+                            isSticky = false;
+                            stickyElement.classList.remove('sticked');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+        </div>
+
+    </div>
+
+    <div class="footer-container">
+        <footer>
+				
+
+
+
+<footer>
+    <div class="no-print" style="text-align: center;"><div id="div-gpt-ad-1481789405582-4" class="dfp-zone" style="padding: 20px"></div></div>    <div class="foot ">
+		                <section>
+                    <div class="foot-list">
+                        <div class="heading menu-head fl">
+                                                        <a class="first" title="Mobile version" href="https://en.m.autoplius.lt/ads/mercedes-benz-e240-2-6-l-saloon-sedan-2003-petrol-6640147.html">
+                                <strong>Mobile version</strong>
+                            </a>
+
+                            <a title="Business solutions" href="https://en.autoplius.lt/information/solutions-for-small-business">
+                                <strong>Business solutions</strong>
+                            </a>
+
+                            <a title="About us" href="https://en.autoplius.lt/information/about-plius">
+                                <strong>About us</strong>
+                            </a>
+
+                            <a title="Contacts" href="https://en.autoplius.lt/information/contacts">
+                                <strong>Contacts</strong>
+                            </a>
+                        </div>
+                        <div class="clear"><!-- --></div>
+                    </div>
+                </section>
+                <div class="hr"><hr /></div>
+            
+
+
+            
+					<section>
+                <div class="foot-info">
+											<cite>Help and information:</cite>
+                        <address class="fl">
+                            tel.: <strong>+370 5 2525 008</strong>
+                                                            <a  class="separator" href="https://en.autoplius.lt/information/frequently-asked-questions" title="F.A.Q.">
+                                    F.A.Q.                                </a>
+
+                                <a class="separator" title="Advice" href="https://en.autoplius.lt/information/advises">
+                                    Advice                                </a>
+
+                                <a class="separator" title="Rules" href="https://en.autoplius.lt/information/terms-of-use">
+                                    Rules                                </a>
+
+                                <a class="separator pointer" title="Help Center: Click here" onclick="showHelpDialog('Help / Comments', 0);return false;">
+                                    Help Center: Click here                                </a>
+                                                    </address>
+                    
+                                        <small>2003-2018 &copy; UAB „Diginet LTU“</small>
+                    <div class="clear"><!----></div>
+                </div>
+            </section>
+        
+        <section class="footer-projects">
+            <div class="hr"><hr /></div>
+
+            <ul class="footer-projects-list">
+                <li><a href="https://www.skelbiu.lt" title="Skelbimai" target="_blank">Skelbiu.lt</a></li>
+                <li><a href="https://www.aruodas.lt" title="Nekilonojamo turto skelbimai" target="_blank">Aruodas.lt</a></li>
+                <li><a href="https://www.kainos.lt" title="Kainų palyginimas" target="_blank">Kainos.lt</a></li>
+                <li><a href="https://www.paslaugos.lt" title="Paslaugų portalas" target="_blank">Paslaugos.lt</a></li>
+                <li><a href="https://www.cvbankas.lt" title="Darbo skelbimai" target="_blank">Cvbankas.lt</a></li>
+            </ul>
+
+            
+<div class="diginet-logo">
+    <a class="link-diginet" href="http://www.diginet.lt" target="_blank">
+        <span class="diginet-l diginet-g">D</span>
+        <span class="diginet-l diginet-y">I</span>
+        <span class="diginet-l diginet-b">G</span>
+        <span class="diginet-l diginet-r">I</span>
+        <span class="diginet-l">N</span>
+        <span class="diginet-l">E</span>
+        <span class="diginet-l">T</span>
+        <div class="diginet-c"></div>
+    </a>
+</div>
+        </section>
+	</div>
+</footer>
+				
+
+    <script type="text/javascript">
+        //<![CDATA[
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-968911-1', 'auto');
+
+        ga('set', 'dimension1', 0);ga('require', 'displayfeatures');ga('set', 'contentGroup1', 'Automobiliai');ga('send', 'pageview');
+
+        
+
+
+        ga('create', 'UA-78164529-2', 'auto', {
+            'name': 'master',
+            'allowLinker': true
+        });
+        ga('master.require', 'linker');
+        ga('master.linker:autoLink', ['15min.lt', 'skelbiu.lt', 'aruodas.lt', 'paslaugos.lt', 'kainos.lt', 'cvbankas.lt', 'ntzemelapis.lt']);
+        ga('master.send', 'pageview');
+
+                //]]>
+    </script>
+    <div id="cookies_policy" class="cookies-policy white noscroll">
+        <div class="cookies-outer rel auto-center left">
+            <div class="cookies-content">
+                This site uses cookies to provide you with a great user experience. By using en.autoplius.lt, you agree to our use of cookies.                <a href="https://en.autoplius.lt/information/terms-of-use" target="_blank">More info.</a>
+            </div>
+            <div class="cookies-close bold center pointer" onclick="closeCookiesMessage()"><span>X</span></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function closeCookiesMessage() {
+            var currentDate = new Date();
+            var element = document.getElementById("cookies_policy");
+            currentDate.setMonth(currentDate.getMonth() + 12);
+
+
+            var message = new FormData();
+
+            message.append('__opcode', 'markCPMessageAsRead');
+            message.append('__block', 'common');
+
+            var request = new XMLHttpRequest();
+            request.open('POST', location.href, true);
+            request.onload = function () {
+                element.parentNode.removeChild(element);
+            };
+            request.send(message);
+        }
+
+        setTimeout(closeCookiesMessage, 3000);
+    </script>
+
+
+    <script async="async" src="//www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var lazyZones = {};
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+            var elementID;
+            var dfpAdUnits = {"div-gpt-ad-1481789405582-6":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_top","name":"div-gpt-ad-1481789405582-6","size":[[750,200],[800,150],[800,200],[980,200],[970,250],[1100,150],[1100,200]]},"div-gpt-ad-1481789405582-1":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_300x600-1","name":"div-gpt-ad-1481789405582-1","size":[300,600]},"div-gpt-ad-1481789405582-2":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_300x600-2","name":"div-gpt-ad-1481789405582-2","size":[[300,600],[250,250],[280,250],[300,250]]},"div-gpt-ad-1481789405582-3":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_below-photo","name":"div-gpt-ad-1481789405582-3","size":[[400,65],[320,50],[468,60],[500,65]]},"div-gpt-ad-1481789405582-4":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_bottom","name":"div-gpt-ad-1481789405582-4","size":[[800,200],[970,250],[980,200],[1100,200],[1200,200],[1200,250]]},"div-gpt-ad-1481789405582-5":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_list","name":"div-gpt-ad-1481789405582-5","size":[[728,90],[588,229],[580,400],"fluid"]},"div-gpt-ad-1500622670556-0":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_list-1","name":"div-gpt-ad-1500622670556-0","size":[[728,90],"fluid"]},"div-gpt-ad-1483605464857-0":{"target":"\/146733436\/Autoplius\/AP_NAK\/AP_NAK_TOP_Front","name":"div-gpt-ad-1483605464857-0","size":[[970,250],[1100,200]]},"div-gpt-ad-1483518113270-3":{"target":"\/146733436\/Autoplius\/AP_NAK\/AP_NAK_Side_Front","name":"div-gpt-ad-1483518113270-3","size":[300,600]},"div-gpt-ad-1483605602454-0":{"target":"\/146733436\/Autoplius\/AP_NAK\/AP_NAK_F_MIDDLE","name":"div-gpt-ad-1483605602454-0","size":[356,265]},"div-gpt-ad-1483518113270-4":{"target":"\/146733436\/Autoplius\/AP_NAK\/AP_NAK_Bottom","name":"div-gpt-ad-1483518113270-4","size":[[792,300],[880,300]]},"div-gpt-ad-1486459047558-0":{"target":"\/146733436\/Autoplius\/AP_Straipsniai\/300x600","name":"div-gpt-ad-1486459047558-0","size":[300,600]},"div-gpt-ad-1514969946718-0":{"target":"\/146733436\/Autoplius\/AP_dakar\/1200x300","name":"div-gpt-ad-1514969946718-0","size":[1200,300]}};
+            var dfpTargets = [{"key":"ap_lng","value":5},{"key":"autoplius_ct","value":2},{"key":"autoplius_partner","value":false},{"key":"autoplius_pr","value":"4000-5000"},{"key":"autoplius_price","value":4900},{"key":"autoplius_pr_range","value":"0_5000"},{"key":"autoplius_y","value":2003},{"key":"autoplius_y_old","value":"11_15"},{"key":"autoplius_fuel","value":"30"},{"key":"autoplius_ckt","value":"4"},{"key":"autoplius_wheels","value":0},{"key":"autoplius_gearbox","value":38},{"key":"autoplius_ucm","value":"67"},{"key":"autoplius_ucmd","value":10945},{"key":"ap_page","value":24}];
+            var dfpZones = ["div-gpt-ad-1481789405582-6","div-gpt-ad-1481789405582-1","div-gpt-ad-1481789405582-2","div-gpt-ad-1481789405582-4"];
+
+            googletag.cmd.push(function () {
+                for (var i = 0, zonesLength = dfpZones.length; i < zonesLength; i++) {
+                    var name = dfpZones[i];
+                    var adUnit = dfpAdUnits[name];
+
+                    if (adUnit) {
+                        lazyZones[adUnit.name] = googletag
+                            .defineSlot(adUnit.target, adUnit.size, adUnit.name)
+                            .addService(googletag.pubads());
+                    }
+                }
+
+                for (var j = 0, targetsLength = dfpTargets.length; j < targetsLength; j++) {
+                    var target = dfpTargets[j];
+
+                    googletag
+                        .pubads()
+                        .setTargeting(
+                            target.key,
+                            target.value.toString()
+                        );
+                }
+
+                googletag.pubads().disableInitialLoad();
+                googletag.enableServices();
+
+            });
+
+        window.addEventListener('load', function() {
+            var staticZones = document.querySelectorAll('.dfp-zone:not(.lazy-zone)');
+            if (staticZones) {
+                for (var i = 0; i < staticZones.length; i++) {
+                    elementID = staticZones[i].getAttribute('id');
+                    googletag.cmd.push(function() {
+                        googletag.display(elementID);
+                        //do not use refresh in foreach
+                        //googletag.pubads().refresh();
+                    });
+                }
+                googletag.cmd.push(function() {
+                    googletag.pubads().refresh();
+                });
+            }
+
+            var zoneOnScreen = function(obj) {
+                var rect = obj.getBoundingClientRect();
+                var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+                return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
+            };
+
+            var lazyZonesItems = [].slice.call(
+                document.getElementsByClassName('lazy-zone')
+            );
+
+            if (lazyZonesItems) {
+                var lazyListener = function() {
+                    for (var item in lazyZonesItems) {
+                        var key = lazyZonesItems[item].id;
+                        if (typeof key != 'undefined'
+                            && document.getElementById(key)
+                            && zoneOnScreen(document.getElementById(key))
+                            && document.getElementById(key).innerHTML == ''
+                        ) {
+                            googletag.cmd.push(function() {
+                                googletag.pubads().refresh([lazyZones[key]]);
+                                delete lazyZonesItems[item];
+                            });
+                        }
+                    }
+                };
+
+                for (var j = 0; j < lazyZonesItems.length; j++) {
+                    elementID = lazyZonesItems[j].getAttribute('id');
+                    googletag.display(elementID);
+                }
+                window.addEventListener('scroll', lazyListener);
+                lazyListener();
+            }
+
+        });
+    </script>
+
+    <script type='text/javascript'>
+        var axel = Math.random() + '';
+        var a = axel * 10000000000000;
+        document.write('<img src="//pubads.g.doubleclick.net/activity;dc_iu=/146733436/DFPAudiencePixel;ord=' + a + '?" width=1 height=1 border=0/>');
+    </script>
+    <noscript>
+        <img src="//pubads.g.doubleclick.net/activity;dc_iu=/146733436/DFPAudiencePixel;ord=1?" width=1 height=1 border=0/>
+    </noscript>
+
+
+<!--    <script src="https://tags.crwdcntrl.net/c/9931/cc_af.js" async="async"></script>-->
+    <script src="//tags.crwdcntrl.net/c/9931/cc_af.js?ns=_cc9931" async="async" id="LOTCC_9931"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            if (typeof _cc9931 != "undefined") {
+                _cc9931.add("genp", "www.autoplius.lt : price : 4900");_cc9931.add("genp", "www.autoplius.lt : price_range : 0_5000");_cc9931.add("genp", "www.autoplius.lt : car_age : 11_15");_cc9931.add("genp", "www.autoplius.lt : make_date : 2003");_cc9931.add("genp", "www.autoplius.lt : body_type : saloon");_cc9931.add("genp", "www.autoplius.lt : make_id : mercedes_benz");_cc9931.add("genp", "www.autoplius.lt : model_id : e240"); _cc9931.bcp();
+            }
+        });
+    </script>
+        <script type="text/javascript">
+        var pp_gemius_identifier = 'bI6aoV.E46ndJCdsp5NA0uUU376pne90JCwp5GGtw8n.O7';
+        // lines below shouldn't be edited
+        function gemius_pending(i) { window[i] = window[i] || function() {var x = window[i+'_pdata'] = window[i+'_pdata'] || []; x[x.length]=arguments;};};
+        gemius_pending('gemius_hit'); gemius_pending('gemius_event'); gemius_pending('pp_gemius_hit'); gemius_pending('pp_gemius_event');
+        (function(d,t) {try {var gt=d.createElement(t),s=d.getElementsByTagName(t)[0],l='http'+((location.protocol=='https:')?'s':''); gt.setAttribute('async','async');
+            gt.setAttribute('defer','defer'); gt.src=l+'://galt.hit.gemius.pl/xgemius.js'; s.parentNode.insertBefore(gt,s);} catch (e) {}})(document,'script');
+    </script>
+
+    <div id="fb-root"></div>
+    <script>
+
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s);
+                js.id = id;
+                js.async = true;
+                js.src = "//connect.facebook.net/en_EN/sdk.js#xfbml=1&version=v2.8&appId=214916098844960";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        });
+    </script>
+
+
+
+    <script type="text/javascript">
+        jQuery(window).load(function() {
+            // FB for autoplius new
+            (function() {
+                var _fbq = window._fbq || (window._fbq = []);
+                if (!_fbq.loaded) {
+                    var fbds = document.createElement('script');
+                    fbds.async = true;
+                    fbds.src = '//connect.facebook.net/en_US/fbds.js';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(fbds, s);
+                    _fbq.loaded = true;
+                }
+                _fbq.push(['addPixelId', '528590830595444']);
+            })();
+            window._fbq = window._fbq || [];
+            window._fbq.push(['track', 'PixelInitialized', {}]);
+
+            // load banners to collect user searches
+                        jQuery(function(){
+                adsplius.url = 'https://autoplius-static.dgn.lt/static/1/banners';
+                adsplius.params('pos[]=136&p=24&ct=2&adv=6640147&at=1&pr=4900&ci=2&y=2003&k=30&ckt=4&m=67&md=10945&lng=en');
+                adsplius.call();
+            });
+                    });
+        var staticUrl = 'https://autoplius-static.dgn.lt';
+    </script>
+
+
+
+
+
+
+
+    <script>
+        (function (FlashBag, EventEmitter) {
+            'use strict';
+
+            var container = document.getElementsByTagName("body")[0];
+            var model = new FlashBag.Model();
+            var view = new FlashBag.View(container, model);
+            var controller = new FlashBag.Controller(view, model, EventEmitter);
+
+        })(
+            Autoplius.FlashBag,
+            Autoplius.EventEmitter
+        );
+    </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function (event) {
+                if (window.showAds === undefined) {
+                    
+                    
+                    
+                    var placement = {
+                        top: 'https://autoplius-static.dgn.lt/static/images/desktop/placement/Autoplius/top_2.jpg?cache=ncncwbo13499',
+                        right: 'https://autoplius-static.dgn.lt/static/images/desktop/placement/Autoplius/right_2.jpg?cache=ncncwbo13499',
+                        link: 'https://autoplius.lt/redaguoti'
+                    };
+
+
+                    function getHeaderPlacementContainer()
+                    {
+                        var container = document.getElementsByClassName('head-small')[0];
+                        if (typeof container === 'undefined') {
+                            container = document.getElementsByClassName('leader-board-wrapper')[0];
+                        }
+
+                        return container;
+                    }
+
+                    function getSidebarPlacementContainer()
+                    {
+                        return document.getElementById('banner_right');
+                    }
+
+                    var headerPlacementContainer = getHeaderPlacementContainer();
+                    var sidebarPlacementContainer = getSidebarPlacementContainer();
+
+                    var headerElement = document.createElement('div');
+                    headerElement.classList.add('dfp-zone');
+
+                                            headerElement.classList.add('ad-corner-top-250');
+                    
+                    headerElement.style.width = '900px;';
+                    headerElement.style.height = "250px;";
+
+                    var headerImage = new Image();
+                    headerImage.src = placement.top;
+                    headerImage.onclick = function () {
+                        window.open(placement.link, '_blank');
+                        gaqPush(['_trackEvent', 'BigBank corner click', 'BigBank corner click header']);
+                    };
+                    headerImage.onload = function () {
+                        headerElement.appendChild(headerImage);
+                        headerPlacementContainer.appendChild(headerElement);
+                    };
+
+                    
+                    var sidebarImage = new Image();
+                    sidebarImage.src = placement.right;
+                    sidebarImage.classList.add('ad-corner-top-250');
+                    sidebarImage.onclick = function () {
+                        gaqPush(['_trackEvent', 'BigBank corner click', 'BigBank corner click sidebar']);
+                        window.open(placement.link, '_blank');
+                    };
+                    sidebarImage.onload = function () {
+                        sidebarPlacementContainer.appendChild(sidebarImage);
+                    };
+
+                    gaqPush(['_trackEvent', 'BigBank corner view', 'BigBank corner view']);
+
+                }
+            });
+        </script>
+    
+<script>ga('send', 'event', 'autodna', 'autodna_view_desktop_noVIN');</script>
+<script>
+    ga('send', 'event', 'mokilizingas', 'mokilizingas_view_v4');
+</script>
+
+
+        <script>
+            ga('send', 'event', 'Citadele', 'citadele_view_desktop');
+        </script>
+
+                </footer>
+    </div>
+
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"278f11442b","applicationID":"30063638","transactionName":"NVUGZBdUCBZXVkxbXwwfJ0UWQQkIGVRWXG8UWQFH","queueTime":0,"applicationTime":75,"atts":"GRIFEl9OGxg=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>
+
