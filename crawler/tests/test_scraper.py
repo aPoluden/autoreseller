@@ -99,7 +99,7 @@ class AutoPliusScraperTest(TestCase):
         # TODO implement test
         pass
 
-    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.init_session')
+    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.fake_instant_advert_session')
     @mock.patch('crawler.scraper.classes.autopscrapers.AutoPCarScraper.get_car_advert_data')
     @mock.patch('crawler.scraper.classes.robot.DefaultRobot.visit_url')
     def test_instant_advert_scrape_single_page(self, visit_url, get_data, init):
@@ -120,15 +120,14 @@ class AutoPliusScraperTest(TestCase):
         self.assertEquals(4, len(cars))
         self.assertIsNone(cars[3])
     
-    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.init_session')
-    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.visit_url')
     def test_instant_advert_scrape_multiple_pages(self):
         '''
         Tests instant/new advert scraping on multiple pages
+        # TODO implement
         '''
         scraper = AutoPCarScraper()
 
-    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.init_session')
+    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.fake_instant_advert_session')
     @mock.patch('crawler.scraper.classes.robot.DefaultRobot.visit_url')
     def test_no_instant_adverts_to_scrape(self, visit_url, init_session):
         '''
@@ -152,13 +151,23 @@ class AutoPliusScraperTest(TestCase):
         self.assertIsNone(scraper.page_content(wrong_url))
         self.assertIsNone(scraper.page_content(None, wrong_path))
 
+    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.visit_url')
+    def test_advert_with_mixed_deffect_value(self, visit_url): 
+        '''
+        Test when advertisement deffect field has additional image
+        '''
+        scraper = AutoPCarScraper()
+        page_path = 'file:///home/apoluden/Programming/workspace/autoreseller/crawler/tests/resources/toyotaWithBadDeffect.html'
+        visit_url.return_value = urllib.request.urlopen(page_path).read()
+        scraped_advert = scraper.get_car_advert_data('https://google.com')
+
 class RobotsTest(TestCase): 
 
     def setUp(self):
         self.yndx_bot = YandexRobot()
         self.dflt_bot = DefaultRobot()
         self.user_agnt_yandex = 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)'
-        self.user_agnt_dflt = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
+        self.user_agnt_dflt = 'Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0'
     
     def test_bot_user_agent(self):
         self.assertEquals(self.user_agnt_yandex, self.yndx_bot.get_user_agent())

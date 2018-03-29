@@ -108,13 +108,13 @@ class AutoPCarScraper(VehicleScraper):
             pass
         return {'vehicle': vehicle, 'advert': advert, 'seller': seller}
         
-    def get_all_car_adverts_data(self):
+    def get_all_car_adverts_data(self, page=1):
         '''
         Scrapes all STORE car advertisements
         returns: all STORE car advertisements
         '''
         soup = None
-        current_page = 1
+        current_page = page
         url='https://autoplius.lt/skelbimai/naudoti-automobiliai'
         list_page = '/skelbimai/naudoti-automobiliai?page_nr={}'
         while True:
@@ -131,6 +131,7 @@ class AutoPCarScraper(VehicleScraper):
                 advert_data = self.get_car_advert_data(advert_url)
                 logger.debug(advert_data)
                 yield advert_data
+            logger.info('Scraped {} page'.format(current_page))
             current_page += 1
     
     def get_instant_car_advert_data(self):
@@ -140,8 +141,7 @@ class AutoPCarScraper(VehicleScraper):
         '''
         #https://autoplius.lt/mano-paieskos?slist=430359403&category_id=2&older_not=-1
         #https://autoplius.lt/mano-paieskos?slist=430359403&category_id=2&older_not=-1&page_nr=2
-        self.robot = DefaultRobot()
-        instant_url = self.robot.init_session()
+        instant_url = self.robot.fake_instant_advert_session()
         current_page = 1
         while True:
             content = self.robot.visit_url(instant_url)
@@ -156,6 +156,8 @@ class AutoPCarScraper(VehicleScraper):
                     current_page += 1
                     instant_url = instant_url + '&page_nr={}'.format(current_page)
                 else:
+                    current_page += 1
+                    instant_url = instant_url + '&page_nr={}'.format(1)
                     yield None
             else:
                 yield None

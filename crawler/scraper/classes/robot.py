@@ -27,27 +27,28 @@ class DefaultRobot():
             return None
         return self.resp.content
 
-    def fake_browsing(self):
+    def fake_browsing(self, url_type):
         '''
         Fakes browsing over website
         returns: browser instance 
         '''
         browser = webdriver.Firefox()
         browser.get(self.top_url)
-        browser.get(self.instant_cars_advert_search_url)
-        time.sleep(2)
+        browser.get(url_type)
+        time.sleep(2) # TODO remove ?
         browser.get(self.top_url)
         # find search preference element
         item = browser.find_element_by_class_name('search-item')
         item.click()
         return browser
 
-    def init_session(self):
+    def fake_instant_advert_session(self):
         '''
         Initilizes session using browser session
         '''
-        browser = self.fake_browsing()
+        browser = self.fake_browsing(self.instant_cars_advert_search_url)
         instant_advert = browser.current_url
+        # TODO save browsing params to model
         # Sets fake browser cookies to requests session
         self.session.cookies.update({c['name']:c['value'] for c in browser.get_cookies()})
         browser.close()
