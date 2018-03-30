@@ -83,3 +83,13 @@ class Vehicle(models.Model):
         vehicle.year = dateparser.parse(vhcl[Vehicle.Field.AGE]) if Vehicle.Field.AGE else None
         vehicle.technical_inspection = dateparser.parse(vhcl[Vehicle.Field.INSPECT]) if Vehicle.Field.INSPECT in vhcl else None
         return vehicle
+
+class CookieStore(models.Model):
+
+    NAMES = Choices(
+        ('instant', 'INSTANT', 'Instant'),
+        ('weekly', 'WEEKLY', 'Weekly'))
+    
+    name = models.CharField(max_length=30, choices=NAMES, unique=True)
+    value = models.TextField()
+    url = models.TextField()

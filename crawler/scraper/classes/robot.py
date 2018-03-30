@@ -1,6 +1,9 @@
-import urllib, requests, logging, time
+import urllib, requests, logging, time, ast
 from selenium import webdriver
 from requests.exceptions import RequestException
+
+from crawler.models import CookieStore
+
 # Robot description - send requests. Fake user agent. Fake session. Handle RequestExceptions
 
 logger = logging.getLogger(__name__)
@@ -46,13 +49,31 @@ class DefaultRobot():
         '''
         Initilizes session using browser session
         '''
-        browser = self.fake_browsing(self.instant_cars_advert_search_url)
-        instant_advert = browser.current_url
-        # TODO save browsing params to model
-        # Sets fake browser cookies to requests session
-        self.session.cookies.update({c['name']:c['value'] for c in browser.get_cookies()})
-        browser.close()
-        return instant_advert
+        instant_advert_url = ''
+        if CookieStore.objects.filter(name=CookieStore.NAMES.INSTANT).exists():
+            # Get instant advert fake cookie session
+            cs = CookieStore.objects.filter(name=CookieStore.NAMES.INSTANT).first()
+            # Convert str to list
+            cookies = ast.literal_eval(cs.value)
+            self.session.cookies.update({c['name']:c['value'] for c in cookies})
+            instant_advert_url = cs.url
+            # TODO something with cookie
+        else:
+            # Init instant fake cookie session
+            cs = CookieStore(name=CookieStore.NAMES.INSTANT)
+            browser = self.fake_browsing(self.instant_cars_advert_search_url)
+            self.session.cookies.update({c['name']:c['value'] for c in browser.get_cookies()})
+            # Convert cookie list to str
+            cs.value = str(browser.get_cookies())
+            cs.url = browser.current_url
+            cs.save()
+            instant_advert_url = browser.current_url
+            browser.close()
+        return instant_advert_url
+
+    def fake_week_advert_session():
+        # TODO implement in future 
+        pass
     
     def say_hello(self):
         return "Hello, I'm Default robot"

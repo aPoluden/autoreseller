@@ -15,7 +15,7 @@ class CrawlerTaskTest(TestCase):
             'Durų skaičius': '4/5',
             'Saugumas': 'SRS oro pagalvės',
             'Eksterjeras': 'Lengvojo lydinio ratlankiai,"Metallic" dažai',
-            'Defektai': 'Be defektų',
+            'Defektai': 'Be defektų Be Defektu Be',
             'Euro standartas': 'Euro 5',
             'Ratlankių skersmuo': 'R19',
             'Kėbulo tipas': 'Universalas',
@@ -50,7 +50,8 @@ class CrawlerTaskTest(TestCase):
             'comment': '\n                Pervaryta is prancuzijos, as pirmas savininkas lietuvoje. Neseniai pakeisti tepalai ,filtrai. Vedama servizo knygele,du pulteliai plius ziemines ir vasarines padanos su ratlankiais bmw.Nusipirkus automobilį, nereikės papildomų investicijų.\n                            ',
             'location': 'Panevėžys,Lietuva',
             'uid': '5004458',
-            'price': '10 900 €'
+            'price': '10 900 €', 
+            'url': 'https://helllo.com'
           }
         }
 

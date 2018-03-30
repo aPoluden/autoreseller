@@ -146,6 +146,7 @@ class AutoPCarScraper(VehicleScraper):
         while True:
             content = self.robot.visit_url(instant_url)
             soup = BeautifulSoup(content, 'html.parser')
+            logger.debug(soup)
             new_adverts = soup.find_all(class_='auto-lists lt cl')
             if len(new_adverts) > 0: 
                 new_cars_html = new_adverts[0].find_all(class_='announcement-item')
