@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+from celery.schedules import crontab
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -25,7 +25,7 @@ SECRET_KEY = '@dkli20)8d+jw29w!0_^i%-j%1#@bzbq9k-hudr+kdjk(g-+vb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['autoreseller.polart.lt', 'www.autoreseller.polart.lt', 'localhost']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
     'crawler'
 ]
 
@@ -74,17 +75,27 @@ WSGI_APPLICATION = 'autoreseller.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'autoreseller',
+#         'USER' : 'postgres',
+#         'PASSWORD' : 'postgres',
+#         'HOST' : 'localhost',
+#         'PORT' : '5432'
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER' : 'postgres',
-        'PASSWORD' : 'postgres',
-        'HOST' : 'localhost', 
+        'NAME': '',
+        'USER' : '',
+        'PASSWORD' : '',
+        'HOST' : 'db',
         'PORT' : '5432'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -140,78 +151,58 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'autoreseller.log',
+            'filename': '/var/tmp/autoreseller.log',
             'formatter': 'verbose'
         },
         'console' : {
+            'level' : 'INFO',
             'class' : 'logging.StreamHandler', 
             'formatter': 'simple' 
         },
+        'logfile': {
+            'level':'INFO',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': '/var/tmp/autoreseller.log',
+            'maxBytes': 1024*1024*5, # 5MB
+            'backupCount': 0,
+            'formatter': 'verbose',
+        }
     },
     'loggers': {
         'crawler': {
-            'handlers': ['file', 'console'],
+            'handlers': ['logfile', 'console'],
             'level': 'INFO',
             'propagate': True,
         },
     },
 }
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'mail_admins': {
-#             'level': 'ERROR',
-#             'class': 'django.utils.log.AdminEmailHandler'
-#         },
-#         'null': {
-#             'level':'DEBUG',
-#             'class':'django.utils.log.NullHandler',
-#         },
-#         'console':{
-#             'level':'DEBUG',
-#             'class':'logging.StreamHandler',
-#             'formatter': 'verbose'
-#         },
-#         'logfile': {
-#             'level':'DEBUG',
-#             'class':'logging.handlers.RotatingFileHandler',
-#             'filename': os.path.join(ROOT_PATH, 'django.log'),
-#             'maxBytes': 1024*1024*5, # 5MB
-#             'backupCount': 0,
-#             'formatter': 'verbose',
-#         },
-#     },
-#     'formatters': {
-#         'verbose': {
-#             'format': '%(levelname)s|%(asctime)s|%(module)s|%(process)d|%(thread)d|%(message)s',
-#             'datefmt' : "%d/%b/%Y %H:%M:%S"
-#         },
-#         'simple': {
-#             'format': '%(levelname)s|%(message)s'
-#         },
-#     },
-#     'loggers': {
-#         'myapp.request': {
-#             'handlers': ['mail_admins'],
-#             'level': 'ERROR',
-#             'propagate': True,
-#         },
-#         'myapp.tasks': {
-#             'handlers': ['mail_admins'],
-#             'level': 'ERROR',
-#             'propagate': True,
-#         },
-#         'myapp.management': {
-#             'handlers': ['console', 'logfile'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#         'myapp.models': {
-#             'handlers': ['console', 'logfile'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
+# EMAIL
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
+
+# Other Django configurations...
+
+# Celery application definition
+# http://docs.celeryproject.org/en/v4.0.2/userguide/configuration.html
+
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+# CELERY_TIMEZONE = 'Europe/Vilnius'
+CELERY_TIMEZONE = 'UTC'
+CELERY_ENABLE_UTC = True
+CELERY_IMPORTS = ['crawler.tasks']
+# CELERYBEAT_SCHEDULE = 'django_celery_beat.schedulers:DatabaseScheduler'
+# CELERY_BEAT_SCHEDULE = {
+#     'autoplius-instant-car-notifier': {
+#         'task': 'autoplius-instant-car-notifier',
+#         'schedule': crontab(minute='*/2')
 #     }
 # }
+

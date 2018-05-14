@@ -29,7 +29,7 @@ class Advertisement(models.Model):
     url = models.TextField()
     uid = models.DecimalField(decimal_places=2, max_digits=10, unique = True)
     price = models.CharField(max_length=20, blank=True)
-    created_at = models.DateTimeField(default=utcnow)
+    created_at = models.DateTimeField(default=timezone.now)
     deleted_at = models.DateTimeField(null=True)
     updated_at = models.DateTimeField(null=True)
     seller = models.ForeignKey(Seller,

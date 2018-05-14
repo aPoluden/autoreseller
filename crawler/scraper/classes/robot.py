@@ -35,14 +35,19 @@ class DefaultRobot():
         Fakes browsing over website
         returns: browser instance 
         '''
-        browser = webdriver.Firefox()
+        # browser = webdriver.Firefox()
+        browser = webdriver.Remote(
+            desired_capabilities=webdriver.DesiredCapabilities.FIREFOX,
+            command_executor='http://autoreseller_geckodriver_1:4444'
+        )
+        # always visit start page
         browser.get(self.top_url)
         browser.get(url_type)
         time.sleep(2) # TODO remove ?
         browser.get(self.top_url)
         # find search preference element
-        item = browser.find_element_by_class_name('search-item')
-        item.click()
+        search_item = browser.find_element_by_class_name('search-item')
+        search_item.click()
         return browser
 
     def fake_instant_advert_session(self):
@@ -55,6 +60,7 @@ class DefaultRobot():
             cs = CookieStore.objects.filter(name=CookieStore.NAMES.INSTANT).first()
             # Convert str to list
             cookies = ast.literal_eval(cs.value)
+            # Setup session
             self.session.cookies.update({c['name']:c['value'] for c in cookies})
             instant_advert_url = cs.url
             # TODO something with cookie
@@ -68,7 +74,8 @@ class DefaultRobot():
             cs.url = browser.current_url
             cs.save()
             instant_advert_url = browser.current_url
-            browser.close()
+            # Closes webdriver session and browser
+            browser.quit()
         return instant_advert_url
 
     def fake_week_advert_session():
@@ -78,10 +85,14 @@ class DefaultRobot():
     def say_hello(self):
         return "Hello, I'm Default robot"
 
-    def get_user_agent(self): 
+    def get_user_agent(self):
         return self.user_agent
 
 class YandexRobot(DefaultRobot):
 
     sessionID = ''
     user_agent = 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)'
+
+
+# 495d5828-1245-47ca-be45-331609d8fdd4
+# session="821277b3-d804-4f59-a744-7fb4ee164672"

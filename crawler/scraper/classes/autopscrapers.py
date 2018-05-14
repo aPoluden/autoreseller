@@ -143,6 +143,8 @@ class AutoPCarScraper(VehicleScraper):
         #https://autoplius.lt/mano-paieskos?slist=430359403&category_id=2&older_not=-1&page_nr=2
         instant_url = self.robot.fake_instant_advert_session()
         current_page = 1
+        # Visit top url before scraping
+        self.robot.visit_url(self.robot.top_url)
         while True:
             content = self.robot.visit_url(instant_url)
             soup = BeautifulSoup(content, 'html.parser')

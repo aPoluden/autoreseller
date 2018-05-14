@@ -1,0 +1,100 @@
+version: "2"
+services:
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379"
+    networks:
+      - backend
+
+  db:
+    image: postgres:9.5
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - backend
+
+  web:
+    build: 
+      context: ./
+    volumes:
+      - /app/static
+      - ./:/app
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    environment:
+      DEBUG: 'true'
+    networks:
+      - backend
+    entrypoint: /app/docker-entrypoint.sh
+
+  celery-worker:
+    build:
+      context: ./
+    networks:
+      - backend
+    depends_on:
+      - redis
+    entrypoint: /app/run_worker.sh
+
+  celery-beat:
+    build:
+      context: ./
+    networks:
+      - backend
+    depends_on:
+      - redis
+    entrypoint: /app/run_beat.sh
+
+  geckodriver:
+      build:
+          context: ./firegecko
+      volumes:
+          - /etc/machine-id:/etc/machine-id
+          - xauth:/tmp/xauth
+          - x11-unix:/tmp/.X11-unix
+      ports:
+          - 4444:4444
+      environment:
+          DISPLAY: :0
+          XAUTHORITY: /tmp/xauth/Xauthority
+      networks:
+        - backend  
+
+  xvfb:
+      image: quay.io/cvlibrary/xvfb
+      volumes:
+          - xauth:/tmp/xauth
+          - x11-unix:/tmp/.X11-unix
+      # FIXME: what we really want is for x11vnc to use the xvfb container's
+      # ipc namespace.  For now we just share both with the host.
+      ipc: "host"
+      command: -screen 0 1920x1080x24
+
+  x11vnc:
+      image: quay.io/cvlibrary/x11vnc
+      depends_on:
+          - xvfb
+      volumes:
+          - xauth:/tmp/xauth
+          - x11-unix:/tmp/.X11-unix
+      command: -q -nopw -auth /tmp/xauth/Xauthority
+      environment:
+          DISPLAY: :0
+      ipc: "host"
+      ports:
+        - 5900:5900
+
+networks:
+  backend:
+
+volumes:
+  db-data:
+  web-code:
+  xauth:
+  x11-unix:
