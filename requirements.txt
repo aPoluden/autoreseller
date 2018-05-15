@@ -18,3 +18,4 @@ redis==2.10.6
 dateparser==0.7.0
 ipython==6.2.1
 ipdb==0.10.3
+gunicorn == 19.7.1
