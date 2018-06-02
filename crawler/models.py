@@ -21,6 +21,9 @@ class Seller(models.Model):
         '''
         return Seller.objects.get_or_create(phone_number=seller[Seller.Field.NUMBER])
 
+    def __str__(self): 
+        return self.phone_number
+
 class Advertisement(models.Model):
     # utcnow = datetime.datetime.utcnow()
     utcnow = timezone.now()
@@ -35,6 +38,9 @@ class Advertisement(models.Model):
     seller = models.ForeignKey(Seller,
         on_delete=models.CASCADE,
         default=None)
+
+    def __str__(self):
+        return int(self.uid)
 
 class Vehicle(models.Model):
     make = models.CharField(max_length=20, null=False, default=None)
@@ -83,6 +89,9 @@ class Vehicle(models.Model):
         vehicle.year = dateparser.parse(vhcl[Vehicle.Field.AGE]) if Vehicle.Field.AGE else None
         vehicle.technical_inspection = dateparser.parse(vhcl[Vehicle.Field.INSPECT]) if Vehicle.Field.INSPECT in vhcl else None
         return vehicle
+
+    def __str__(self):
+        return '{} {} {}'.format(self.make, self.model, self.year.year) 
 
 class CookieStore(models.Model):
 
