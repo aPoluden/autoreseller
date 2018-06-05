@@ -1,11 +1,10 @@
 import logging, time, requests
-from  django.core.mail import EmailMessage
 
 from autoreseller import celery_app
 
 from crawler.scraper.scraper import Scraper
 from crawler.scraper.classes.options import AdvertOptions
-from crawler.models import Vehicle, Advertisement, Seller
+from crawler.models import Vehicle, Advertisement, Seller, Subscriber
 from crawler.scraper.classes.autopscrapers import AutoPCarScraper 
 
 from celery.contrib import rdb
@@ -61,7 +60,6 @@ def instant_advert_notification_task():
     Checks for new adverts. Creates new adverts in db.
     Notifies by email about new advert.
     '''
-    import ipdb; ipdb.set_trace()
     logger.info('Instant advert check task stared')
     has_adverts = True
     instant_advert_urls = 'Hello, this is instant autoplius adverts for the moment:\n'
@@ -96,8 +94,7 @@ def instant_advert_notification_task():
                 # advertisements left to scrape
                 logger.info('Instant advert check task finished')
                 if instant_advert_count > 0:
-                    email = EmailMessage('SKELBIMAI', instant_advert_urls, to=[])
-                    email.send()
+                    Subscriber.notify_all(instant_advert_urls)
                 has_adverts = False
         except Exception as e:
             logger.warn('Advert {} processing fail'.format(advert_data['advert']['url']))

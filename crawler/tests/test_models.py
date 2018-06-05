@@ -1,10 +1,11 @@
 from django.test import TestCase
 from django.db.utils import IntegrityError
 from django.db import transaction
+from django.core import mail
 
 import datetime, dateparser
 
-from crawler.models import Seller, Advertisement, Vehicle
+from crawler.models import Seller, Advertisement, Vehicle, Subscriber
 
 class SellerTest(TestCase):
 
@@ -119,3 +120,27 @@ class VehicleTest(TestCase):
         self.assertEquals(self.fuel, vhcl.fuel)
         self.assertEquals(self.converted_year, vhcl.year)
         self.assertEquals(self.converted_ti, vhcl.technical_inspection)
+
+class SubscriberTest(TestCase):
+
+    def setUp(self):
+        self.email = 'test@email.com'
+        self.subscriber0 = Subscriber.objects.create(name='Test0', email=self.email)
+        self.subscriber1 = Subscriber.objects.create(name='Test0', subscribed=False)
+
+    def testGetSubscribedEmails(self):
+        '''
+        Tests email fetch of subscribed users
+        '''
+        email_list = Subscriber.get_subscribed_emails()
+        self.assertEquals(len(email_list), 1)
+        self.assertEquals(email_list[0], self.email)
+
+    def testEmailSendingToSubscribedUsers(self):
+        '''
+        Tests email sending to subscribed users
+        '''
+        message = 'Hello World'
+        Subscriber.notify_all(message)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].body, message)

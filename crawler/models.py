@@ -1,3 +1,4 @@
+from django.core.mail import EmailMessage
 from django.db import models
 from django.utils import timezone 
 from model_utils import Choices
@@ -91,7 +92,47 @@ class Vehicle(models.Model):
         return vehicle
 
     def __str__(self):
-        return '{} {} {}'.format(self.make, self.model, self.year.year) 
+        return '{} {} {}'.format(self.make, self.model, self.year.year)
+
+class Subscriber(models.Model):
+
+    ROLES = Choices(('administrator', 'ADMIN', 'Administrator'), 
+                    ('user', 'USER', 'User')) 
+    name = models.CharField(max_length=20)
+    surname = models.CharField(max_length=20)
+    email = models.EmailField(max_length=254)
+    # Subscribe to email notifications
+    subscribed = models.BooleanField(default=True)
+    role = models.CharField(max_length=30, choices=ROLES, default=ROLES.USER)
+
+    def notify(self, message):
+        '''
+        Notifies particular subscriber
+        '''
+        # TODO
+        pass
+
+    @staticmethod
+    def notify_all(message):
+        '''
+        Notifies all subscibed Subscibers
+        '''
+        email = EmailMessage('SKELBIMAI', message, to=Subscriber.get_subscribed_emails())
+        email.send()
+
+    @staticmethod
+    def get_subscribed_emails():
+        '''
+        Returns subscibed Subscirers emails
+        '''
+        subscr_list = []
+        subscr_qs = Subscriber.objects.filter(subscribed=True)
+        for subscr in subscr_qs.values():
+            subscr_list.append(subscr['email'])
+        return subscr_list
+
+    def __str__(self):
+        return '{} {}'.format(self.name, self.surname)
 
 class CookieStore(models.Model):
 
