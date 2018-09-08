@@ -41,7 +41,7 @@ class Advertisement(models.Model):
         default=None)
 
     def __str__(self):
-        return int(self.uid)
+        return str(int(self.uid))
 
 class Vehicle(models.Model):
     make = models.CharField(max_length=20, null=False, default=None)
