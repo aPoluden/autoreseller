@@ -4,7 +4,7 @@ from requests.exceptions import ConnectionError, TooManyRedirects, Timeout, Requ
 
 from crawler.scraper.classes.options import AdvertOptions, Bot
 from crawler.scraper.classes.models import Advertisement
-from crawler.scraper.classes.robot import DefaultRobot, YandexRobot
+from crawler.scraper.classes.robot import DefaultRobot
 from crawler.scraper.utils import tor
 
 logger = logging.getLogger(__name__)
@@ -48,7 +48,7 @@ class AutoPScraper(PortalScraper):
 class VehicleScraper:
 
     def __init__(self, robot_type=None):
-        self.robot = (YandexRobot() if robot_type is Bot.YANDEX else DefaultRobot())
+        self.robot = DefaultRobot()
 
     def bot(self): 
         return self.robot
@@ -64,8 +64,14 @@ class AutoPCarScraper(VehicleScraper):
     def __init__(self, robot_type=None):
         super(AutoPCarScraper, self).__init__(robot_type)
 
-    def remove_spaces(self, raw):
+    def _remove_spaces(self, raw):
         return raw.replace(' ', '').replace('\n', '')
+
+    def _resolve_make_model(self, data):
+        # 0 make and model 
+        makemodel = data.replace('\n', '').split(',')[0].split(' ')
+        make, model = makemodel[0], makemodel[1]
+        return (make, model)
 
     def get_car_advert_data(self, url, path=None):
         '''
@@ -73,6 +79,13 @@ class AutoPCarScraper(VehicleScraper):
         returns: advertisement data
         '''
         advert, seller, vehicle = {}, {}, {}
+        supported_params = ['Pagaminimo data', 
+                            'Rida',
+                            'Defektai', 
+                            'Variklis',
+                            'Pavarų dėžė',
+                            'Kuro tipas',
+                            'Tech. apžiūra iki']
         # content = self.page_content(url, path)
         content = self.robot.visit_url(url)
         if content is None:
@@ -80,30 +93,25 @@ class AutoPCarScraper(VehicleScraper):
             return None
         advert['url'] = url
         soup = BeautifulSoup(content, 'html.parser')
-        element = soup.find_all(class_='add-to-bookmark')[0]
-        advert_info = soup.find_all(class_='classifieds-info')[0]
-        vehicle_specs = advert_info.find_all(class_='announcement-parameters')
-        advert['uid'] = element.attrs['data-id']
-        advert['location'] = self.remove_spaces(soup.find(class_='owner-location').text)
-        seller['number'] = self.remove_spaces(soup.find(class_="owner-phone").text)
-        for param in vehicle_specs:
-            # Vehicle specials
-            param_rows = param.find_all('tr')
-            for row in param_rows:
-                spec_name = row.th.text
-                spec_value = row.td.text
-                # Price in Lithiania
-                if spec_name == 'Kaina Lietuvoje':
-                    # Special price occasion
-                    advert['price'] = spec_value.split('€')[0] + '€'
-                vehicle[spec_name] = spec_value
-            # Split vehicle name to Model and Make
-            make_model = advert_info.h1.text.split(',')[0]
-            vehicle['make'] = make_model.split(' ')[0]
-            vehicle['model'] = make_model.split(' ')[1]
+        # resolve make and model
+        vehicle['make'], vehicle['model'] = self._resolve_make_model(soup.find_all(class_='page-title')[0].text)        # resolve advert id
+        bookmark_div = soup.find_all(class_='add-to-bookmark')[0]
+        advert['uid'] = bookmark_div.attrs['data-id']
+        # resolve advert price
+        price_div = soup.find_all(class_='price')[0]
+        advert['price'] = price_div.text.replace(' ', '').replace('\n', '')
+        advert['location'] = soup.find(class_='owner-location').text.strip()
+        seller['number'] = self._remove_spaces(soup.find(class_="owner-phone").text)
+        # from 2 index starts valueable advert data
+        advert_data = soup.find_all(class_='parameter-row')[2:]
+        for data in advert_data:
+            label = data.find(class_='parameter-label').text.strip()
+            if label in supported_params:
+                value = data.find(class_='parameter-value').text.strip()
+                vehicle[label] = value
         try:
             # Advert attributes that could be not defined
-            advert['comment'] = advert_info.find(class_='announcement-description').text
+            advert['comment'] = soup.find_all(class_='announcement-description').text
         except AttributeError as e:
             pass
         return {'vehicle': vehicle, 'advert': advert, 'seller': seller}

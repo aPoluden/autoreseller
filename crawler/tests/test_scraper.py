@@ -1,13 +1,13 @@
 from django.test import TestCase
 
-import unittest, requests, urllib
+import unittest, requests, urllib, os
 from unittest import mock
 from requests import Response
 
 from crawler.scraper.scraper import Scraper
 from crawler.scraper.classes.options import AdvertOptions, Bot
 from crawler.scraper.classes.autopscrapers import AutoPScraper, AutoPCarScraper
-from crawler.scraper.classes.robot import YandexRobot, DefaultRobot
+from crawler.scraper.classes.robot import DefaultRobot
 
 # Create your tests here.
 class AutoPliusScraperTest(TestCase):
@@ -34,19 +34,19 @@ class AutoPliusScraperTest(TestCase):
         '''
         Tests paricular Lithuanian car advetisement scrape
         '''
-        page_path = 'file:///home/apoluden/Programming/workspace/autoreseller/crawler/tests/resources/bmw_advertisement.html'
+        page_path = 'file:///' + os.path.dirname(os.path.abspath(__file__)) + '/resources/bmw_new_layout.html'
         visit_url.return_value = urllib.request.urlopen(page_path).read()
         self.scraper.set_autop(AdvertOptions.CARS)
         scraped_advert = self.scraper.scrape_particular_advert('https://google.com')
         vehicle = scraped_advert['vehicle']
         advert = scraped_advert['advert']
         seller = scraped_advert['seller']
-        self.assertEquals('+37069157207', seller['number'])
-        self.assertEquals('5004458', advert['uid'])
-        self.assertEquals('Panevėžys,Lietuva', advert['location'])
-        self.assertEquals('10 900 €', advert['price'])
+        self.assertEquals('+37061111943+37061624474', seller['number'])
+        self.assertEquals('7773811', advert['uid'])
+        self.assertEquals('Kretinga, Lietuva', advert['location'])
+        self.assertEquals('2100€', advert['price'])
         self.assertEquals('BMW', vehicle['make'])
-        self.assertEquals('520', vehicle['model'])
+        self.assertEquals('318', vehicle['model'])
 
     @unittest.skip('Logic not implemented')
     def test_particular_en_advert_scrape(self):
@@ -54,7 +54,7 @@ class AutoPliusScraperTest(TestCase):
         Tests particular English car advertisement scrape 
         ''' 
         # TODO FIX IT USE PYTHONPATH
-        url = 'file:///home/apoluden/Programming/workspace/autoreseller/crawler/tests/mb_advertisement_eng.html'
+        url = 'file:///' + os.path.dirname(os.path.abspath(__file__)) + '/resources/mb_advertisement_eng.html'
         scraped_advert = self.scraper.scrape_particular_advert(None, path=url)
         vehicle = scraped_advert['vehicle']
         advert = scraped_advert['advert']
