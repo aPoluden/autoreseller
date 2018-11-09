@@ -1,4 +1,10 @@
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
+autoreseller/__pycache__/*
 *.py[cod]
+db.sqlite3
+geckodriver.log
+.vscode/
+celerybeat-schedule.db
+autoreseller/__pycache__/__init__.cpython-35.pyc
