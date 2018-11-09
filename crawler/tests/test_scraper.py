@@ -4,6 +4,7 @@ import unittest, requests, urllib, os
 from unittest import mock
 from requests import Response
 
+from crawler.models import WebDriverSession
 from crawler.scraper.scraper import Scraper
 from crawler.scraper.classes.options import AdvertOptions, Bot
 from crawler.scraper.classes.autopscrapers import AutoPScraper, AutoPCarScraper
@@ -99,21 +100,19 @@ class AutoPliusScraperTest(TestCase):
         # TODO implement test
         pass
 
-    @mock.patch('crawler.scraper.classes.robot.DefaultRobot.fake_instant_advert_session')
     @mock.patch('crawler.scraper.classes.autopscrapers.AutoPCarScraper.get_car_advert_data')
     @mock.patch('crawler.scraper.classes.robot.DefaultRobot.visit_url')
-    def test_instant_advert_scrape_single_page(self, visit_url, get_data, init):
+    def test_instant_advert_scrape_single_page(self, visit_url, get_data):
         '''
         Tests instant advert scraping on single page
         '''
         cars = []
-        page_path = 'file:///home/apoluden/Programming/workspace/autoreseller/crawler/tests/resources/instant_adverts_single_page.html'
+        url = 'file:///' + os.path.dirname(os.path.abspath(__file__)) + '/resources/instant_adverts_new_layout.html'
         crawler = AutoPCarScraper()
-        visit_url.return_value = urllib.request.urlopen(page_path).read()
+        visit_url.return_value = urllib.request.urlopen(url).read()
         get_data.return_value = 'data'
-        init.return_value = 'url'
         car = crawler.get_instant_car_advert_data()
-        cars.append(next(car)) 
+        cars.append(next(car))
         cars.append(next(car))
         cars.append(next(car))
         cars.append(next(car))
@@ -164,19 +163,29 @@ class AutoPliusScraperTest(TestCase):
 class RobotsTest(TestCase): 
 
     def setUp(self):
-        self.yndx_bot = YandexRobot()
-        self.dflt_bot = DefaultRobot()
-        self.user_agnt_yandex = 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)'
-        self.user_agnt_dflt = 'Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0'
-    
-    def test_bot_user_agent(self):
-        self.assertEquals(self.user_agnt_yandex, self.yndx_bot.get_user_agent())
-        self.assertEquals(self.user_agnt_dflt, self.dflt_bot.get_user_agent())
+        pass
 
-    def test_response_yandex_robot(self):
-        content = self.yndx_bot.visit_url('https://google.com')
-        self.assertIsNotNone(content)
-
-    def test_request_exception_abilities(self):
-        content = self.yndx_bot.visit_url('http://test.test')
-        self.assertIsNone(content)
+    def test_browser_session_init(self):
+        '''
+            Test init browser session initialization
+        '''
+        robot = DefaultRobot()
+        content = robot.get_instant_adverts_page_content()
+        robot.close_session()
+        number = WebDriverSession.objects.all().count()
+        self.assertEquals(0, number)
+        self.assertTrue('html' in content)
+        
+    def test_browser_session_reatach(self):
+        '''
+            Test reataching to existing browser session
+        '''
+        robot = DefaultRobot()
+        # Initilize session first time with different robot
+        robot.get_instant_adverts_page_content()
+        anotherRobot = DefaultRobot()
+        content = anotherRobot.get_instant_adverts_page_content()
+        anotherRobot.close_session()
+        number = WebDriverSession.objects.all().count()
+        self.assertEquals(0, number)
+        self.assertTrue('html' in content)

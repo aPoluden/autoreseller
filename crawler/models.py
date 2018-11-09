@@ -143,3 +143,8 @@ class CookieStore(models.Model):
     name = models.CharField(max_length=30, choices=NAMES, unique=True)
     value = models.TextField()
     url = models.TextField()
+
+class WebDriverSession(models.Model): 
+
+    browser = models.CharField(max_length=30)
+    uid = models.TextField(null=False)

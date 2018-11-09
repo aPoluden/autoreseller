@@ -2,17 +2,24 @@ import urllib, requests, logging, time, ast
 from selenium import webdriver
 from requests.exceptions import RequestException
 
-from crawler.models import CookieStore
+from autoreseller import settings
+
+from crawler.models import CookieStore, WebDriverSession
+from crawler.scraper.classes.options import Portals
 
 # Robot description - send requests. Fake user agent. Fake session. Handle RequestExceptions
 
 logger = logging.getLogger(__name__)
 
 class DefaultRobot():
-
+    '''
+        Robot searches only autoplius car instant advertisements
+    '''
+    _executor_url = 'http://autoreseller_geckodriver_1:4444'
     user_agent = 'Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0'
     top_url = 'https://autoplius.lt'
-    instant_cars_advert_search_url = 'https://autoplius.lt/skelbimai/naudoti-automobiliai?older_not=-1'
+    instant_cars_advert_init_url = 'https://autoplius.lt/skelbimai/naudoti-automobiliai?older_not=-1'
+    browser = None
 
     def __init__(self):
         self.session = requests.Session()
@@ -30,69 +37,82 @@ class DefaultRobot():
             return None
         return self.resp.content
 
-    def fake_browsing(self, url_type):
+    def _instant_cars_advert_search_init(self):
         '''
-        Fakes browsing over website
-        returns: browser instance 
+        Fake instant advert search
         '''
-        # browser = webdriver.Firefox()
-        browser = webdriver.Remote(
-            desired_capabilities=webdriver.DesiredCapabilities.FIREFOX,
-            command_executor='http://autoreseller_geckodriver_1:4444'
-        )
-        # always visit start page
-        browser.get(self.top_url)
-        browser.get(url_type)
-        time.sleep(2) # TODO remove ?
-        browser.get(self.top_url)
-        # find search preference element
-        search_item = browser.find_element_by_class_name('search-item')
-        search_item.click()
-        return browser
-
-    def fake_instant_advert_session(self):
-        '''
-        Initilizes session using browser session
-        '''
-        instant_advert_url = ''
-        if CookieStore.objects.filter(name=CookieStore.NAMES.INSTANT).exists():
-            # Get instant advert fake cookie session
-            cs = CookieStore.objects.filter(name=CookieStore.NAMES.INSTANT).first()
-            # Convert str to list
-            cookies = ast.literal_eval(cs.value)
-            # Setup session
-            self.session.cookies.update({c['name']:c['value'] for c in cookies})
-            instant_advert_url = cs.url
-            # TODO something with cookie
-        else:
-            # Init instant fake cookie session
-            cs = CookieStore(name=CookieStore.NAMES.INSTANT)
-            browser = self.fake_browsing(self.instant_cars_advert_search_url)
-            self.session.cookies.update({c['name']:c['value'] for c in browser.get_cookies()})
-            # Convert cookie list to str
-            cs.value = str(browser.get_cookies())
-            cs.url = browser.current_url
-            cs.save()
-            instant_advert_url = browser.current_url
-            # Closes webdriver session and browser
-            browser.quit()
-        return instant_advert_url
-
-    def fake_week_advert_session():
-        # TODO implement in future 
-        pass
+        self.browser.get(self.top_url)
+        self.browser.get(self.instant_cars_advert_init_url)
+        self.browser.get(self.top_url)
     
-    def say_hello(self):
-        return "Hello, I'm Default robot"
+    def _visit_instant_car_advert_list(self):
+        '''
+            Enter INITILIZED instant car advert list
+        '''
+        self.browser.get(self.top_url)
+        # search-info has-new
+        search_item = self.browser.find_element_by_class_name('search-item')
+        search_item.click()
+        return self.browser
 
-    def get_user_agent(self):
-        return self.user_agent
+    def _reatach_to_existing_driver_session(self, session_id, executor_url):
+        '''
+        Hack: how to reatach to existing Firefox session
+        source: http://tarunlalwani.com/post/reusing-existing-browser-session-selenium/
+        '''
+        from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
+        # Save the original function, so we can revert our patch
+        org_command_execute = RemoteWebDriver.execute
 
-class YandexRobot(DefaultRobot):
+        def new_command_execute(self, command, params=None):
+            if command == "newSession":
+                # Mock the response
+                return {'success': 0, 'value': None, 'sessionId': session_id}
+            else:
+                return org_command_execute(self, command, params)
+        # Patch the function before creating the driver object
+        RemoteWebDriver.execute = new_command_execute
+        new_driver = webdriver.Remote(command_executor=executor_url, desired_capabilities={})
+        new_driver.session_id = session_id
+        # Replace the patched function with original function
+        RemoteWebDriver.execute = org_command_execute
+        return new_driver
 
-    sessionID = ''
-    user_agent = 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)'
+    def _init_browser_session(self):
+        '''
+        Initialize webdriver session with browser or reuse existing
+        '''
+        if (WebDriverSession.objects.all().count() > 0):
+            # acquire session from db
+            session = WebDriverSession.objects.all()[0]
+            self.browser = self._reatach_to_existing_driver_session(session.uid, self._executor_url)
+        else:
+            # saving session for later use
+            self.browser = webdriver.Remote(
+                command_executor = self._executor_url,
+                desired_capabilities={})
+            WebDriverSession.objects.create(
+                uid = self.browser.session_id,
+                browser = webdriver.DesiredCapabilities.FIREFOX['browserName'])
+            # Initialize instant advert search url
+            self._instant_cars_advert_search_init()
 
+    def get_instant_adverts_page_content(self):
+        '''
+            Fetches instant car advert page list content
+            retuns: html page content
+        '''
+        if (self.browser is None):
+            self._init_browser_session()
+        self._visit_instant_car_advert_list()
+        # Get page content
+        return self.browser.page_source
 
-# 495d5828-1245-47ca-be45-331609d8fdd4
-# session="821277b3-d804-4f59-a744-7fb4ee164672"
+    def close_session(self):
+        '''
+            Close webbrowser and delete session ID from DB
+        '''
+        self.browser.quit()
+        session = WebDriverSession.objects.all()[0]
+        session.delete()
+        self.browser = None
