@@ -19,6 +19,8 @@ class DefaultRobot():
     user_agent = 'Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0'
     top_url = 'https://autoplius.lt'
     instant_cars_advert_init_url = 'https://autoplius.lt/skelbimai/naudoti-automobiliai?older_not=-1'
+    instant_cars_advert_check_url = None
+    page_counter = 1 
     browser = None
 
     def __init__(self):
@@ -26,6 +28,11 @@ class DefaultRobot():
         self.session.headers.update({ 'User-Agent': self.user_agent })
 
     def visit_url(self, url):
+        '''
+            Depricated
+            Failed to establish a new connection: [Errno -3]
+            Temporary failure in name resolution
+        '''
         try: 
             self.resp = self.session.get(url)
             # Check if not blacklisted
@@ -36,6 +43,30 @@ class DefaultRobot():
             logger.warn(e)
             return None
         return self.resp.content
+
+    def visit_next_instant_cars_page(self):
+        '''
+        Visit next instant car advert list page
+        return page content
+        '''
+        if (self.instant_cars_advert_check_url is not None):
+            # copy string with page_nr={} for later uses
+            temp_url = self.instant_cars_advert_check_url
+            self.page_counter += 1
+            self.instant_cars_advert_check_url.format(self.page_counter)
+            self.browser.get(self.instant_cars_advert_check_url)
+            return self.browser.page_source
+        self.self.instant_cars_advert_check_url = temp_url
+        return None
+
+    def visit_url_through_browser(self, url):
+        '''
+        Visit url through browser
+        returns html source
+        '''
+        if (self.browser is not None): 
+            self.browser.get(url)
+            return self.browser.page_source
 
     def _instant_cars_advert_search_init(self):
         '''
@@ -106,6 +137,7 @@ class DefaultRobot():
             self._init_browser_session()
         self._visit_instant_car_advert_list()
         # Get page content
+        self.instant_cars_advert_check_url = self.browser.current_url + '&page_nr={}'
         return self.browser.page_source
 
     def close_session(self):

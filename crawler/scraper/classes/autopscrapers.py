@@ -3,7 +3,6 @@ import urllib, requests, logging
 from requests.exceptions import ConnectionError, TooManyRedirects, Timeout, RequestException
 
 from crawler.scraper.classes.options import AdvertOptions, Bot
-from crawler.scraper.classes.models import Advertisement
 from crawler.scraper.classes.robot import DefaultRobot
 from crawler.scraper.utils import tor
 
@@ -86,8 +85,7 @@ class AutoPCarScraper(VehicleScraper):
                             'Pavarų dėžė',
                             'Kuro tipas',
                             'Tech. apžiūra iki']
-        # content = self.page_content(url, path)
-        content = self.robot.visit_url(url)
+        content = self.robot.visit_url_through_browser(url)
         if content is None:
             logger.warn('Advert %s not reachable', url)
             return None
@@ -103,17 +101,20 @@ class AutoPCarScraper(VehicleScraper):
         advert['location'] = soup.find(class_='owner-location').text.strip()
         seller['number'] = self._remove_spaces(soup.find(class_="owner-phone").text)
         # from 2 index starts valueable advert data
-        advert_data = soup.find_all(class_='parameter-row')[2:]
+        advert_data = soup.find_all(class_='parameter-row')
         for data in advert_data:
-            label = data.find(class_='parameter-label').text.strip()
-            if label in supported_params:
-                value = data.find(class_='parameter-value').text.strip()
-                vehicle[label] = value
+            try:
+                label = data.find(class_='parameter-label').text.strip()
+                if label in supported_params:
+                    value = data.find(class_='parameter-value').text.strip()
+                    vehicle[label] = value
+            except AttributeError as err:
+                pass
         try:
-            # Advert attributes that could be not defined
+                # Advert attributes that could be not defined
             advert['comment'] = soup.find_all(class_='announcement-description').text
         except AttributeError as e:
-            pass
+            logger.warn(e)
         return {'vehicle': vehicle, 'advert': advert, 'seller': seller}
         
     def get_all_car_adverts_data(self, page=1):
@@ -147,14 +148,8 @@ class AutoPCarScraper(VehicleScraper):
         Scrapes only new car adverisements
         returns: scraped car advert data
         '''
-        #https://autoplius.lt/mano-paieskos?slist=430359403&category_id=2&older_not=-1
-        #https://autoplius.lt/mano-paieskos?slist=430359403&category_id=2&older_not=-1&page_nr=2
-        instant_url = self.robot.fake_instant_advert_session()
-        current_page = 1
-        # Visit top url before scraping
-        self.robot.visit_url(self.robot.top_url)
+        content = self.robot.get_instant_adverts_page_content()
         while True:
-            content = self.robot.visit_url(instant_url)
             soup = BeautifulSoup(content, 'html.parser')
             logger.debug(soup)
             new_adverts = soup.find_all(class_='auto-lists lt cl')
@@ -164,11 +159,8 @@ class AutoPCarScraper(VehicleScraper):
                     yield self.get_car_advert_data(new_car_html['href'])
                 if len(new_cars_html) is 20:
                     # More than one advert page to scrape
-                    current_page += 1
-                    instant_url = instant_url + '&page_nr={}'.format(current_page)
+                    content = self.robot.visit_next_instant_cars_page()
                 else:
-                    current_page += 1
-                    instant_url = instant_url + '&page_nr={}'.format(1)
                     yield None
             else:
                 yield None

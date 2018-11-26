@@ -2,10 +2,12 @@ from django.test import TestCase
 from django.db.utils import IntegrityError
 from django.db import transaction
 from django.core import mail
+from django.test.utils import override_settings
 
 import datetime, dateparser
 
-from crawler.models import Seller, Advertisement, Vehicle, Subscriber
+from crawler.models import Seller, Advertisement, Vehicle, Subscriber, WebDriverSession
+from crawler.scraper.classes.options import Portals
 
 class SellerTest(TestCase):
 

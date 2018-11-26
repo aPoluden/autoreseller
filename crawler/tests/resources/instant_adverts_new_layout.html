@@ -1,0 +1,2579 @@
+<!DOCTYPE html><html lang="lt"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" /><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(3),u=e(4),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}catch(e){throw f.emit("fn-err",[arguments,this,e],t),e}finally{f.emit("fn-end",[c.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now()])}},{}],2:[function(e,n,t){function r(e,n){if(!o)return!1;if(e!==o)return!1;if(!n)return!0;if(!i)return!1;for(var t=i.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var u=navigator.userAgent,f=u.match(a);f&&u.indexOf("Chrome")===-1&&u.indexOf("Chromium")===-1&&(o="Safari",i=f[1])}n.exports={agent:o,version:i,match:r}},{}],3:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],4:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],5:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=v(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||o(t)}function w(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:l,addEventListener:l,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(3),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!E++){var e=x.info=NREUM.info,n=l.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+x.offset],null,"api");var t=l.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===l.readyState&&i()}function i(){f("mark",["domContent",a()+x.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-x.offset}var u=(new Date).getTime(),f=e("handle"),c=e(3),s=e("ee"),p=e(2),d=window,l=d.document,m="addEventListener",v="attachEvent",g=d.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:g,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1099.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),x=n.exports={offset:u,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),l[m]?(l[m]("DOMContentLoaded",i,!1),d[m]("load",r,!1)):(l[v]("onreadystatechange",o),d[v]("onload",r)),f("mark",["firstbyte",u],null,"api");var E=0,O=e(5)},{}]},{},["loader"]);</script><![endif]-->
+<title>Naudoti automobiliai | Autoplius.lt</title>
+<meta name="description" content="Jus domina parduodami naudoti automobiliai? Parduodamų naudotų automobilių skelbimai pateikiami sąraše. Populiariausios parduodamų naudotų automobilių markės..." />
+<meta name="keywords" content=" naudoti automobiliai, naudotų automobilių skelbimai, parduodami naudoti automobiliai, naudoti automobiliai pardavimui, naudotų automobilių kainos
+" />
+<meta name="verify-v1" content="WCNMSK2DM610zz0Zxo7erqsKJf5lxkj5ghAJKUOwQx8=" />
+<meta property="og:title" content="Naudoti automobiliai | Autoplius.lt" />
+<meta property="og:description" content="Jus domina parduodami naudoti automobiliai? Parduodamų naudotų automobilių skelbimai pateikiami sąraše. Populiariausios parduodamų naudotų automobilių markės..." /><meta name="author" lang="lt" content="UAB Diginet LTU | pagalba@autoplius.lt" /><link rel="icon" type="image/x-icon" href="https://autoplius-static.dgn.lt/static/images/favicon.ico" /><meta property="fb:admins" content="663029941" /><meta name="application-name" content="Autoplius.lt" />
+        <meta name="msapplication-tooltip" content="Paieška, Dėti skelbimą, Ket, GAZAS.LT" />
+        <meta name="msapplication-task" content="name=Paieška;action-uri=https://autoplius.lt/paieska/;icon-uri=https://autoplius-static.dgn.lt/static/images/favicon.ico" />
+        <meta name="msapplication-task" content="name=Dėti skelbimą;action-uri=https://autoplius.lt/paieska/;icon-uri=https://autoplius-static.dgn.lt/static/images/favicon.ico" />
+        <meta name="msapplication-task" content="name=Ket;action-uri=https://autoplius.lt/ket/;icon-uri=https://autoplius-static.dgn.lt/static/images/favicon.ico" />
+        <meta name="msapplication-task" content="name=GAZAS.LT;action-uri=https://www.15min.lt/naujienos/gazas;icon-uri=https://autoplius-static.dgn.lt/static/images/favicon.ico" />
+    <link rel="alternate" href="https://autoplius.lt" hreflang="lt" /><link rel="alternate" href="https://ru.autoplius.lt" hreflang="ru" /><link rel="alternate" href="https://en.autoplius.lt" hreflang="en" /><link rel="alternate" href="https://lv.autoplius.lt" hreflang="lv" /><meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0,width=device-width" /><link rel="apple-touch-icon-precomposed" href="https://autoplius-static.dgn.lt/static/images/ico/apple_icons/autoplius/auto_57x57.png" /><link rel="apple-touch-icon" href="https://autoplius-static.dgn.lt/static/images/ico/apple_icons/autoplius/auto_57x57.png" /><link rel="apple-touch-icon" sizes="76x76" href="https://autoplius-static.dgn.lt/static/images/ico/apple_icons/autoplius/auto_76x76.png" /><link rel="apple-touch-icon" sizes="120x120" href="https://autoplius-static.dgn.lt/static/images/ico/apple_icons/autoplius/auto_120x120.png" /><link rel="apple-touch-icon" sizes="152x152" href="https://autoplius-static.dgn.lt/static/images/ico/apple_icons/autoplius/auto_152x152.png" /><link rel="next" href="https://autoplius.lt/skelbimai/naudoti-automobiliai?page_nr=2" />
+    <link rel="canonical" href="https://autoplius.lt/skelbimai/naudoti-automobiliai" />
+    <meta property="og:url" content="https://autoplius.lt/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=-1" /><meta property="og:image" content="https://autoplius-img.dgn.lt/ann_6_73235317/73235317.jpg" /><meta property="og:image:type" content="image/jpeg" />
+                    <meta property="og:image:width" content="1200" />
+                    <meta property="og:image:height" content="630" /><meta property="og:image" content="https://autoplius-img.dgn.lt/ann_6_73235445/73235445.jpg" /><meta property="og:image:type" content="image/jpeg" />
+                    <meta property="og:image:width" content="1200" />
+                    <meta property="og:image:height" content="630" /><meta property="og:image" content="https://autoplius-img.dgn.lt/ann_6_73235623/73235623.jpg" /><meta property="og:image:type" content="image/jpeg" />
+                    <meta property="og:image:width" content="1200" />
+                    <meta property="og:image:height" content="630" />                        <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/global.css?id=ncncwbo14410" type="text/css" />
+                    <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/header.css?id=ncncwbo14410">
+            <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/footer.css?id=ncncwbo14410">
+            <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/pagination.css?id=ncncwbo14410">
+            <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/flashbag.css?id=ncncwbo14410">
+            <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/placement/15min-sidebar.css?id=ncncwbo14410">
+
+            <!--[if IE]>
+                <link href="https://autoplius-static.dgn.lt/static/css/ie.css" rel="stylesheet" type="text/css"/>
+            <![endif]-->
+            <!--[if IE 6]>
+                <link href="https://autoplius-static.dgn.lt/static/css/ie6.css" rel="stylesheet" type="text/css"/>
+            <![endif]-->
+                    
+
+
+    <script type="text/javascript" src="https://autoplius-static.dgn.lt/static/js/plius_main.js?cache=ncncwbo14410"></script>
+
+
+    <script src="https://autoplius-static.dgn.lt/static/vendor/eventEmitter/EventEmitter.min.js?v=ncncwbo14410"></script>
+    <script src="https://autoplius-static.dgn.lt/static/js/showads.js?v=ncncwbo14410"></script>
+    <script src="https://autoplius-static.dgn.lt/static/js/App.js?v=ncncwbo14410"></script>
+    <script src="https://autoplius-static.dgn.lt/static/js/Validator/EmailValidator.js?v=ncncwbo14410"></script>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+                
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin,latin-ext,cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/announcement-list-wide.css?cache=ncncwbo14410" type="text/css" />
+    <link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/announcement-list.css?cache=ncncwbo14410" type="text/css" />
+
+</head>
+<body id="autoplius">
+
+    <div class="container">
+        <div class="headtop">
+            <div class="head-small">
+                <div id="div-gpt-ad-1481789405582-6" class="dfp-zone"></div>            </div>
+        </div>
+
+
+
+        <div class="small-wrapper">
+            <div class="content-wrapper">
+                <header>
+                    <div class="header">
+                        
+<div class="navbar">
+
+    <a class="header-logo" href="https://autoplius.lt" title="Autoplius">
+        <img src="https://autoplius-static.dgn.lt/static/images/svg/autoplius-logo.svg" alt="Autoplius" />
+    </a>
+
+    <ul class="header-menu">
+        
+
+        <li class="announcement-bookmark-count">
+            <a href="https://autoplius.lt/pazymeti-skelbimai">
+                <span class="header-ico ico-bookmarks">
+                    <span id="bookmarked-anns" class="icon-badge"></span>
+                </span>
+                <span class="header-label">Įsiminti</span>
+            </a>
+        </li>
+
+
+        <li>
+            <a class="header-saved-searches-button" href="">
+                <span class="header-ico ico-searches">
+                                    </span>
+                <span class="header-label">Paieškos</span>
+            </a>
+        </li>
+
+
+        <li>
+                            <div class="drop-down">
+                    <a
+                        class="drop-down top"
+                        href="https://autoplius.lt/mano-aplinka"
+                        title="Mano Autoplius.lt"
+                        onclick="gaqPush(['_trackEvent', 'Title page actions', 'Top menu', 'My anns']); return openLink(this);">
+                        <span class="header-ico ico-user"></span>
+                        <span class="header-label">
+                            <strong>Artiom</strong>
+                        </span>
+                        <span class="carrot"></span>
+                    </a>
+
+                    
+
+
+
+
+<ul class="header-dropdown">
+        <li>
+        <a class="pluses" href="https://autoplius.lt/pasas/apmokejimai">
+            Pliusų skaičius            <span>0,00 €</span>
+        </a>
+    </li>
+
+            <li>
+            <a href="https://autoplius.lt/mano-aplinka">
+                <span class="ico announcements"></span> Mano skelbimai            </a>
+        </li>
+            <li>
+            <a href="https://autoplius.lt/pasas/apmokejimai">
+                <span class="ico wallet"></span> Pildyti sąskaitą            </a>
+        </li>
+            <li>
+            <a href="https://autoplius.lt/pasas/nustatymai">
+                <span class="ico settings"></span> Nustatymai            </a>
+        </li>
+            <li>
+            <a href="https://autoplius.lt/atsijungti">
+                <span class="ico logout"></span> Atsijungti            </a>
+        </li>
+    </ul>
+                </div>
+            
+                        <a href="#" class="create-ann-btn top" onclick="gaqPush(['_trackEvent', 'Listing page actions', 'Sub menu', 'Add ann']);location.href='https://autoplius.lt/redaguoti'">
+                <span>+</span> Dėti skelbimą            </a>
+        </li>
+    </ul>
+
+</div>
+
+<link rel="stylesheet"
+      href="https://autoplius-static.dgn.lt/static/css/desktop/bookmark/search/webpush.css?v=ncncwbo14410">
+<link rel="stylesheet"
+      href="https://autoplius-static.dgn.lt/static/css/desktop/bookmark/search/list.css?v=ncncwbo14410">
+
+
+<script src="https://autoplius-static.dgn.lt/static/js/Common/WebNotification/firebase-app.js"></script>
+<script src="https://autoplius-static.dgn.lt/static/js/Common/WebNotification/firebase-messaging.js"></script>
+
+
+
+
+                    </div>
+                </header>
+
+                
+
+
+
+<nav>
+
+            <a
+            href="https://autoplius.lt/lyderio-privalumai"
+            title="Lyderio privalumai"
+            class="leader-benefits lang-lt"></a>
+    
+    
+
+<ul class="navigation-items">
+    <li class="active">
+        <a
+            href="https://autoplius.lt"
+            onclick="gaqPush(['_trackEvent', 'Title page actions','Top menu', 'Cars']); return openLink(this);"
+            title="Naudoti automobiliai, naudotų automobilių pardavimas" tabindex="1">Skelbimai</a>
+    </li>
+
+            <li class="">
+            <a
+                href="https://autoplius.lt/nauji-automobiliai"
+                onclick="gaqPush(['_trackEvent', 'Title page actions','Top menu', 'New Cars']); return openLink(this);"
+                title="Nauji automobiliai, naujų automobilių katalogas"
+                tabindex="2">Nauji auto</a>
+        </li>
+    
+            <li>
+            <a
+                href="http://autopliuspaskola.lt?utm_source=autoplius.lt&utm_medium=integration&utm_campaign=autoplius_paskola_desktop_link"
+                target="_blank"
+                onclick="gaqPush(['_trackEvent', 'autoplius_paskola','autoplius_paskola_link', 'autoplius_paskola_link_headerdesktop']);"
+                title="Paskola automobiliui" tabindex="3">AUTO PASKOLA
+            </a>
+        </li>
+
+        <li class="">
+            <a
+                href="https://autoplius.lt/ket-testai"
+                onclick="gaqPush(['_trackEvent', 'Title page actions','Top menu', 'KET']); return openLink(this);"
+                title="KET, KET testai, kelių eismo taisyklės"
+                tabindex="4">Ket</a>
+        </li>
+
+        <li class="">
+            <a
+                href="https://autoplius.lt/tyrimai"
+                onclick="gaqPush(['_trackEvent', 'Title page actions', 'Top menu', 'Investigations']);"
+                title="Tyrimai, automobilių rinka"
+                tabindex="6">Straipsniai            </a>
+        </li>
+    </ul>
+
+
+
+    
+<ul class="navigation-languages">
+            <li class="active">
+            <a
+                href="https://autoplius.lt"
+                onclick="gaqPush(['_trackEvent', 'Title page actions', 'Top menu', 'Change to LT lang'])"
+                title="Autoplius Lietuviškai"
+            >LT</a>
+        </li>
+            <li>
+            <a
+                href="https://ru.autoplius.lt"
+                onclick="gaqPush(['_trackEvent', 'Title page actions', 'Top menu', 'Change to RU lang'])"
+                title="autoplius.lt Rusiškai"
+            >RU</a>
+        </li>
+            <li>
+            <a
+                href="https://en.autoplius.lt"
+                onclick="gaqPush(['_trackEvent', 'Title page actions', 'Top menu', 'Change to EN lang'])"
+                title="Autoplius Angliškai"
+            >EN</a>
+        </li>
+            <li>
+            <a
+                href="https://lv.autoplius.lt"
+                onclick="gaqPush(['_trackEvent', 'Title page actions', 'Top menu', 'Change to LV lang'])"
+                title="lv_title"
+            >LV</a>
+        </li>
+    </ul>
+
+</nav>
+
+
+
+
+
+
+
+
+
+<div id="banner_139"></div>
+<script type="text/javascript">
+    //<![CDATA[
+    var top_menu_ajax_block = 'top_menu_0';
+    //]]>
+</script>
+
+                <div class="col_2_left">
+                    
+                    <div class="col_1">
+                        <form id="search_form_make_combo" action="/skelbimai/naudoti-automobiliai" method="get"><input type="hidden" name="category_id" value="2" /><input type="hidden" name="older_not" value="-1" /></form><div id="more-make_combo" style="display:none"></div>
+        <script type="text/javascript">
+        //<![CDATA[
+        function showMoreFinnCartmake_combo ()
+        {
+            TINY.box.show("Pasirinkite markę ir modelį",
+                '<iframe src="/skelbimai/paieska?category_id=2&amp;filter=makes&amp;older_not=-1&amp;slist=619825515&amp;type=make_combo" width="570" height="330" frameborder="0" scrolling="no" ></iframe>'
+            );
+            return false;
+        }
+        //]]>
+        </script><div class="tab-top">Populiariausios markės</div><div class="content-box content-bot content-top padd-textbox"><ul class="static" style="margin-top:5px"><li><a title="Naudoti Volkswagen automobiliai" href="/skelbimai/naudoti-automobiliai/volkswagen?category_id=2&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','makes']);">Volkswagen</a><span class="count-result">(141)</span></li><li><a title="Naudoti BMW automobiliai" href="/skelbimai/naudoti-automobiliai/bmw?category_id=2&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','makes']);">BMW</a><span class="count-result">(134)</span></li><li><a title="Naudoti Audi automobiliai" href="/skelbimai/naudoti-automobiliai/audi?category_id=2&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','makes']);">Audi</a><span class="count-result">(124)</span></li><li><a title="Naudoti Toyota automobiliai" href="/skelbimai/naudoti-automobiliai/toyota?category_id=2&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','makes']);">Toyota</a><span class="count-result">(85)</span></li><li><a title="Naudoti Opel automobiliai" href="/skelbimai/naudoti-automobiliai/opel?category_id=2&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','makes']);">Opel</a><span class="count-result">(79)</span></li><li><a title="Naudoti Mercedes-Benz automobiliai" href="/skelbimai/naudoti-automobiliai/mercedes_benz?category_id=2&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','makes']);">Mercedes-Benz</a><span class="count-result">(74)</span></li><li><a title="Naudoti Volvo automobiliai" href="/skelbimai/naudoti-automobiliai/volvo?category_id=2&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','makes']);">Volvo</a><span class="count-result">(66)</span></li><li><a title="Naudoti Renault automobiliai" href="/skelbimai/naudoti-automobiliai/renault?category_id=2&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','makes']);">Renault</a><span class="count-result">(41)</span></li><li><a title="Naudoti Ford automobiliai" href="/skelbimai/naudoti-automobiliai/ford?category_id=2&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','makes']);">Ford</a><span class="count-result">(34)</span></li><li><a title="Naudoti Nissan automobiliai" href="/skelbimai/naudoti-automobiliai/nissan?category_id=2&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','makes']);">Nissan</a><span class="count-result">(33)</span></li></ul><form id="makes_search_form" action="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=-1" method="get"><input type="hidden" name="category_id" value="2" /><input type="hidden" name="older_not" value="-1" /></form><div class="clear"><!-- --></div><div><a title="more_values_makes" id="btn-more-makes" onclick="return showMoreFinnCartmake_combo(this);" class="fl dialog-open-btn" href="#">Daugiau</a></div><div class="clear"><!-- --></div></div><div class="tab-top">Paieškos tikslinimas<a id="rel_search_adjust_infobox" style="margin-left:5px" class="load-local" href="#"><span>i</span></a><span style="display:none" id="search_adjust_infoBox">Tikslinkite paiešką papildydami ar keisdami paieškos kriterijus – pagaminimo metus, kainą ir kt. arba ieškokite pagal raktinį žodį. Paspaudus ieškoti gausite rezultatus.</span></div><script type="text/javascript">$("#rel_search_adjust_infobox").attr("rel", "#search_adjust_infoBox");</script><form class="padd-textbox content-box left-search content-top corner-top" action="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=-1" method="get" name="left_search" id="left_search"><label><strong>Pagaminimo data</strong></label><br /><select name="make_date_from" id="make_date_from" class="textbox fl intervalbox"><option value="">Nuo </option><option value="2018">2018</option><option value="2017">2017</option><option value="2016">2016</option><option value="2015">2015</option><option value="2014">2014</option><option value="2013">2013</option><option value="2012">2012</option><option value="2011">2011</option><option value="2010">2010</option><option value="2009">2009</option><option value="2008">2008</option><option value="2007">2007</option><option value="2006">2006</option><option value="2005">2005</option><option value="2004">2004</option><option value="2003">2003</option><option value="2002">2002</option><option value="2001">2001</option><option value="2000">2000</option><option value="1999">1999</option><option value="1998">1998</option><option value="1997">1997</option><option value="1996">1996</option><option value="1995">1995</option><option value="1994">1994</option><option value="1993">1993</option><option value="1992">1992</option><option value="1991">1991</option><option value="1990">1990</option><option value="1989">1989</option><option value="1988">1988</option><option value="1987">1987</option><option value="1986">1986</option><option value="1985">1985</option><option value="1980">1980</option><option value="1970">1970</option><option value="1950">1950</option><option value="1900">1900</option></select> <select name="make_date_to" id="make_date_to" class="textbox fr intervalbox"><option value="">Iki </option><option value="2018">2018</option><option value="2017">2017</option><option value="2016">2016</option><option value="2015">2015</option><option value="2014">2014</option><option value="2013">2013</option><option value="2012">2012</option><option value="2011">2011</option><option value="2010">2010</option><option value="2009">2009</option><option value="2008">2008</option><option value="2007">2007</option><option value="2006">2006</option><option value="2005">2005</option><option value="2004">2004</option><option value="2003">2003</option><option value="2002">2002</option><option value="2001">2001</option><option value="2000">2000</option><option value="1999">1999</option><option value="1998">1998</option><option value="1997">1997</option><option value="1996">1996</option><option value="1995">1995</option><option value="1994">1994</option><option value="1993">1993</option><option value="1992">1992</option><option value="1991">1991</option><option value="1990">1990</option><option value="1989">1989</option><option value="1988">1988</option><option value="1987">1987</option><option value="1986">1986</option><option value="1985">1985</option><option value="1980">1980</option><option value="1970">1970</option><option value="1950">1950</option><option value="1900">1900</option></select> <div class="clear"><!-- --></div><label><strong>Kaina, €</strong></label><br /><select name="sell_price_from" id="sell_price_from" class="textbox fl intervalbox"><option value="">Nuo </option><option value="150">150</option><option value="300">300</option><option value="500">500</option><option value="1000">1000</option><option value="1500">1500</option><option value="2000">2000</option><option value="2500">2500</option><option value="3000">3000</option><option value="3500">3500</option><option value="4000">4000</option><option value="4500">4500</option><option value="5000">5000</option><option value="6000">6000</option><option value="7000">7000</option><option value="8000">8000</option><option value="9000">9000</option><option value="10000">10000</option><option value="11000">11000</option><option value="12000">12000</option><option value="13000">13000</option><option value="14000">14000</option><option value="15000">15000</option><option value="17500">17500</option><option value="20000">20000</option><option value="22500">22500</option><option value="25000">25000</option><option value="27500">27500</option><option value="30000">30000</option><option value="35000">35000</option><option value="40000">40000</option><option value="45000">45000</option><option value="50000">50000</option><option value="60000">60000</option></select> <select name="sell_price_to" id="sell_price_to" class="textbox fr intervalbox"><option value="">Iki </option><option value="150">150</option><option value="300">300</option><option value="500">500</option><option value="1000">1000</option><option value="1500">1500</option><option value="2000">2000</option><option value="2500">2500</option><option value="3000">3000</option><option value="3500">3500</option><option value="4000">4000</option><option value="4500">4500</option><option value="5000">5000</option><option value="6000">6000</option><option value="7000">7000</option><option value="8000">8000</option><option value="9000">9000</option><option value="10000">10000</option><option value="11000">11000</option><option value="12000">12000</option><option value="13000">13000</option><option value="14000">14000</option><option value="15000">15000</option><option value="17500">17500</option><option value="20000">20000</option><option value="22500">22500</option><option value="25000">25000</option><option value="27500">27500</option><option value="30000">30000</option><option value="35000">35000</option><option value="40000">40000</option><option value="45000">45000</option><option value="50000">50000</option><option value="60000">60000</option></select> <div class="clear"><!-- --></div><label><strong>Darbinis tūris, cm³</strong></label><br /><select name="engine_capacity_from" id="engine_capacity_from" class="textbox fl intervalbox"><option value="">Nuo </option><option value="800">800</option><option value="1000">1000</option><option value="1100">1100</option><option value="1200">1200</option><option value="1300">1300</option><option value="1400">1400</option><option value="1500">1500</option><option value="1600">1600</option><option value="1700">1700</option><option value="1800">1800</option><option value="1900">1900</option><option value="2000">2000</option><option value="2200">2200</option><option value="2300">2300</option><option value="2400">2400</option><option value="2500">2500</option><option value="2600">2600</option><option value="2700">2700</option><option value="2800">2800</option><option value="3000">3000</option><option value="3200">3200</option><option value="3300">3300</option><option value="3500">3500</option><option value="3600">3600</option><option value="3700">3700</option><option value="3800">3800</option><option value="4000">4000</option><option value="4200">4200</option><option value="4400">4400</option><option value="5000">5000</option><option value="5200">5200</option><option value="5600">5600</option></select> <select name="engine_capacity_to" id="engine_capacity_to" class="textbox fr intervalbox"><option value="">Iki </option><option value="800">800</option><option value="1000">1000</option><option value="1100">1100</option><option value="1200">1200</option><option value="1300">1300</option><option value="1400">1400</option><option value="1500">1500</option><option value="1600">1600</option><option value="1700">1700</option><option value="1800">1800</option><option value="1900">1900</option><option value="2000">2000</option><option value="2200">2200</option><option value="2300">2300</option><option value="2400">2400</option><option value="2500">2500</option><option value="2600">2600</option><option value="2700">2700</option><option value="2800">2800</option><option value="3000">3000</option><option value="3200">3200</option><option value="3300">3300</option><option value="3500">3500</option><option value="3600">3600</option><option value="3700">3700</option><option value="3800">3800</option><option value="4000">4000</option><option value="4200">4200</option><option value="4400">4400</option><option value="5000">5000</option><option value="5200">5200</option><option value="5600">5600</option></select> <div class="clear"><!-- --></div><label><strong>Galingumas, kW</strong></label><br /><select name="power_from" id="power_from" class="textbox fl intervalbox"><option value="">Nuo </option><option value="25">25 kW (34 AG)</option><option value="35">35 kW (48 AG)</option><option value="44">44 kW (60 AG)</option><option value="55">55 kW (75 AG)</option><option value="66">66 kW (90 AG)</option><option value="74">74 kW (101 AG)</option><option value="85">85 kW (116 AG)</option><option value="96">96 kW (131 AG)</option><option value="110">110 kW (150 AG)</option><option value="147">147 kW (200 AG)</option><option value="184">184 kW (250 AG)</option><option value="222">222 kW (302 AG)</option><option value="262">262 kW (356 AG)</option><option value="296">296 kW (402 AG)</option><option value="333">333 kW (453 AG)</option></select> <select name="power_to" id="power_to" class="textbox fr intervalbox"><option value="">Iki </option><option value="25">25 kW (34 AG)</option><option value="35">35 kW (48 AG)</option><option value="44">44 kW (60 AG)</option><option value="55">55 kW (75 AG)</option><option value="66">66 kW (90 AG)</option><option value="74">74 kW (101 AG)</option><option value="85">85 kW (116 AG)</option><option value="96">96 kW (131 AG)</option><option value="110">110 kW (150 AG)</option><option value="147">147 kW (200 AG)</option><option value="184">184 kW (250 AG)</option><option value="222">222 kW (302 AG)</option><option value="262">262 kW (356 AG)</option><option value="296">296 kW (402 AG)</option><option value="333">333 kW (453 AG)</option></select> <div class="clear"><!-- --></div><label><strong>Rida</strong></label><br /><select name="kilometrage_from" id="kilometrage_from" class="textbox fl intervalbox"><option value="">Nuo </option><option value="0">0</option><option value="5000">5000</option><option value="10000">10000</option><option value="20000">20000</option><option value="30000">30000</option><option value="40000">40000</option><option value="50000">50000</option><option value="60000">60000</option><option value="70000">70000</option><option value="80000">80000</option><option value="90000">90000</option><option value="100000">100000</option><option value="125000">125000</option><option value="150000">150000</option><option value="175000">175000</option><option value="200000">200000</option><option value="250000">250000</option><option value="300000">300000</option><option value="400000">400000</option></select> <select name="kilometrage_to" id="kilometrage_to" class="textbox fr intervalbox"><option value="">Iki </option><option value="0">0</option><option value="5000">5000</option><option value="10000">10000</option><option value="20000">20000</option><option value="30000">30000</option><option value="40000">40000</option><option value="50000">50000</option><option value="60000">60000</option><option value="70000">70000</option><option value="80000">80000</option><option value="90000">90000</option><option value="100000">100000</option><option value="125000">125000</option><option value="150000">150000</option><option value="175000">175000</option><option value="200000">200000</option><option value="250000">250000</option><option value="300000">300000</option><option value="400000">400000</option></select> <div class="clear"><!-- --></div><label class="label-search"><strong>Tekstinė paieška</strong></label><br /><input type="text" name="qt" id="qt" class="fl textbox textbox1" value=""  /> <div class="clear"><!-- --></div><div class="checkdiv lt"><input type="checkbox" name="has_damaged_id" id="has_damaged_id" class="fl" value="10924" /><label class="fl has_damaged_id" for="has_damaged_id">Nerodyti su defektais</label><div class="clear"><!-- --></div></div><div class="checkdiv lt"><input type="checkbox" name="steering_wheel_id" id="steering_wheel_id" class="fl" value="10922" /><label class="fl steering_wheel_id" for="steering_wheel_id">Nerodyti su vairu dešinėje</label><div class="clear"><!-- --></div></div><div class="checkdiv lt"><input type="checkbox" name="serv_urgent_sale" id="serv_urgent_sale" class="fl" value="1" /><label class="fl serv_urgent_sale" for="serv_urgent_sale">Skubiai parduodama</label><div class="clear"><!-- --></div></div><input type="hidden" name="category_id" value="2" /><input type="hidden" name="older_not" value="-1" /><input type="hidden" name="slist" value="619825515">
+        <div class="clear"><!-- --></div>
+        <a class="submit-link fr submit-red frm-btn" title="Ieškoti" href="#" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','search_form_submit']);submitLeftSearch();return false;">
+            <span class="leftcap"><!-- --></span>
+            <strong>
+                <span class="ico-search">Ieškoti</span>
+            </strong>
+            <span class="rightcap"><!-- --></span>
+        </a>
+        <div class="clear"><!-- --></div>
+    </form><div class="content-box content-bot padd-textbox corner-bot">
+        <div class="caption dark">
+            Rezultatų siaurinimas
+            <a id="rel_search_narrow_infobox" class="load-local" href="#">
+                <span>i</span>
+            </a>
+            <span style="display:none" id="search_narrow_infoBox">Sumažinkite gautų rezultatų kiekį žymėdami papildomą paieškos kriterijų. Paspaudus ant paieškos kriterijaus rezultatai pasikeis iškart.</span>
+        </div>
+        <script type="text/javascript">$("#rel_search_narrow_infobox").attr("rel", "#search_narrow_infoBox");</script>
+        <div class="sidebar"><hr /></div><div id="left_filters_narrowing" class="left-filters-narrowing"><label><strong>Naudoti / Nauji</strong></label><br /><ul class="static"><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;offer_type=0&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','offer_type']);">Naudoti</a><span class="count-result">(1090)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;offer_type=1&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','offer_type']);">Nauji</a><span class="count-result">(0)</span></li></ul><div class="hr hr-bg"><hr /></div><label><strong>Kuro tipas</strong></label><br /><ul class="static"><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;fuel_id=30&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','fuel_id']);">Benzinas</a><span class="count-result">(237)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;fuel_id=32&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','fuel_id']);">Dyzelinas</a><span class="count-result">(769)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;fuel_id=31&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','fuel_id']);">Benzinas / dujos</a><span class="count-result">(67)</span></li></ul><div><a title="Pasirinkite degalų tipą" id="btn-more-fuel_id" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','fuel_id_more']);return showMoreChoicesDialog(this);" class="fl dialog-open-btn" href="#">Daugiau</a></div><div class="clear"><!-- --></div><div class="hr hr-bg"><hr /></div><label>
+    <strong>Kėbulo tipas</strong>
+</label>
+<br/>
+<ul class="static">
+            <li>
+            <a
+                rel="nofollow"
+                href="/skelbimai/naudoti-automobiliai?body_type_id=4&amp;category_id=2&amp;older_not=-1&amp;slist=619825515"
+                                    onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','body_type_id']);"
+                
+            >Sedanas</a>
+            <span class="count-result">(232)</span>
+        </li>
+            <li>
+            <a
+                rel="nofollow"
+                href="/skelbimai/naudoti-automobiliai?body_type_id=2&amp;category_id=2&amp;older_not=-1&amp;slist=619825515"
+                                    onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','body_type_id']);"
+                
+            >Hečbekas</a>
+            <span class="count-result">(194)</span>
+        </li>
+            <li>
+            <a
+                rel="nofollow"
+                href="/skelbimai/naudoti-automobiliai?body_type_id=5&amp;category_id=2&amp;older_not=-1&amp;slist=619825515"
+                                    onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','body_type_id']);"
+                
+            >Universalas</a>
+            <span class="count-result">(276)</span>
+        </li>
+            <li>
+            <a
+                rel="nofollow"
+                href="/skelbimai/naudoti-automobiliai?body_type_id=6&amp;category_id=2&amp;older_not=-1&amp;slist=619825515"
+                                    onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','body_type_id']);"
+                
+            >Vienatūris</a>
+            <span class="count-result">(130)</span>
+        </li>
+            <li>
+            <a
+                rel="nofollow"
+                href="/skelbimai/naudoti-automobiliai?body_type_id=7&amp;category_id=2&amp;older_not=-1&amp;slist=619825515"
+                                    onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','body_type_id']);"
+                
+            >Visureigis</a>
+            <span class="count-result">(176)</span>
+        </li>
+            <li>
+            <a
+                rel="nofollow"
+                href="/skelbimai/naudoti-automobiliai?body_type_id=28055&amp;category_id=2&amp;older_not=-1&amp;slist=619825515"
+                                    onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','body_type_id']);"
+                
+            >Keleiviniai mikroautobusai</a>
+            <span class="count-result">(23)</span>
+        </li>
+    </ul>
+
+<div>
+    <a
+        title="Pasirinkite spalvą"
+        id="btn-more-body_type_id"
+                    onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','body_type_id_more']);return showMoreChoicesDialog(this);"
+                class="fl dialog-open-btn" href="#"
+    >Daugiau</a>
+</div>
+<div class="clear"><!-- --></div>
+<div class="hr hr-bg"><hr></div>
+<label><strong>Pavarų dėžė</strong></label><br /><ul class="static"><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;gearbox_id=38&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','gearbox_id']);">Automatinė</a><span class="count-result">(444)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;gearbox_id=37&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','gearbox_id']);">Mechaninė</a><span class="count-result">(646)</span></li></ul><div class="hr hr-bg"><hr /></div><label><strong>Varantieji ratai</strong></label><br /><ul class="static"><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=-1&amp;slist=619825515&amp;wheel_drive_id=17363" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','wheel_drive_id']);">Priekiniai</a><span class="count-result">(434)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=-1&amp;slist=619825515&amp;wheel_drive_id=17362" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','wheel_drive_id']);">Galiniai</a><span class="count-result">(101)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=-1&amp;slist=619825515&amp;wheel_drive_id=17364" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','wheel_drive_id']);">Visi varantys (4х4)</a><span class="count-result">(187)</span></li></ul><div class="hr hr-bg"><hr /></div><label><strong>Durų skaičius</strong></label><br /><ul class="static"><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;number_of_doors_id=126&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','number_of_doors_id']);">2/3</a><span class="count-result">(79)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;number_of_doors_id=127&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','number_of_doors_id']);">4/5</a><span class="count-result">(994)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;number_of_doors_id=128&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','number_of_doors_id']);">Kita</a><span class="count-result">(17)</span></li></ul><div class="hr hr-bg"><hr /></div><label><strong>Spalva</strong></label><br /><ul class="static"><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;color_id=18933&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','color_id']);">Pilka / sidabrinė</a><span class="count-result">(294)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;color_id=18931&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','color_id']);">Mėlyna / žydra</a><span class="count-result">(105)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;color_id=18930&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','color_id']);">Juoda</a><span class="count-result">(227)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;color_id=18934&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','color_id']);">Žalia / chaki</a><span class="count-result">(23)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;color_id=18937&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','color_id']);">Raudona / vyšninė</a><span class="count-result">(31)</span></li></ul><div><a title="Pasirinkite spalvą" id="btn-more-color_id" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','color_id_more']);return showMoreChoicesDialog(this);" class="fl dialog-open-btn" href="#">Daugiau</a></div><div class="clear"><!-- --></div><div class="hr hr-bg"><hr /></div><label><strong>Klimato valdymas</strong></label><br /><ul class="static"><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;condition_type_id=11081&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','condition_type_id']);">Oro kondicionierius</a><span class="count-result">(153)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;condition_type_id=11082&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','condition_type_id']);">Klimato kontrolė</a><span class="count-result">(498)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;condition_type_id=17379&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','condition_type_id']);">Nėra</a><span class="count-result">(5)</span></li></ul><div class="hr hr-bg"><hr /></div><label><strong>Ypatumai</strong></label><br /><form method="get" action="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=-1" class="select-row"><ul id="filter-features"><li><input onchange="checkParam(this)" type="checkbox" name="f19" id="f19-sm" value="1" /> <a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;f19=1&amp;older_not=-1" title="" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','features']);">Lengvojo lydinio ratlankiai</a></li><li><input onchange="checkParam(this)" type="checkbox" name="f22" id="f22-sm" value="1" /> <a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;f22=1&amp;older_not=-1" title="" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','features']);">Odinis salonas</a></li><li><input onchange="checkParam(this)" type="checkbox" name="f11" id="f11-sm" value="1" /> <a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;f11=1&amp;older_not=-1" title="" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','features']);">Domina keitimas</a></li><li><input onchange="checkParam(this)" type="checkbox" name="f32" id="f32-sm" value="1" /> <a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;f32=1&amp;older_not=-1" title="" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','features']);">Neeksploatuota Lietuvoje</a></li><li><input onchange="checkParam(this)" type="checkbox" name="f21" id="f21-sm" value="1" /> <a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;f21=1&amp;older_not=-1" title="" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','features']);">Navigacija/GPS</a></li><li><input onchange="checkParam(this)" type="checkbox" name="f12" id="f12-sm" value="1" /> <a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;f12=1&amp;older_not=-1" title="" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','features']);">Parduodama lizingu</a></li><li><input onchange="checkParam(this)" type="checkbox" name="f10" id="f10-sm" value="1" /> <a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;f10=1&amp;older_not=-1" title="" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','features']);">El. valdomi langai</a></li><li><input onchange="checkParam(this)" type="checkbox" name="f2" id="f2-sm" value="1" /> <a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;f2=1&amp;older_not=-1" title="" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','features']);">ABS</a></li></ul><div><a class="fl more-features-btn" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','features_more']);return showMoreFeaturesDialog(this);" href="#" title="Daugiau" rel="nofollow">Daugiau</a><input onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','features_submit']);" type="submit" class="fr btn-yellow-small" value="&nbsp;" /><div class="clear"><!-- --></div><div class="clear"><!-- --></div><div class="hr hr-bg"><hr /></div><input type="hidden" name="category_id" value="2" /><input type="hidden" name="older_not" value="-1" /></div></form><div class="change-btn" id="more-features" style="display:none"></div><label><strong>Šalis</strong></label><br /><ul class="static"><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;fk_place_countries_id=1&amp;older_not=-1" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','fk_place_countries_id']);">Lietuva</a><span class="count-result">(1080)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;fk_place_countries_id=2&amp;older_not=-1" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','fk_place_countries_id']);">Latvija</a><span class="count-result">(6)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;fk_place_countries_id=5&amp;older_not=-1" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','fk_place_countries_id']);">Estija</a><span class="count-result">(4)</span></li></ul><div><a title="Pasirinkite šalį" id="btn-more-fk_place_countries_id" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','fk_place_countries_id_more']);return showMoreChoicesDialog(this);" class="fl dialog-open-btn" href="#">Daugiau</a></div><div class="clear"><!-- --></div><div class="hr hr-bg"><hr /></div><label><strong>Pirmosios registracijos šalis</strong></label><br /><ul class="static"><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=-1&amp;origin_country_id=14&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','origin_country_id']);">Vokietija</a><span class="count-result">(195)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=-1&amp;origin_country_id=1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','origin_country_id']);">Lietuva</a><span class="count-result">(37)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=-1&amp;origin_country_id=12&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','origin_country_id']);">Prancūzija</a><span class="count-result">(76)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=-1&amp;origin_country_id=8&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','origin_country_id']);">Italija</a><span class="count-result">(30)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=-1&amp;origin_country_id=4&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','origin_country_id']);">Belgija</a><span class="count-result">(35)</span></li></ul><div><a title="Pasirinkite šalį" id="btn-more-origin_country_id" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','origin_country_id_more']);return showMoreChoicesDialog(this);" class="fl dialog-open-btn" href="#">Daugiau</a></div><div class="clear"><!-- --></div><div class="hr hr-bg"><hr /></div><label><strong>Defektai</strong></label><br /><ul class="static"><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;has_damaged_id=10924&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','has_damaged_id']);">Be defektų</a><span class="count-result">(1024)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;has_damaged_id=10925&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','has_damaged_id']);">Daužtas</a><span class="count-result">(41)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;has_damaged_id=18967&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','has_damaged_id']);">Degęs</a><span class="count-result">(0)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;has_damaged_id=18969&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','has_damaged_id']);">Pavarų dėžės defektas</a><span class="count-result">(6)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;has_damaged_id=19062&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','has_damaged_id']);">Pažeistas krušos</a><span class="count-result">(0)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;has_damaged_id=18966&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','has_damaged_id']);">Skendęs</a><span class="count-result">(0)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;has_damaged_id=18968&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','has_damaged_id']);">Variklio defektas</a><span class="count-result">(10)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;has_damaged_id=18970&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','has_damaged_id']);">Kiti stambūs defektai</a><span class="count-result">(9)</span></li></ul><div class="hr hr-bg"><hr /></div><label><strong>Pardavėjo tipas</strong></label><br /><ul class="static"><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;is_partner=0&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','is_partner']);">Privatus</a><span class="count-result">(616)</span></li><li><a rel="nofollow" href="/skelbimai/naudoti-automobiliai?category_id=2&amp;is_partner=1&amp;older_not=-1&amp;slist=619825515" onclick="gaqPush(['_trackEvent','Listing page actions','Filter left','is_partner']);">Verslas</a><span class="count-result">(217)</span></li></ul><div class="hr hr-bg"><hr /></div></div></div><br />
+
+
+
+
+                    </div>
+
+
+                    <div class="col_2">
+                        
+
+<script type="text/javascript">
+    var ann_ajax_block = 'ann_ajax_0_plius';
+    var ajax_block = 'ann_ajax_0_plius';
+    var language = 'lt';
+    var default_currency = 'eur';
+</script>
+                        <div class="clear"><!-- --></div>
+<!-- =====// Connect Part ======= -->
+
+<!-- ======= Content Box Fixed ======= -->
+<div class="cntnt-box-fixed">                        
+
+
+<div class="search-list-header-container ">
+    <div class="search-list-title">
+                <h1> Naudoti automobiliai <span class="result-count">(1093)</span></h1>
+    </div>
+    <div class="saved-searches-button-container">
+                    <div class="searches-icon"></div>
+            <div class="saved-searches-button">
+                Visos paieškos ›
+            </div>
+            <div class="searches-count-badge">7</div>
+                </div>
+    <div class="clear"></div>
+
+            <div class="facets-list">
+            <ul id="selected-filters">
+                                        <li class="fl drop-menu" style="z-index:1996"><a href="#" class="item-link" rel="nofollow">Vienos dienos (tik nauji)</a>
+<div class="filters-menu">
+    <div class="scroll">
+    <ul>
+        <li>
+            <a
+                href="/skelbimai/naudoti-automobiliai?category_id=2&amp;slist=619825515"
+                class="delete"
+                rel="nofollow"
+                title="Išmesti"
+                                    onclick="gaqPush(['_trackEvent', 'Listing page actions', 'Top narrowing', 'older_not_delete']);"
+                            >Išmesti</a>
+        </li>
+                    <li><a
+                                         onclick="gaqPush(['_trackEvent','Listing page actions','Top narrowing','older_not']);"                     href="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=1&amp;slist=619825515"
+                    rel="nofollow"                >Vienos dienos</a></li>
+                    <li><a
+                     class="checked"                     onclick="gaqPush(['_trackEvent','Listing page actions','Top narrowing','older_not']);"                     href="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=-1&amp;slist=619825515"
+                    rel="nofollow"                >Vienos dienos (tik nauji)</a></li>
+                    <li><a
+                                         onclick="gaqPush(['_trackEvent','Listing page actions','Top narrowing','older_not']);"                     href="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=2&amp;slist=619825515"
+                    rel="nofollow"                >Trijų dienų</a></li>
+                    <li><a
+                                         onclick="gaqPush(['_trackEvent','Listing page actions','Top narrowing','older_not']);"                     href="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=7&amp;slist=619825515"
+                    rel="nofollow"                >Savaitės</a></li>
+                    <li><a
+                                         onclick="gaqPush(['_trackEvent','Listing page actions','Top narrowing','older_not']);"                     href="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=14&amp;slist=619825515"
+                    rel="nofollow"                >Dviejų savaičių</a></li>
+                    <li><a
+                                         onclick="gaqPush(['_trackEvent','Listing page actions','Top narrowing','older_not']);"                     href="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=30&amp;slist=619825515"
+                    rel="nofollow"                >Mėnesio</a></li>
+                    <li><a
+                                         onclick="gaqPush(['_trackEvent','Listing page actions','Top narrowing','older_not']);"                     href="/skelbimai/naudoti-automobiliai?category_id=2&amp;older_not=60&amp;slist=619825515"
+                    rel="nofollow"                >Dviejų mėnesių</a></li>
+            </ul>
+    </div>
+</div>
+</li>
+                        
+                <li class="fl">
+                    <a class="search-edit-link"
+                        href="https://autoplius.lt/paieska/naudoti-automobiliai?category_id=2&older_not=-1&slist=619825515"
+                        title="Redaguoti paiešką"
+                    >
+                        Redaguoti paiešką                    </a>
+                </li>
+            </ul>
+        </div>
+        
+            <div class="top-search-control-bottom lt">
+            <div class="subscription-controls quick-search-bookmark">
+                <div class="subscription-type-label">
+                    Apie naujus skelbimus:                </div>
+
+                <div class="subscription-choosers" data-id="619825515">
+                    <div class="push-controls ">
+                        <div class="push-label">
+                            Pranešimai ekrane                        </div>
+                        <div class="switch">
+                            <span class="slider"></span>
+                        </div>
+                    </div>
+
+                    <div class="email-subscription-control ">
+                        <div class="push-label">
+                            Pranešimai el. paštu                        </div>
+                        <div class="switch">
+                            <span class="slider"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="paging-sorting-control">
+                
+<div class="anns-list-sort-dropdown">
+    <span>Pigiausi viršuje</span>
+
+    <div class="content">
+        <ul>
+                        <li >
+                    <a href="?slist=619825515&category_id=2&older_not=-1&order_by=1&order_direction=DESC" title="">
+                        Atnaujinti viršuje                    </a>
+                </li>
+                                <li class="selected">
+                    <a href="?slist=619825515&category_id=2&older_not=-1&order_by=2&order_direction=ASC" title="">
+                        Pigiausi viršuje                    </a>
+                </li>
+                                <li >
+                    <a href="?slist=619825515&category_id=2&older_not=-1&order_by=2&order_direction=DESC" title="">
+                        Brangiausi viršuje                    </a>
+                </li>
+                                <li >
+                    <a href="?slist=619825515&category_id=2&older_not=-1&order_by=3&order_direction=DESC" title="">
+                        Naujausi viršuje                    </a>
+                </li>
+                        </ul>
+    </div>
+</div>
+
+
+                
+<div class="anns-list-paging-dropdown">
+    <span>1 psl.</span>
+
+    <div class="content">
+            <ul class="pagination ">
+        <li class="prev">
+                            <span>Buvęs</span>
+                    </li>
+
+        
+
+
+                                    <li class="active">
+                    <span>1</span>
+                </li>
+                            
+            <li>
+                <a href="/skelbimai/naudoti-automobiliai?slist=619825515&category_id=2&older_not=-1&page_nr=2" rel="next" >
+                    <span>2</span>
+                </a>
+            </li>
+                    
+            <li>
+                <a href="/skelbimai/naudoti-automobiliai?slist=619825515&category_id=2&older_not=-1&page_nr=3"  >
+                    <span>3</span>
+                </a>
+            </li>
+                    
+            <li>
+                <a href="/skelbimai/naudoti-automobiliai?slist=619825515&category_id=2&older_not=-1&page_nr=4"  >
+                    <span>4</span>
+                </a>
+            </li>
+                    
+            <li>
+                <a href="/skelbimai/naudoti-automobiliai?slist=619825515&category_id=2&older_not=-1&page_nr=5"  >
+                    <span>5</span>
+                </a>
+            </li>
+                    
+            <li>
+                <a href="/skelbimai/naudoti-automobiliai?slist=619825515&category_id=2&older_not=-1&page_nr=6"  >
+                    <span>6</span>
+                </a>
+            </li>
+        
+        
+        <li class="next">
+                            <a rel="next" class="next" href="/skelbimai/naudoti-automobiliai?slist=619825515&category_id=2&older_not=-1&page_nr=2">
+                    Kitas                </a>
+                    </li>
+
+    </ul>
+    </div>
+</div>
+
+
+            </div>
+            <div class="clear"></div>
+        </div>
+        </div>
+
+
+<link rel="stylesheet" href="https://autoplius-static.dgn.lt/static/css/desktop/bookmark/search/search-subscription-sticky.css?v=ncncwbo14410">
+
+
+<div class="quick-email-notifications-sticky lt">
+    <div class="subscription-sticky-container">
+
+        <div class="subscription-description">
+            <div class="title">Automobiliai</div>
+            <div class="parameters">Vienos dienos (tik nauji)</div>
+        </div>
+
+        <div class="subscription-controls quick-search-bookmark">
+
+            <div class="subscription-type-label">
+                Apie naujus skelbimus:            </div>
+
+            <div class="subscription-choosers" data-id="619825515">
+                <div class="push-controls">
+                    <div class="push-label">
+                        Pranešimai ekrane                    </div>
+                    <div class="switch">
+                        <span class="slider"></span>
+                    </div>
+                </div>
+
+                <div class="email-subscription-control">
+                    <div class="push-label">
+                        Pranešimai el. paštu                    </div>
+                    <div class="switch">
+                        <span class="slider"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+<div class="search-bookmark-popup search-title-popup">
+    <div class="popup-header">
+        Pervadinti paiešką        <span class="close-btn">close</span>
+    </div>
+
+    <div class="popup-content">
+        <p>
+                    </p>
+
+        <form action="#">
+            <div class="search-title">
+                <label for="title-input">Prenumeratos pavadinimas</label>
+                <input id="title-input" type="text">
+                <div class="error-message"></div>
+            </div>
+
+            <button type="submit" class="subscribe-search-btn">Pervadinti paiešką</button>
+        </form>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="announcements-list-title new-anns-in-saved-search-label">Nauji skelbimai</div>
+
+    <div class="auto-lists lt cl">
+        
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/opel-zafira-2-2-l-kita-2002-dyzelinas-7905769.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://skelbiu-img.dgn.lt/1_19_734568877/opel-zafira-2-2-l-kita-2002-dyzelinas.jpg" alt="Opel Zafira, 2.2 l., kita" />                            <div class="announcement-badge badge-new">Prieš 10 min.</div>
+                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="1">
+    <span class="raise-counter">1</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        Opel Zafira, 2.2 l., kita        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>1 200 €</strong>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2002</span><span title="Kuro tipas">Dyzelinas</span><span title="Pavarų dėžė">Mechaninė</span><span title="Galia">92 kW</span><span title="Rida">259 000 km</span><span title="Miestas">Kaunas</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7905769"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7905769">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/citroen-c4-1-6-l-hecbekas-2014-dyzelinas-7905767.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73240541/citroen-c4-1-6-l-hecbekas-2014-dyzelinas.jpg" alt="Citroen C4, 1.6 l., hečbekas" />                            <div class="announcement-badge badge-new">Prieš 10 min.</div>
+                    </div>
+    </div>
+
+    <div class="announcement-body">
+                <div class="announcement-title">
+                        Citroen C4, 1.6 l., hečbekas        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>5 300 €</strong> <span>/ eksportui:  5300.00 €</span>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2014-12</span><span title="Kuro tipas">Dyzelinas</span><span title="Pavarų dėžė">Mechaninė</span><span title="Galia">68 kW</span><span title="Miestas">Tauragė</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7905767"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7905767">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/audi-a4-2-0-l-sedanas-2007-benzinas-7905757.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73239677/audi-a4-2-0-l-sedanas-2007-benzinas.jpg" alt="Audi A4, 2.0 l., sedanas" />                            <div class="announcement-badge badge-new">Prieš 10 min.</div>
+                    </div>
+    </div>
+
+    <div class="announcement-body">
+                <div class="announcement-title">
+                        Audi A4, 2.0 l., sedanas        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>5 600 €</strong>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2007-03</span><span title="Kuro tipas">Benzinas</span><span title="Pavarų dėžė">Mechaninė</span><span title="Galia">147 kW</span><span title="Miestas">Vilnius</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7905757"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7905757">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+    </div>
+
+
+
+
+
+            <div class="announcements-list-title">Visi skelbimai</div>
+    
+    <div class="auto-lists lt">
+        
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/nissan-navara-2-5-l-pikapas-2006-dyzelinas-7905439.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73235317/nissan-navara-2-5-l-pikapas-2006-dyzelinas.jpg" alt="Nissan Navara, 2.5 l., pikapas" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="8">
+    <span class="raise-counter">8</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        Nissan Navara, 2.5 l., pikapas        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>5 900 €</strong> <span>/ eksportui:  5900.00 €</span>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2006-02</span><span title="Kuro tipas">Dyzelinas</span><span title="Pavarų dėžė">Automatinė</span><span title="Galia">128 kW</span><span title="Rida">261 000 km</span><span title="Miestas">Vilnius</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7905439"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7905439">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/opel-corsa-1-2-l-hecbekas-2007-benzinas-7903547.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73214841/opel-corsa-1-2-l-hecbekas-2007-benzinas.jpg" alt="Opel Corsa, 1.2 l., hečbekas" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="7">
+    <span class="raise-counter">7</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        Opel Corsa, 1.2 l., hečbekas        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>2 850 €</strong> <span>/ eksportui:  2850.00 €</span>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2007-04</span><span title="Kuro tipas">Benzinas</span><span title="Pavarų dėžė">Automatinė</span><span title="Galia">59 kW</span><span title="Rida">220 000 km</span><span title="Miestas">Vilnius</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7903547"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7903547">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+        <div style="overflow:visible; padding: 10px 0; border-bottom: 1px solid #DADADA;">
+            <div id="div-gpt-ad-1500622670556-0" class="dfp-zone list-banner" style="text-align: center"></div>        </div>
+        
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/bmw-320-2-0-l-sedanas-2005-dyzelinas-7903611.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73215611/bmw-320-2-0-l-sedanas-2005-dyzelinas.jpg" alt="BMW 320, 2.0 l., sedanas" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="7">
+    <span class="raise-counter">7</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        BMW 320, 2.0 l., sedanas        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>3 950 €</strong>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2005-09</span><span title="Kuro tipas">Dyzelinas</span><span title="Pavarų dėžė">Mechaninė</span><span title="Galia">120 kW</span><span title="Miestas">Vilnius</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7903611"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7903611">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/dacia-sandero-1-5-l-vienaturis-2013-dyzelinas-7902399.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73202685/dacia-sandero-1-5-l-vienaturis-2013-dyzelinas.jpg" alt="Dacia Sandero, 1.5 l., vienatūris" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="5">
+    <span class="raise-counter">5</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        Dacia Sandero, 1.5 l., vienatūris        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>4 750 €</strong>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2013-05</span><span title="Kuro tipas">Dyzelinas</span><span title="Pavarų dėžė">Mechaninė</span><span title="Galia">66 kW</span><span title="Rida">56 000 km</span><span title="Miestas">Klaipėda</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7902399"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7902399">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/jeep-grand-cherokee-3-0-l-visureigis-2011-dyzelinas-7902951.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73208905/jeep-grand-cherokee-3-0-l-visureigis-2011-dyzelinas.jpg" alt="Jeep Grand Cherokee, 3.0 l., visureigis" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="5">
+    <span class="raise-counter">5</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        Jeep Grand Cherokee, 3.0 l., visureigis        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>14 400 €</strong>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2011-08</span><span title="Kuro tipas">Dyzelinas</span><span title="Pavarų dėžė">Automatinė</span><span title="Rida">184 000 km</span><span title="Miestas">Utena</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7902951"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7902951">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item is-highlighted" href="https://autoplius.lt/skelbimai/audi-q7-3-0-l-visureigis-2010-dyzelinas-7902759.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73205983/audi-q7-3-0-l-visureigis-2010-dyzelinas.jpg" alt="Audi Q7, 3.0 l., visureigis" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="5">
+    <span class="raise-counter">5</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        Audi Q7, 3.0 l., visureigis        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>15 300 €</strong>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2010-12</span><span title="Kuro tipas">Dyzelinas</span><span title="Pavarų dėžė">Automatinė</span><span title="Galia">176 kW</span><span title="Rida">251 000 km</span><span title="Miestas">Tauragė</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7902759"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+                    <div class="announcement-owner" data-url="https://autoplius.lt/automa">
+                                    <img src="https://autoplius-img.dgn.lt/partner_2_0399/nuotrauka.jpg" alt="" /><br>
+                    Visi pardavėjo skelbimai &raquo;
+                            </div>
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7902759">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/jeep-grand-cherokee-2-7-l-visureigis-2004-dyzelinas-7903415.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73212811/jeep-grand-cherokee-2-7-l-visureigis-2004-dyzelinas.jpg" alt="Jeep Grand Cherokee, 2.7 l., visureigis" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="4">
+    <span class="raise-counter">4</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        Jeep Grand Cherokee, 2.7 l., visureigis        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>3 450 €</strong>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2004-10</span><span title="Kuro tipas">Dyzelinas</span><span title="Pavarų dėžė">Automatinė</span><span title="Galia">120 kW</span><span title="Rida">223 000 km</span><span title="Miestas">Molėtai</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7903415"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7903415">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+        <div style="overflow:visible; padding: 10px 0; border-bottom: 1px solid #DADADA;">
+            <div id="div-gpt-ad-1481789405582-5" class="dfp-zone list-banner" style="text-align: center"></div>        </div>
+        
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/opel-insignia-2-0-l-universalas-2009-dyzelinas-7902221.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73201095/opel-insignia-2-0-l-universalas-2009-dyzelinas.jpg" alt="Opel Insignia, 2.0 l., universalas" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="4">
+    <span class="raise-counter">4</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        Opel Insignia, 2.0 l., universalas        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>4 350 €</strong>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2009-10</span><span title="Kuro tipas">Dyzelinas</span><span title="Pavarų dėžė">Mechaninė</span><span title="Galia">118 kW</span><span title="Rida">280 000 km</span><span title="Miestas">Utena</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7902221"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7902221">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/toyota-corolla-1-6-l-hecbekas-2005-benzinas-7903893.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73218741/toyota-corolla-1-6-l-hecbekas-2005-benzinas.jpg" alt="Toyota Corolla, 1.6 l., hečbekas" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="4">
+    <span class="raise-counter">4</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        Toyota Corolla, 1.6 l., hečbekas        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>4 450 €</strong>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2005-10</span><span title="Kuro tipas">Benzinas</span><span title="Pavarų dėžė">Automatinė</span><span title="Galia">81 kW</span><span title="Rida">161 000 km</span><span title="Miestas">Utena</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7903893"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7903893">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/opel-astra-2-0-l-universalas-1998-dyzelinas-7903765.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73217561/opel-astra-2-0-l-universalas-1998-dyzelinas.jpg" alt="Opel Astra, 2.0 l., universalas" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="3">
+    <span class="raise-counter">3</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        Opel Astra, 2.0 l., universalas        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>380 €</strong>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">1998-07</span><span title="Kuro tipas">Dyzelinas</span><span title="Pavarų dėžė">Mechaninė</span><span title="Galia">60 kW</span><span title="Miestas">Klaipėda</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7903765"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7903765">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/opel-frontera-2-3-l-visureigis-1995-dyzelinas-7902249.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73201375/opel-frontera-2-3-l-visureigis-1995-dyzelinas.jpg" alt="Opel Frontera, 2.3 l., visureigis" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="3">
+    <span class="raise-counter">3</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        Opel Frontera, 2.3 l., visureigis        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>800 €</strong>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">1995-08</span><span title="Kuro tipas">Dyzelinas</span><span title="Pavarų dėžė">Mechaninė</span><span title="Miestas">Mažeikiai</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7902249"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7902249">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/audi-a3-1-9-l-hecbekas-2001-dyzelinas-7902937.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73208541/audi-a3-1-9-l-hecbekas-2001-dyzelinas.jpg" alt="Audi A3, 1.9 l., hečbekas" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="3">
+    <span class="raise-counter">3</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        Audi A3, 1.9 l., hečbekas        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>1 100 €</strong> <span class="is-price-netto">+ mokesčiai</span>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2001-10</span><span title="Kuro tipas">Dyzelinas</span><span title="Pavarų dėžė">Mechaninė</span><span title="Galia">96 kW</span><span title="Miestas">Utena</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7902937"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7902937">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/honda-jazz-1-4-l-hecbekas-2004-benzinas-7904923.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73230099/honda-jazz-1-4-l-hecbekas-2004-benzinas.jpg" alt="Honda Jazz, 1.4 l., hečbekas" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="3">
+    <span class="raise-counter">3</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        Honda Jazz, 1.4 l., hečbekas        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>1 499 €</strong>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2004-11</span><span title="Kuro tipas">Benzinas</span><span title="Pavarų dėžė">Mechaninė</span><span title="Galia">61 kW</span><span title="Miestas">Vilnius</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7904923"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7904923">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/bmw-318-2-0-l-sedanas-2002-benzinas-7901315.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73191575/bmw-318-2-0-l-sedanas-2002-benzinas.jpg" alt="BMW 318, 2.0 l., sedanas" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="3">
+    <span class="raise-counter">3</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        BMW 318, 2.0 l., sedanas        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>1 600 €</strong>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2002-09</span><span title="Kuro tipas">Benzinas</span><span title="Pavarų dėžė">Mechaninė</span><span title="Galia">105 kW</span><span title="Miestas">Molėtai</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7901315"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7901315">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/bmw-530-3-0-l-sedanas-2003-dyzelinas-7901863.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73197569/bmw-530-3-0-l-sedanas-2003-dyzelinas.jpg" alt="BMW 530, 3.0 l., sedanas" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="3">
+    <span class="raise-counter">3</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        BMW 530, 3.0 l., sedanas        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>3 100 €</strong>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2003-12</span><span title="Kuro tipas">Dyzelinas</span><span title="Pavarų dėžė">Automatinė</span><span title="Galia">160 kW</span><span title="Miestas">Vilnius</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7901863"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7901863">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/volvo-xc90-2-4-l-visureigis-2003-dyzelinas-7903709.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73216921/volvo-xc90-2-4-l-visureigis-2003-dyzelinas.jpg" alt="Volvo XC90, 2.4 l., visureigis" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="3">
+    <span class="raise-counter">3</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        Volvo XC90, 2.4 l., visureigis        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>3 999 €</strong>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2003-05</span><span title="Kuro tipas">Dyzelinas</span><span title="Pavarų dėžė">Automatinė</span><span title="Galia">120 kW</span><span title="Miestas">Vilnius</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7903709"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+                    <div class="announcement-owner" data-url="https://autoplius.lt/autogold">
+                                    <img src="https://autoplius-img.dgn.lt/partner_2_0793/nuotrauka.jpg" alt="" /><br>
+                    Visi pardavėjo skelbimai &raquo;
+                            </div>
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7903709">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+
+<a class="announcement-item" href="https://autoplius.lt/skelbimai/mercedes-benz-b180-2-0-l-vienaturis-2010-dyzelinas-7904475.html" target="_blank">
+
+    <div class="announcement-media">
+        <div class="announcement-photo">
+            <img src="https://autoplius-img.dgn.lt/ann_26_73225505/mercedes-benz-b180-2-0-l-vienaturis-2010-dyzelinas.jpg" alt="Mercedes-Benz B180, 2.0 l., vienatūris" />                    </div>
+    </div>
+
+    <div class="announcement-body">
+        <span class="raise-service-wrapper raise-yellow-white" title="3">
+    <span class="raise-counter">3</span>&nbsp;<i class="ap-icon icon-star"></i>
+</span>
+        <div class="announcement-title">
+                        Mercedes-Benz B180, 2.0 l., vienatūris        </div>
+        <div class="clear"></div>
+        <div class="announcement-pricing-info">
+            <strong>5 350 €</strong> <span>/ eksportui:  5350.00 €</span>
+                    </div>
+
+        <div class="announcement-parameters"><span title="Pagaminimo data">2010-01</span><span title="Kuro tipas">Dyzelinas</span><span title="Pavarų dėžė">Automatinė</span><span title="Galia">80 kW</span><span title="Rida">153 102 km</span><span title="Miestas">Vilnius</span></div>
+
+
+                    <div class="announcement-bookmark-button "
+                data-id="7904475"
+                data-label-marked="Įsimintas"
+                data-label-unmarked="Įsiminti"
+             >Įsiminti            </div>
+            
+
+            </div>
+
+        <div class="announcement-comment announcement-comment-hidden" data-id="7904475">
+        <input
+            type="text"
+            placeholder="Rašyti pastabą"
+            value=""
+            data-original="">
+    </div>
+</a>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="paging-panel paging-bot">
+        <ul class="pagination ">
+        <li class="prev">
+                            <span>Buvęs</span>
+                    </li>
+
+        
+
+
+                                    <li class="active">
+                    <span>1</span>
+                </li>
+                            
+            <li>
+                <a href="/skelbimai/naudoti-automobiliai?slist=619825515&amp;category_id=2&amp;older_not=-1&amp;page_nr=2" rel="next" >
+                    <span>2</span>
+                </a>
+            </li>
+                    
+            <li>
+                <a href="/skelbimai/naudoti-automobiliai?slist=619825515&amp;category_id=2&amp;older_not=-1&amp;page_nr=3"  >
+                    <span>3</span>
+                </a>
+            </li>
+                    
+            <li>
+                <a href="/skelbimai/naudoti-automobiliai?slist=619825515&amp;category_id=2&amp;older_not=-1&amp;page_nr=4"  >
+                    <span>4</span>
+                </a>
+            </li>
+                    
+            <li>
+                <a href="/skelbimai/naudoti-automobiliai?slist=619825515&amp;category_id=2&amp;older_not=-1&amp;page_nr=5"  >
+                    <span>5</span>
+                </a>
+            </li>
+                    
+            <li>
+                <a href="/skelbimai/naudoti-automobiliai?slist=619825515&amp;category_id=2&amp;older_not=-1&amp;page_nr=6"  >
+                    <span>6</span>
+                </a>
+            </li>
+        
+        
+        <li class="next">
+                            <a rel="next" class="next" href="/skelbimai/naudoti-automobiliai?slist=619825515&amp;category_id=2&amp;older_not=-1&amp;page_nr=2">
+                    Kitas                </a>
+                    </li>
+
+    </ul>
+    <div class="clear"><!-- --></div>
+</div>
+<div class="clear"><!-- --></div>
+
+
+
+
+    <div class="ads-hor ads-15min-hor">
+                    <div class="ads-item cart-first">
+                <div class="item-article rel">
+                    <a
+                        onclick="gaqPush(['_trackEvent', '15min', '15min_bottom']); return openLink(this);"
+                        class="ads-article" target="_blank" href="https://www.15min.lt/naujiena/aktualu/lietuva/lietuviams-dirbancio-vairuotojo-is-ukrainos-istorija-niekam-nepasiskusi-56-1053550?t=ok&amp;utm_source=580x150apacia&amp;utm_medium=autoplius&amp;utm_campaign=autoplius_int" title="Lietuviams dirbančio vairuotojo iš Ukrainos istorija: niekam nepasiskųsi">
+                        <img class="ads-thumb" src="https://s1.15min.lt/static/cache/MzAweDIwMCwyNjV4MjE4LDYxNjI3MSxvcmlnaW5hbCwsaWQ9NDYxMjczJmRhdGU9MjAxMiUyRjA0JTJGMjcsMTU1Mjc1NDUwOQ==/vilkiko-vairas-4f9a36af30b32.jpg" alt=""/>
+                        <span class="ads-txt">Lietuviams dirbančio vairuotojo iš Ukrainos istorija: niekam nepasiskųsi</span>
+                    </a>
+                                            <a class="stamp-15min" href="https://www.15min.lt/?utm_source=580x150apacia&utm_medium=autoplius&utm_campaign=autoplius_int" target="_blank" title="15min"><!----></a>
+                                    </div>
+            </div>
+                        <div class="ads-item ">
+                <div class="item-article rel">
+                    <a
+                        onclick="gaqPush(['_trackEvent', '15min', '15min_bottom']); return openLink(this);"
+                        class="ads-article" target="_blank" href="https://www.15min.lt/verslas/naujiena/finansai/del-trecio-lengvatinio-pvm-tarifo-kol-kas-nediskutuojama-662-1054212?t=ok&amp;utm_source=580x150apacia&amp;utm_medium=autoplius&amp;utm_campaign=autoplius_int" title="Dėl trečio lengvatinio PVM tarifo kol kas nediskutuojama">
+                        <img class="ads-thumb" src="https://s1.15min.lt/static/cache/MzAweDIwMCw3MDh4NTczLDYyMzYzMCxvcmlnaW5hbCwsaWQ9NDA5ODY5MiZkYXRlPTIwMTglMkYwOCUyRjEwLDE4ODA2MTYxNTM=/pinigai-5b6d5df0b7b53.jpg" alt=""/>
+                        <span class="ads-txt">Dėl trečio lengvatinio PVM tarifo kol kas nediskutuojama</span>
+                    </a>
+                                    </div>
+            </div>
+                        <div class="ads-item ">
+                <div class="item-article rel">
+                    <a
+                        onclick="gaqPush(['_trackEvent', '15min', '15min_bottom']); return openLink(this);"
+                        class="ads-article" target="_blank" href="https://www.15min.lt/24sek/naujiena/nba/stebuklingai-zaides-giannis-antetokounmpo-sudorojo-kings-ekipa-1130-1054376?t=ok&amp;utm_source=580x150apacia&amp;utm_medium=autoplius&amp;utm_campaign=autoplius_int" title="Stebuklingai žaidęs Giannis Antetokounmpo sudorojo „Kings“ ekipą">
+                        <img class="ads-thumb" src="https://s2.15min.lt/static/cache/MzAweDIwMCw4NDB4MjU0LDYyNTc5NyxvcmlnaW5hbCwsaWQ9NDI5MTM3OCZkYXRlPTIwMTglMkYxMSUyRjA1LDI3MTAxNjQwOTM=/giannis-antetokounmpo-5bdfd6b0d75c6.jpg" alt=""/>
+                        <span class="ads-txt">Stebuklingai žaidęs Giannis Antetokounmpo sudorojo „Kings“ ekipą</span>
+                    </a>
+                                    </div>
+            </div>
+                    <div class="clear"><!----></div>
+    </div>
+
+
+<script>
+    var listing_ajax_block = 'ann_search_list_universal_0_plius';
+</script>
+                        </div><div class="clear"><!----></div>                    </div>
+
+                </div>
+
+                <div class="clear"><!-- --></div>
+            </div>
+
+            <div class="col_3" id="col_3">
+                
+
+
+<ul class="announcement">
+    <li id="banner_right" class="ads-items">
+        <div id="div-gpt-ad-1481789405582-1" class="dfp-zone"></div>    </li>
+
+    </ul>
+<div class="clear"><!-- --></div>
+
+
+
+
+
+
+
+
+    
+
+<div class="news-15min-sidebar">
+    <div class="heading-15min">Naujienos</div>
+
+    
+        <a
+            onclick="gaqPush(['_trackEvent', '15min', '15min_side']); return openLink(this);"
+            class="item-15min" target="_blank" href="https://www.15min.lt/sportas/naujiena/regbis/lietuvos-regbio-rinktines-treneris-n-manyosha-lenkai-suteike-mums-gera-pamoka-671-1054218?t=ok?utm_source=autoplius&utm_medium=autoplius_int&utm_campaign=skelbimas" title="Lietuvos regbio rinktinės treneris N.Manyosha: lenkai suteikė mums gerą pamoką">
+            <div class="thumb-15min">
+                <div class="thumb-15min-placeholder" style="background-image: url('https://s2.15min.lt/static/cache/NDIweDIxMCw5NjR4NTA4LDYxNjcyMCxvcmlnaW5hbCwsaWQ9MjUzNTc1MyZkYXRlPTIwMTYlMkYxMSUyRjA0LDgyMDI2NTQ3NA==/ntando-manyosha-581c505bcfb46.jpg')">
+                </div>
+            </div>
+
+            <div class="title-15min">
+                Lietuvos regbio rinktinės treneris N.Manyosha: lenkai suteikė mums gerą pamoką            </div>
+        </a>
+
+        
+        <a
+            onclick="gaqPush(['_trackEvent', '15min', '15min_side']); return openLink(this);"
+            class="item-15min" target="_blank" href="https://www.15min.lt/gazas/naujiena/gatve/kas-yra-sie-ant-sunkvezimiu-ratu-matomi-daiktai-kokia-funkcija-jie-atlieka-221-1054390?t=ok?utm_source=autoplius&utm_medium=autoplius_int&utm_campaign=skelbimas" title="Kas yra šie ant sunkvežimių ratų matomi daiktai? Kokią funkciją jie atlieka?">
+            <div class="thumb-15min">
+                <div class="thumb-15min-placeholder" style="background-image: url('https://s2.15min.lt/static/cache/NDIweDIxMCwsNjAwNDM3LG9yaWdpbmFsLCxpZD00MjkxMzgyJmRhdGU9MjAxOCUyRjExJTJGMDUsMzg0MzYwMjA5MQ==/lose-768x511-5bdfddbc74c24.jpg')">
+                </div>
+            </div>
+
+            <div class="title-15min">
+                Kas yra šie ant sunkvežimių ratų matomi daiktai? Kokią funkciją jie atlieka?            </div>
+        </a>
+
+        </div>
+
+            <div class="wrap300" id="banner_136"></div>
+        
+
+    <div id="sticky-right-side">
+        <div id="div-gpt-ad-1539072036998-0" class="dfp-zone"></div>    </div>
+    
+
+
+
+    <script>
+        window.addEventListener('load', function () {
+
+            function getDistanceFromTop(elem) {
+                var box = elem.getBoundingClientRect();
+                var body = document.body;
+                var docEl = document.documentElement;
+                var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+                var clientTop = docEl.clientTop || body.clientTop || 0;
+                var top  = box.top +  scrollTop - clientTop;
+                // console.log('window.scrollY= '+document.documentElement.scrollTop+'scrollTop='+scrollTop+' clientTop='+clientTop+' box.top='+box.top+' top='+top);
+
+                return Math.round(top);
+            }
+
+            function stickyBannerExist() {
+                if (typeof(stickyElement) == 'undefined' || stickyElement == null) {
+                     // console.log('stickyElement is null');
+                    return false;
+                }
+
+                return true;
+            }
+
+            function isEnoughSpaceForSticky() {
+                return getContentSize() > getSidebarSize();
+            }
+
+            function getContentSize() {
+                var wrapper;
+
+                wrapper = document.getElementsByClassName('page-wrapper')[0];
+                if (wrapper) {
+                    return wrapper.offsetHeight;
+                }
+
+                wrapper = document.getElementsByClassName('content-wrapper')[0];
+                if (wrapper) {
+                    return wrapper.offsetHeight;
+                }
+
+                return false;
+            }
+
+            function getSidebarSize() {
+                var sidebar = document.getElementById('sticky-right-side');
+                if (sidebar) {
+                    return sidebar.parentNode.offsetHeight
+                }
+
+                return false;
+            }
+
+            function crashedIntoFooter() {
+                var bottomBanner = document.querySelector('footer').getBoundingClientRect();
+                var stickyBox = stickyElement.getBoundingClientRect();
+
+                return bottomBanner.top <= stickyBox.bottom;
+            }
+
+            function needToBeFloat (height, stickyEnabled) {
+                return (document.documentElement.scrollTop >= height && stickyEnabled);
+            }
+
+            var isSticky = false;
+            var isStickyBottom = false;
+            var stickyElementWrapper = document.querySelector('.col_3');
+            var contentWrapper = document.querySelector('.content-wrapper');
+            var stickyElement = document.getElementById('sticky-right-side');
+            var stickyEnabled = (isEnoughSpaceForSticky() && stickyBannerExist());
+
+            if (stickyEnabled) {
+                var height = getDistanceFromTop(stickyElement);
+                window.addEventListener("scroll", function () {
+                    if (!isSticky) {
+                        height = getDistanceFromTop(stickyElement);
+                    }
+
+                    if (needToBeFloat(height, true)) {
+                        if (!isSticky) {
+                            isSticky = true;
+                            stickyElement.classList.add('sticked');
+                        } else {
+                            if (crashedIntoFooter() && !isStickyBottom) {
+                                isStickyBottom = true;
+                                stickyElement.classList.remove('sticked');
+                                stickyElement.classList.add('sticked-bottom');
+
+                                stickyElementWrapper.style.height = contentWrapper.offsetHeight +"px";
+                                stickyElementWrapper.style.position = "relative";
+                            }
+                            if (isStickyBottom && stickyElement.getBoundingClientRect().top > 0) {
+                                isStickyBottom = false;
+                                stickyElement.classList.add('sticked');
+                                stickyElement.classList.remove('sticked-bottom');
+                            }
+                        }
+
+                    } else {
+                        if (isSticky) {
+                            isSticky = false;
+                            stickyElement.classList.remove('sticked');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+            </div>
+
+            <div class="clear"><!-- --></div>
+        </div>
+
+        <div class="clear"><!-- --></div>
+
+                
+
+
+
+<footer>
+    <div class="no-print" style="text-align: center;"><div id="div-gpt-ad-1481789405582-4" class="dfp-zone" style="padding: 20px"></div></div>    <div class="foot ">
+                        <section>
+                    <div class="foot-list">
+                        <div class="heading menu-head fl">
+                                                        <a class="first" title="Mobilioji versija" href="https://m.autoplius.lt/skelbimai/naudoti-automobiliai?slist=619825515&category_id=2&older_not=-1">
+                                <strong>Mobilioji versija</strong>
+                            </a>
+
+                                                            <a title="Forumas" href="https://autoplius.lt/forumas">
+                                    <strong>Forumas</strong>
+                                </a>
+                                
+                            <a title="Sprendimai verslui" href="https://autoplius.lt/informacija/sprendimai-smulkiam-verslui">
+                                <strong>Sprendimai verslui</strong>
+                            </a>
+
+                                                            <a title="Apie kompaniją" href="https://autoplius.lt/informacija/apie-plius">
+                                    <strong>Apie kompaniją</strong>
+                                </a>
+                                
+                            <a title="Kontaktai" href="https://autoplius.lt/informacija/kontaktai">
+                                <strong>Kontaktai</strong>
+                            </a>
+                        </div>
+                        <div class="clear"><!-- --></div>
+                    </div>
+                </section>
+                <div class="hr"><hr /></div>
+            
+
+
+                                    <a class="h1 undecoration" title=" Naudoti automobiliai" href="https://autoplius.lt/skelbimai/naudoti-automobiliai">
+                             Naudoti automobiliai                        </a>
+                                            <div class="foot-list"> naudoti automobiliai, naudotų automobilių skelbimai, parduodami naudoti automobiliai, naudoti automobiliai pardavimui, naudotų automobilių kainos
+</div>
+                    <div class="heading"><strong class="first">Naudingos nuorodos</strong></div><div class="clear"><!-- --></div>
+                    <div class="foot-list"><a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/audi
+" title="Audi automobiliai">Audi automobiliai</a>, <a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/volkswagen
+" title="Volkswagen automobiliai">Volkswagen automobiliai</a>, <a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/bmw
+" title="BMW automobiliai">BMW automobiliai</a>, <a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/mercedes_benz
+" title="Mercedes-Benz automobiliai">Mercedes-Benz automobiliai</a>, <a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/opel
+" title="Opel automobiliai">Opel automobiliai</a>, <a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/ford
+" title="Ford automobiliai">Ford automobiliai</a>, <a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/renault
+" title="Renault automobiliai">Renault automobiliai</a>, <a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/peugeot
+" title="Peugeot automobiliai">Peugeot automobiliai</a>, <a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/toyota
+" title="Toyota automobiliai">Toyota automobiliai</a>, <a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/volvo
+" title="Volvo automobiliai">Volvo automobiliai</a>, <a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/nissan
+" title="Nissan automobiliai">Nissan automobiliai</a>, <a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/mitsubishi
+" title="Mitsubishi automobiliai">Mitsubishi automobiliai</a>, <a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/honda
+" title="Honda automobiliai">Honda automobiliai</a>, <a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/hyundai
+" title="Hyundai automobiliai">Hyundai automobiliai</a>, <a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/citroen
+" title="Citroen automobiliai">Citroen automobiliai</a>, <a href="https://autoplius.lt/skelbimai/naudoti-automobiliai/mazda" title="Mazda automobiliai">Mazda automobiliai</a></div>
+                    <div class="clear"><!-- --></div>
+                    <div class="hr"><hr /></div>
+                    
+                    <section>
+                <div class="foot-info">
+                                            <cite>Pagalba ir informacija:</cite>
+                        <address class="fl">
+                            tel.: <strong>+370 5 2525 008</strong>
+                                                                <a  class="separator" href="https://autoplius.lt/informacija/dazniausiai-uzduodami-klausimai"
+                                                         title="D.U.K.">
+                                        D.U.K.</a>
+
+                                    
+                                <a class="separator" title="Patarimai" href="https://autoplius.lt/informacija/patarimai">
+                                    Patarimai</a>
+
+
+                                                                    <a class="separator" title="Taisyklės"
+                                       href="https://autoplius.lt/informacija/taisykles">
+                                        Taisyklės</a>
+
+                                                                        <a  class="separator" href="https://autoplius.lt/informacija/privatumo-politika"
+                                                         title="Privatumo politika">
+                                        Privatumo politika</a>
+
+                                    
+                                <a class="separator pointer" title="Klientų aptarnavimas: rašyk čia" onclick="showHelpDialog('Pagalba / Komentarai', 0);return false;">
+                                    Klientų aptarnavimas: rašyk čia                                </a>
+                                                    </address>
+                    
+                                        <small>2003-2018 &copy; UAB „Diginet LTU“</small>
+                    <div class="clear"><!----></div>
+                </div>
+            </section>
+        
+        <section class="footer-projects">
+            <div class="hr"><hr /></div>
+
+            <ul class="footer-projects-list">
+                <li><a href="https://www.skelbiu.lt" title="Skelbimai" target="_blank">Skelbiu.lt</a></li>
+                <li><a href="https://www.aruodas.lt" title="Nekilonojamo turto skelbimai" target="_blank">Aruodas.lt</a></li>
+                <li><a href="https://www.kainos.lt" title="Kainų palyginimas" target="_blank">Kainos.lt</a></li>
+                <li><a href="https://www.paslaugos.lt" title="Paslaugų portalas" target="_blank">Paslaugos.lt</a></li>
+                <li><a href="https://www.cvbankas.lt" title="Darbo skelbimai" target="_blank">Cvbankas.lt</a></li>
+            </ul>
+
+            
+<div class="diginet-logo">
+    <a class="link-diginet" href="http://www.diginet.lt" target="_blank">
+        <span class="diginet-l diginet-g">D</span>
+        <span class="diginet-l diginet-y">I</span>
+        <span class="diginet-l diginet-b">G</span>
+        <span class="diginet-l diginet-r">I</span>
+        <span class="diginet-l">N</span>
+        <span class="diginet-l">E</span>
+        <span class="diginet-l">T</span>
+        <div class="diginet-c"></div>
+    </a>
+</div>
+        </section>
+    </div>
+</footer>
+        
+
+    <script type="text/javascript">
+        //<![CDATA[
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-968911-1', 'auto');
+
+        ga('set', 'dimension1', 1);ga('require', 'displayfeatures');ga('send', 'pageview');
+
+        
+
+
+        ga('create', 'UA-78164529-2', 'auto', {
+            'name': 'master',
+            'allowLinker': true
+        });
+        ga('master.require', 'linker');
+        ga('master.linker:autoLink', ['15min.lt', 'skelbiu.lt', 'aruodas.lt', 'paslaugos.lt', 'kainos.lt', 'cvbankas.lt', 'ntzemelapis.lt']);
+        ga('master.send', 'pageview');
+
+                //]]>
+    </script>
+
+    <script async="async" src="//www.googletagservices.com/tag/js/gpt.js"></script>
+    <script>
+        var lazyZones = {};
+        lazyZonesGlobal = {};
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+            var elementID;
+            var dfpAdUnits = {"div-gpt-ad-1539072083379-0":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_300x600-2\/AP_300x600-2-Ad","name":"div-gpt-ad-1539072083379-0","size":[[300,600],[300,250]]},"div-gpt-ad-1539072036998-0":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_300x600-2\/AP_300x600-2-List","name":"div-gpt-ad-1539072036998-0","size":[[300,600],[300,250]]},"div-gpt-ad-1481789405582-6":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_top","name":"div-gpt-ad-1481789405582-6","size":[[750,200],[800,150],[800,200],[980,200],[970,250],[1100,150],[1100,200],[1200,250]]},"div-gpt-ad-1481789405582-1":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_300x600-1","name":"div-gpt-ad-1481789405582-1","size":[300,600]},"div-gpt-ad-1481789405582-3":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_below-photo","name":"div-gpt-ad-1481789405582-3","size":[[400,65],[320,50],[468,60],[500,65]]},"div-gpt-ad-1481789405582-4":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_bottom","name":"div-gpt-ad-1481789405582-4","size":[[800,200],[970,250],[980,200],[1100,200],[1200,200],[1200,250]]},"div-gpt-ad-1481789405582-5":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_list","name":"div-gpt-ad-1481789405582-5","size":[[728,90],[588,229],[580,400],"fluid"]},"div-gpt-ad-1500622670556-0":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_list-1","name":"div-gpt-ad-1500622670556-0","size":[[728,90],"fluid"]},"div-gpt-ad-1483605464857-0":{"target":"\/146733436\/Autoplius\/AP_NAK\/AP_NAK_TOP_Front","name":"div-gpt-ad-1483605464857-0","size":[[970,250],[1100,200]]},"div-gpt-ad-1483518113270-3":{"target":"\/146733436\/Autoplius\/AP_NAK\/AP_NAK_Side_Front","name":"div-gpt-ad-1483518113270-3","size":[300,600]},"div-gpt-ad-1483605602454-0":{"target":"\/146733436\/Autoplius\/AP_NAK\/AP_NAK_F_MIDDLE","name":"div-gpt-ad-1483605602454-0","size":[356,265]},"div-gpt-ad-1483518113270-4":{"target":"\/146733436\/Autoplius\/AP_NAK\/AP_NAK_Bottom","name":"div-gpt-ad-1483518113270-4","size":[[792,300],[880,300]]},"div-gpt-ad-1486459047558-0":{"target":"\/146733436\/Autoplius\/AP_Straipsniai\/300x600","name":"div-gpt-ad-1486459047558-0","size":[300,600]},"div-gpt-ad-1514969946718-0":{"target":"\/146733436\/Autoplius\/AP_dakar\/1200x300","name":"div-gpt-ad-1514969946718-0","size":[1200,300]},"div-gpt-ad-1517821047917-0":{"target":"\/146733436\/Autoplius\/AP_used-cars\/AP_Gelerija-300x600","name":"div-gpt-ad-1517821047917-0","size":[[300,600],[160,600]]}};
+            var dfpTargets = [{"key":"ap_lng","value":1},{"key":"autoplius_ct","value":2},{"key":"autoplius_partner","value":false},{"key":"ap_page","value":8}];
+            var dfpZones = ["div-gpt-ad-1481789405582-6","div-gpt-ad-1500622670556-0","div-gpt-ad-1481789405582-5","div-gpt-ad-1481789405582-1","div-gpt-ad-1539072036998-0","div-gpt-ad-1481789405582-4"];
+
+            googletag.cmd.push(function () {
+                for (var i = 0, zonesLength = dfpZones.length; i < zonesLength; i++) {
+                    var name = dfpZones[i];
+                    var adUnit = dfpAdUnits[name];
+
+                    if (adUnit) {
+                        lazyZones[adUnit.name] = googletag
+                            .defineSlot(adUnit.target, adUnit.size, adUnit.name)
+                            .addService(googletag.pubads());
+                        lazyZonesGlobal[adUnit.name] = lazyZones[adUnit.name];
+                    }
+                }
+
+                for (var j = 0, targetsLength = dfpTargets.length; j < targetsLength; j++) {
+                    var target = dfpTargets[j];
+
+                    googletag
+                        .pubads()
+                        .setTargeting(
+                            target.key,
+                            target.value.toString()
+                        );
+                }
+
+                googletag.pubads().disableInitialLoad();
+                googletag.enableServices();
+            });
+
+        window.addEventListener('load', function() {
+            var staticZones = document.querySelectorAll('.dfp-zone:not(.lazy-zone)');
+            if (staticZones) {
+                for (var i = 0; i < staticZones.length; i++) {
+                    elementID = staticZones[i].getAttribute('id');
+                    googletag.cmd.push(function() {
+                        googletag.display(elementID);
+                        //do not use refresh in foreach
+                        //googletag.pubads().refresh();
+                    });
+                }
+                googletag.cmd.push(function() {
+                    googletag.pubads().refresh();
+                });
+            }
+
+            var zoneOnScreen = function(obj) {
+                var rect = obj.getBoundingClientRect();
+                var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+
+                return !(rect.bottom <= 0 || rect.top - viewHeight >= 0);
+            };
+
+            var lazyZonesItems = [].slice.call(
+                document.getElementsByClassName('lazy-zone')
+            );
+
+            if (lazyZonesItems) {
+                var lazyListener = function() {
+                    for (var item in lazyZonesItems) {
+                        var key = lazyZonesItems[item].id;
+                        if (typeof key != 'undefined'
+                            && document.getElementById(key)
+                            && zoneOnScreen(document.getElementById(key))
+                            && document.getElementById(key).innerHTML == ''
+                        ) {
+                            googletag.cmd.push(function() {
+                                googletag.pubads().refresh([lazyZones[key]]);
+                                delete lazyZonesItems[item];
+                            });
+                        }
+                    }
+                };
+
+                for (var j = 0; j < lazyZonesItems.length; j++) {
+                    elementID = lazyZonesItems[j].getAttribute('id');
+                    googletag.display(elementID);
+                }
+                window.addEventListener('scroll', lazyListener);
+                window.addEventListener('click', lazyListener);
+                lazyListener();
+            }
+
+        });
+    </script>
+
+    <script type='text/javascript'>
+        var axel = Math.random() + '';
+        var a = axel * 10000000000000;
+        document.write('<img src="//pubads.g.doubleclick.net/activity;dc_iu=/146733436/DFPAudiencePixel;ord=' + a + '?" width=1 height=1 border=0/>');
+    </script>
+    <noscript>
+        <img src="//pubads.g.doubleclick.net/activity;dc_iu=/146733436/DFPAudiencePixel;ord=1?" width=1 height=1 border=0/>
+    </noscript>
+
+
+    <script type="text/javascript">
+        var pp_gemius_identifier = 'zac7KaLEeE6jtswcLsFYkPTZ33OpUu9ibdz898S3Ixr.N7';
+        // lines below shouldn't be edited
+        function gemius_pending(i) { window[i] = window[i] || function() {var x = window[i+'_pdata'] = window[i+'_pdata'] || []; x[x.length]=arguments;};};
+        gemius_pending('gemius_hit'); gemius_pending('gemius_event'); gemius_pending('pp_gemius_hit'); gemius_pending('pp_gemius_event');
+        (function(d,t) {try {var gt=d.createElement(t),s=d.getElementsByTagName(t)[0],l='http'+((location.protocol=='https:')?'s':''); gt.setAttribute('async','async');
+            gt.setAttribute('defer','defer'); gt.src=l+'://galt.hit.gemius.pl/xgemius.js'; s.parentNode.insertBefore(gt,s);} catch (e) {}})(document,'script');
+    </script>
+
+
+
+
+    <script type="text/javascript">
+        jQuery(window).load(function() {
+            // FB for autoplius new
+            (function() {
+                var _fbq = window._fbq || (window._fbq = []);
+                if (!_fbq.loaded) {
+                    var fbds = document.createElement('script');
+                    fbds.async = true;
+                    fbds.src = '//connect.facebook.net/en_US/fbds.js';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(fbds, s);
+                    _fbq.loaded = true;
+                }
+                _fbq.push(['addPixelId', '528590830595444']);
+            })();
+            window._fbq = window._fbq || [];
+            window._fbq.push(['track', 'PixelInitialized', {}]);
+
+            // load banners to collect user searches
+                            jQuery(function(){
+                    adsplius.url = 'https://autoplius.lt/banners';
+                    adsplius.params('pos[]=139&p=8&ct=2&uid=2013457&lng=lt');
+                    adsplius.call();
+                });
+                            jQuery(function(){
+                adsplius.url = 'https://autoplius-static.dgn.lt/static/1/banners';
+                adsplius.params('pos[]=136&p=8&ct=2&uid=2013457&lng=lt');
+                adsplius.call();
+            });
+                    });
+        var staticUrl = 'https://autoplius-static.dgn.lt';
+    </script>
+
+
+
+
+
+
+
+
+    <script src="https://autoplius-static.dgn.lt/static/js/Common/Bookmark/Announcement/AnnouncementBookmark.js?cache=ncncwbo14410"></script>
+    <script>
+        (function (apiUrl, AnnouncementBookmark, EventEmitter, Ajax) {
+            new AnnouncementBookmark(apiUrl, EventEmitter, Ajax);
+        })(
+            '/api/bookmark/announcement',
+            Autoplius.Common.AnnouncementBookmark,
+            Autoplius.EventEmitter,
+            Autoplius.Ajax
+        );
+    </script>
+
+    <script src="https://autoplius-static.dgn.lt/static/js/FlashBag.js?cache=ncncwbo14410"></script>
+    <script>
+        (function (FlashBag, EventEmitter) {
+            'use strict';
+
+            var container = document.getElementsByTagName("body")[0];
+            var model = new FlashBag.Model();
+            var view = new FlashBag.View(container, model);
+            var controller = new FlashBag.Controller(view, model, EventEmitter);
+
+        })(
+            Autoplius.FlashBag,
+            Autoplius.EventEmitter
+        );
+    </script>
+
+        <script>
+            function showPlacement() {
+                var placement = {
+                    top: 'https://autoplius-static.dgn.lt/static/images/desktop/placement/Autoplius/autoplius_loan_top.jpg?cache=ncncwbo14410',
+                    right: 'https://autoplius-static.dgn.lt/static/images/desktop/placement/Autoplius/autoplius_loan_right.jpg?cache=ncncwbo14410',
+                    link: 'http://autopliuspaskola.lt/?utm_source=autoplius&utm_medium=ablock'
+                };
+
+                function getHeaderPlacementContainer()
+                {
+                    var container = document.getElementsByClassName('head-small')[0];
+                    if (typeof container === 'undefined') {
+                        container = document.getElementsByClassName('leader-board-wrapper')[0];
+                    }
+
+                    return container;
+                }
+
+                function getSidebarPlacementContainer()
+                {
+                    return document.getElementById('banner_right');
+                }
+
+                var headerPlacementContainer = getHeaderPlacementContainer();
+                var sidebarPlacementContainer = getSidebarPlacementContainer();
+
+                var headerElement = document.createElement('div');
+                headerElement.classList.add('dfp-zone');
+                headerElement.style.width = '900px;';
+                headerElement.style.height = "250px;";
+
+                                headerElement.classList.add('ad-corner-top-250');
+                
+                var headerImage = new Image();
+                headerImage.src = placement.top;
+                headerImage.onclick = function () {
+                    window.open(placement.link, '_blank');
+                    gaqPush(['_trackEvent', 'autoplius_paskola corner click', 'autoplius_paskola corner click header']);
+                };
+                headerImage.onload = function () {
+                    headerElement.appendChild(headerImage);
+                    headerPlacementContainer.appendChild(headerElement);
+                };
+
+                                headerImage.style.marginLeft = '0';
+                
+                var sidebarImage = new Image();
+                sidebarImage.src = placement.right;
+                sidebarImage.classList.add('ad-corner-top-250');
+                sidebarImage.onclick = function () {
+                    gaqPush(['_trackEvent', 'autoplius_paskola corner click', 'autoplius_paskola corner click sidebar']);
+                    window.open(placement.link, '_blank');
+                };
+                sidebarImage.onload = function () {
+                    sidebarPlacementContainer.appendChild(sidebarImage);
+                };
+            }
+
+            document.addEventListener('DOMContentLoaded', function (event) {
+                if (window.showAds === undefined) {
+                    showPlacement()
+                }
+            });
+        </script>
+    
+
+    <script>
+        var searchBookmarkTranslations = {
+            invalid_title: 'Paieškos pavadinimas negali būti tuščias',
+            invalid_email_address: 'Nenurodėte el.pašto adreso',
+            show_all_searches: 'Rodyti visas',
+            remove: 'Trinti',
+            edit: 'Redaguoti',
+            toggle_email: 'Gauti el.paštu',
+            email_enabled: 'Skelbimų prenumerata užsakyta.',
+            email_disabled: 'Skelbimų prenumerata nutraukta.',
+            email_dialog_subject: 'Skelbimų prenumerata'
+        };
+
+        Autoplius.Translator.load(searchBookmarkTranslations);
+    </script>
+
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/SearchBookmark.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/SearchBookmarkList.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Common/WebNotification/WebNotification.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/Items/Controller.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/Items/Item.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/Items/ItemView.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/Items/Model.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/Items/View.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/PopupEmail/Controller.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/PopupEmail/InputView.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/PopupEmail/Model.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/PopupEmail/View.js?v=ncncwbo14410"></script>
+    
+
+    <script>
+        new WebNotification(
+            Autoplius.EventEmitter,
+            firebase
+        );
+
+        (function (SearchBookmark, EventEmitter, Ajax, Translator) {
+
+            function initializeSearchBookmark() {
+                return new SearchBookmark(EventEmitter, Ajax, Translator)
+            }
+
+            initializeSearchBookmark();
+
+        })(
+            Autoplius.SearchBookmark,
+            Autoplius.EventEmitter,
+            Autoplius.Ajax,
+            Autoplius.Translator
+        );
+
+        new Autoplius.Desktop.SearchBookmark.List(
+            Autoplius.EventEmitter
+        );
+
+
+        (function (PopupEmail, EventEmitter) {
+            function initializeEmailPopup() {
+                var model = new PopupEmail.Model();
+                var view = new PopupEmail.View(model);
+                return new PopupEmail.Controller(model, view, EventEmitter);
+            }
+            initializeEmailPopup();
+
+        })(
+            Autoplius.Desktop.SearchBookmark.PopupEmail,
+            Autoplius.EventEmitter
+        );
+
+    </script>
+
+    <script>
+        var selected_params = {"category_id":2,"older_not":"-1"};
+
+        function showMoreChoicesDialog(obj) {
+            var resp = apAJAX
+                .send(
+                    'ann_filters_left_0_plius',
+                    'getMoreItems',
+                    {
+                        cat_id: 2,
+                        get_params: {"category_id":2,"older_not":"-1"},
+                        lang: 'lt',
+                        items: obj.id
+                    },
+                    false
+                );
+
+            TINY.box.show(obj.title, resp,575,355);
+            return false;
+        }
+
+        function showMoreFeaturesDialog(obj) {
+            var data = {
+                cat_id: 2,
+                get_params: selected_params
+            };
+            var resp = apAJAX.send('ann_filters_left_0_plius', 'getMoreFeatures', data, false);
+
+            TINY.box.show('Ypatumai', resp);
+            return false;
+        }
+
+        function checkParam(thisEl) {
+            var value = thisEl.value;
+            var name = thisEl.getAttribute('name');
+
+            if (value != undefined && name != undefined) {
+                if (thisEl.checked) {
+                    selected_params[name] = value;
+                } else {
+                    delete selected_params[name];
+                }
+            }
+        }
+
+
+        $(function() {
+            $('#selected-filters > li')
+                .hover(
+                    function () {
+                        $('div', this).css('display', 'block');
+                    },
+                    function () {
+                        $('div', this).css('display', 'none');
+                    }
+                );
+
+            $('#selected-filters > li > a')
+                .click(function () {
+                    if (this.className != 'search-edit-link') {
+                        return false;
+                    }
+                });
+
+            $('#advanced_dropdown > div')
+                .hover(
+                    function () {
+                        $('div', this).css('display', 'block');
+                    },
+                    function(){
+                        $('div', this).css('display', 'none');
+                    }
+                );
+
+            $('#advanced_dropdown > div > a')
+                .click(function () {
+                    if (this.className != 'clear-link') {
+                        return false;
+                    }
+                });
+        });
+    </script>
+
+
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/SearchHeader/Controller.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/SearchHeader/Model.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/SearchHeader/View.js?v=ncncwbo14410"></script>
+    
+
+    <script>
+        (function (SearchHeader, EventEmitter) {
+
+            function initializeSearchHeader(element) {
+                var model = new SearchHeader.Model({"id":619825515,"title":"Automobiliai","parameters":"Vienos dienos (tik nauji)","category_id":2,"new_count":0,"notification_email":false,"notification_push":false,"favorite":false,"links":{"item":"https:\/\/autoplius.lt\/skelbimai\/naudoti-automobiliai?slist=619825515&category_id=2&older_not=-1","edit":"https:\/\/autoplius.lt\/paieska\/naudoti-automobiliai?slist=619825515&category_id=2&older_not=-1","remove":"https:\/\/autoplius.lt\/mano-paieskos?ss_delete=619825515"}});
+                var view = new SearchHeader.View(element, model);
+
+                return new SearchHeader.Controller(model, view, EventEmitter);
+            }
+
+            initializeSearchHeader(
+                document.querySelector('.search-list-header-container')
+            )
+
+        })(
+            Autoplius.Desktop.SearchBookmark.SearchHeader,
+            Autoplius.EventEmitter
+        );
+    </script>
+    <script>
+    var savedSearchesButton = document.querySelector('.search-list-header-container .saved-searches-button');
+    if (savedSearchesButton) {
+        savedSearchesButton.addEventListener('click', function() {
+            Autoplius.EventEmitter.emit('search_bookmark_list:show', {});
+        });
+    }
+
+</script>
+
+
+
+    
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/EmailNotificationsSticky/Controller.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/EmailNotificationsSticky/Model.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/EmailNotificationsSticky/View.js?v=ncncwbo14410"></script>
+    
+
+
+    <script>
+        (function (EmailNotificationsSticky, EventEmitter) {
+
+            function initializeSticky(element) {
+                var model = new EmailNotificationsSticky.Model({"id":619825515,"title":"Automobiliai","parameters":"Vienos dienos (tik nauji)","category_id":2,"new_count":0,"notification_email":false,"notification_push":false,"favorite":false,"links":{"item":"https:\/\/autoplius.lt\/skelbimai\/naudoti-automobiliai?slist=619825515&amp;category_id=2&amp;older_not=-1","edit":"https:\/\/autoplius.lt\/paieska\/naudoti-automobiliai?slist=619825515&amp;category_id=2&amp;older_not=-1","remove":"https:\/\/autoplius.lt\/mano-paieskos?ss_delete=619825515"}});
+                var view = new EmailNotificationsSticky.View(element, model);
+
+                return new EmailNotificationsSticky.Controller(model, view, EventEmitter);
+            }
+
+            initializeSticky(
+                document.getElementsByClassName('quick-email-notifications-sticky')[0]
+            )
+
+        })(
+            Autoplius.Desktop.SearchBookmark.EmailNotificationsSticky,
+            Autoplius.EventEmitter
+        );
+    </script>
+
+
+
+    
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/PopupTitle/Controller.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/PopupTitle/Model.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/PopupTitle/InputView.js?v=ncncwbo14410"></script>
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/PopupTitle/View.js?v=ncncwbo14410"></script>
+    
+    <script>
+        (function (PopupTitle, EventEmitter) {
+
+            function initializeTitlePopup(overlay) {
+                var popup = document.getElementsByClassName('search-title-popup')[0];
+                var model = new PopupTitle.Model();
+                var view = new PopupTitle.View(popup, overlay, model);
+
+                return new PopupTitle.Controller(model, view, EventEmitter);
+            }
+
+            initializeTitlePopup(
+                document.getElementsByClassName('search-bookmark-popup-overlay')[0]
+            );
+
+        })(
+            Autoplius.Desktop.SearchBookmark.PopupTitle,
+            Autoplius.EventEmitter
+        );
+    </script>
+
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Announcement/Counter.js?v=ncncwbo14410"></script>
+    
+    <script>
+        (function (Counter, EventEmitter) {
+            var element = document.getElementsByClassName('announcement-bookmark-count')[0];
+            new Counter(element, EventEmitter)
+        })(
+            Autoplius.Desktop.AnnouncementBookmark.Counter,
+            Autoplius.EventEmitter
+        );
+    </script>
+
+            <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Search/HeaderButton.js?v=ncncwbo14410"></script>
+    
+    <script>
+        (function (EventEmitter) {
+            var element = document.querySelector('.header-saved-searches-button');
+            new Autoplius.Desktop.SearchBookmark.HeaderButton(element, EventEmitter)
+        })(
+            Autoplius.EventEmitter
+        );
+    </script>
+
+    <script>
+        var dropdown = document.querySelector('.anns-list-sort-dropdown');
+
+        dropdown.addEventListener('mouseover', function() {
+            this.querySelector('.content').classList.add('visible');
+        });
+
+        dropdown.addEventListener('mouseleave', function() {
+            this.querySelector('.content').classList.remove('visible');
+        });
+    </script>
+
+<script>
+    var dropdown = document.querySelector('.anns-list-paging-dropdown');
+
+    dropdown.addEventListener('mouseover', function() {
+        this.querySelector('.content').classList.add('visible');
+    });
+
+    dropdown.addEventListener('mouseleave', function() {
+        this.querySelector('.content').classList.remove('visible');
+    });
+</script>
+
+
+    <script>
+        (function () {
+            var partnerLinks = document.getElementsByClassName('announcement-owner');
+            for (var i = 0, length = partnerLinks.length; i < length; i++) {
+                partnerLinks[i].addEventListener('click', function (event) {
+                    event.preventDefault();
+                    var url = this.getAttribute('data-url');
+                    if (url !== '') {
+                        window.open(this.getAttribute('data-url'), '_blank');
+                    }
+                });
+            }
+        })();
+    </script>
+
+    <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Announcement/ToggleButton.js?v=ncncwbo14410"></script>
+    <script>
+        (function (ToggleButton, EventEmitter) {
+            var buttons = document.getElementsByClassName('announcement-bookmark-button');
+            for (var i = 0, length = buttons.length; i < length; i++) {
+                new ToggleButton(buttons[i], EventEmitter);
+            }
+        })(
+            Autoplius.Desktop.AnnouncementBookmark.ToggleButton,
+            Autoplius.EventEmitter
+        );
+    </script>
+
+    <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Announcement/NoteInput.js?v=ncncwbo14410"></script>
+    <script>
+        (function (NoteInput, EventEmitter) {
+            var noteInputs = document.getElementsByClassName('announcement-comment');
+            for (var i = 0, length = noteInputs.length; i < length; i++) {
+                new NoteInput(noteInputs[i], EventEmitter);
+            }
+        })(
+            Autoplius.Desktop.AnnouncementBookmark.NoteInput,
+            Autoplius.EventEmitter
+        );
+    </script>
+
+    <script src="https://autoplius-static.dgn.lt/static/js/Desktop/Bookmark/Announcement/NoteButton.js?v=ncncwbo14410"></script>
+    <script>
+        (function (NoteButton, EventEmitter) {
+            var noteButtons = document.getElementsByClassName('announcement-bookmark-note-btn');
+            for (var i = 0, length = noteButtons.length; i < length; i++) {
+                new NoteButton(noteButtons[i], EventEmitter);
+            }
+        })(
+            Autoplius.Desktop.AnnouncementBookmark.NoteButton,
+            Autoplius.EventEmitter
+        );
+    </script>
+    <script>
+                    ga('send', 'event', 'sold', 'sold_list_nosold');
+            </script>
+
+
+    </div>
+
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"278f11442b","applicationID":"30063638","transactionName":"NVUGZBdUCBZXVkxbXwwfJ0UWQQkIGVlRQUQLXgM=","queueTime":0,"applicationTime":182,"atts":"GRIFEl9OGxg=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>
+

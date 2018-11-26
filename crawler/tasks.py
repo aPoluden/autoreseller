@@ -50,7 +50,6 @@ def daily_advert_check_task(from_page=1):
                 logger.info('Entire advert check task finished')
                 has_adverts = False
         except Exception as e:
-            logger.warn('Advert {} processing fail'.format(advert_data['advert']['url']))
             logger.error(e)
             has_adverts = False
 
@@ -97,14 +96,13 @@ def instant_advert_notification_task():
                     Subscriber.notify_all(instant_advert_urls)
                 has_adverts = False
         except Exception as e:
-            logger.warn('Advert {} processing fail'.format(advert_data['advert']['url']))
+            # logger.warn('Advert {} processing fail'.format(advert_data['advert']['url']))
             logger.error(e)
-            has_adverts = False
 
 def call_task_repeat(): 
     while True: 
         instant_advert_notification_task()
-        time.sleep(420)
+        time.sleep(300)
 
 @celery_app.task(name='debug')
 def periodic_task():
