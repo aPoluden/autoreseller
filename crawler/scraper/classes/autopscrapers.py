@@ -90,6 +90,7 @@ class AutoPCarScraper(VehicleScraper):
             logger.warn('Advert %s not reachable', url)
             return None
         advert['url'] = url
+        logger.info('get car data: {}'.format(url))
         soup = BeautifulSoup(content, 'html.parser')
         # resolve make and model
         vehicle['make'], vehicle['model'] = self._resolve_make_model(soup.find_all(class_='page-title')[0].text)        # resolve advert id
@@ -153,9 +154,10 @@ class AutoPCarScraper(VehicleScraper):
             soup = BeautifulSoup(content, 'html.parser')
             logger.debug(soup)
             new_adverts = soup.find_all(class_='auto-lists lt cl')
-            if len(new_adverts) > 0: 
+            if len(new_adverts) > 0:
                 new_cars_html = new_adverts[0].find_all(class_='announcement-item')
                 for new_car_html in new_cars_html:
+                    logger.info('process new car html')
                     yield self.get_car_advert_data(new_car_html['href'])
                 if len(new_cars_html) is 20:
                     # More than one advert page to scrape

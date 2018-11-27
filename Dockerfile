@@ -28,6 +28,8 @@ RUN rm -fr /app/static
 RUN mkdir /app/static
 RUN chown autoreseller:autoreseller -R /app/static
 RUN chown autoreseller:autoreseller -R /app
+RUN mkdir /var/autoreseller
+RUN chown autoreseller:autoreseller -R /var/autoreseller
 
 USER autoreseller
 

@@ -49,14 +49,17 @@ class DefaultRobot():
         Visit next instant car advert list page
         return page content
         '''
+        temp_url = ''
         if (self.instant_cars_advert_check_url is not None):
             # copy string with page_nr={} for later uses
             temp_url = self.instant_cars_advert_check_url
             self.page_counter += 1
-            self.instant_cars_advert_check_url.format(self.page_counter)
+            self.self.instant_cars_advert_check_url = self.instant_cars_advert_check_url.format(self.page_counter)
             self.browser.get(self.instant_cars_advert_check_url)
+            logger.info('next cars page: {}'.format(self.page_counter))
             return self.browser.page_source
-        self.self.instant_cars_advert_check_url = temp_url
+        self.instant_cars_advert_check_url = temp_url
+        self.page_counter = 1
         return None
 
     def visit_url_through_browser(self, url):
@@ -66,12 +69,14 @@ class DefaultRobot():
         '''
         if (self.browser is not None): 
             self.browser.get(url)
+            logger.debug('visit url: {}'.format(url))
             return self.browser.page_source
 
     def _instant_cars_advert_search_init(self):
         '''
         Fake instant advert search
         '''
+        logger.info('init instant search')
         self.browser.get(self.top_url)
         self.browser.get(self.instant_cars_advert_init_url)
         self.browser.get(self.top_url)
@@ -80,6 +85,7 @@ class DefaultRobot():
         '''
             Enter INITILIZED instant car advert list
         '''
+        logger.info('visit instant search')
         self.browser.get(self.top_url)
         # search-info has-new
         search_item = self.browser.find_element_by_class_name('search-item')
@@ -91,6 +97,7 @@ class DefaultRobot():
         Hack: how to reatach to existing Firefox session
         source: http://tarunlalwani.com/post/reusing-existing-browser-session-selenium/
         '''
+        logger.info('reataching to existing webdriver session')
         from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
         # Save the original function, so we can revert our patch
         org_command_execute = RemoteWebDriver.execute
@@ -107,6 +114,7 @@ class DefaultRobot():
         new_driver.session_id = session_id
         # Replace the patched function with original function
         RemoteWebDriver.execute = org_command_execute
+        logger.info('webdriver session id: {}'.format(session_id))
         return new_driver
 
     def _init_browser_session(self):
@@ -114,11 +122,13 @@ class DefaultRobot():
         Initialize webdriver session with browser or reuse existing
         '''
         if (WebDriverSession.objects.all().count() > 0):
+            logger.info('acquire webdriver session')
             # acquire session from db
             session = WebDriverSession.objects.all()[0]
             self.browser = self._reatach_to_existing_driver_session(session.uid, self._executor_url)
         else:
             # saving session for later use
+            logger.info('create new webdriver session')
             self.browser = webdriver.Remote(
                 command_executor = self._executor_url,
                 desired_capabilities={})
@@ -133,6 +143,7 @@ class DefaultRobot():
             Fetches instant car advert page list content
             retuns: html page content
         '''
+        logger.info("")
         if (self.browser is None):
             self._init_browser_session()
         self._visit_instant_car_advert_list()
@@ -148,3 +159,4 @@ class DefaultRobot():
         session = WebDriverSession.objects.all()[0]
         session.delete()
         self.browser = None
+        logging.info('browser session closed')
