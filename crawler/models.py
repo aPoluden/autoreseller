@@ -134,8 +134,22 @@ class Subscriber(models.Model):
     def __str__(self):
         return '{} {}'.format(self.name, self.surname)
 
-class CookieStore(models.Model):
+class SearchCriteria(models.Model):
+    
+    CITIES = Choices(('Vilnius', 'Vilnius'), ('Kaunas', 'Kaunas'))
+    make = models.CharField(max_length=100, null=True)
+    model = models.CharField(max_length=100, null=True)
+    year_from = models.DateField(null=True) 
+    year_to = models.DateField(null=True)
+    city = models.CharField(max_length=100, null=True, choices=CITIES)
+    subscriber = models.ForeignKey(Subscriber,
+        on_delete=models.CASCADE,
+        default=None)
 
+    def __str__(self):
+        return '{} {}'.format(self.make, self.model)
+
+class CookieStore(models.Model):
     NAMES = Choices(
         ('instant', 'INSTANT', 'Instant'),
         ('weekly', 'WEEKLY', 'Weekly'))
@@ -144,7 +158,7 @@ class CookieStore(models.Model):
     value = models.TextField()
     url = models.TextField()
 
-class WebDriverSession(models.Model): 
+class WebDriverSession(models.Model):
 
     browser = models.CharField(max_length=30)
     uid = models.TextField(null=False)
