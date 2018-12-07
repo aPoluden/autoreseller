@@ -111,6 +111,17 @@ class Subscriber(models.Model):
         '''
         # TODO
         pass
+    
+    def notify_instant_adverts(self, data):
+        '''
+            Advert data - vehicle,
+            Tikrinimo seka : town, make, model, year_from, year_to
+        '''
+        
+        search_criterias = SearchCriteria.objects.filter(subscriber_pk=self.id)
+        # records = search_criterias.foo.filter_data(data)
+        email = EmailMessage('SKELBIMAI', message, to=Subscriber.get_subscribed_emails())
+        pass
 
     @staticmethod
     def notify_all(message):
@@ -135,16 +146,105 @@ class Subscriber(models.Model):
         return '{} {}'.format(self.name, self.surname)
 
 class SearchCriteria(models.Model):
-    
+
     CITIES = Choices(('Vilnius', 'Vilnius'), ('Kaunas', 'Kaunas'))
     make = models.CharField(max_length=100, null=True)
     model = models.CharField(max_length=100, null=True)
-    year_from = models.DateField(null=True) 
+    year_from = models.DateField(null=True)
     year_to = models.DateField(null=True)
     city = models.CharField(max_length=100, null=True, choices=CITIES)
     subscriber = models.ForeignKey(Subscriber,
         on_delete=models.CASCADE,
         default=None)
+        
+    def _filter_cities(self, recs):
+        '''
+        returns filtered records by advert location
+
+        recs: [{'seller': Seller, 'advert': Advertisement, 'vehicle': Vechicle}]
+        returns: array
+        '''
+        filtered_recs = []
+        if (self.city is not None):
+            for rec in recs:
+                if (self.city is rec['advert'].location):
+                    filtered_recs.append(rec)
+            # returns records associated with that city
+            return filtered_recs
+        else:
+            # returns all records, because city was not set
+            return recs
+        
+    def _filter_make(self, recs):
+        '''
+        returns filtered records by vechicle make
+
+        recs: [{'seller': Seller, 'advert': Advertisement, 'vehicle': Vechicle}]
+        returns: array
+        '''
+        filtered_recs = []
+        if (self.make is not None):
+            for rec in recs:
+                if (self.make is rec['vehicle'].make):
+                    filtered_recs.append(rec)
+                return filtered_recs
+        else: 
+            return recs
+        
+    def _filter_model(self, recs):
+        '''
+            returns filtered records by vechicle model
+        ''' 
+        filtered_recs = []
+        if (self.model is not None):
+            for rec in recs:
+                if (self.model is rec['vehicle'].model):
+                    filtered_recs.append(rec)
+                return filtered_recs
+        else: 
+            return recs
+        
+    def _filter_year_range(self, recs):
+        '''
+            returns filtered records by year range
+
+            recs: [{'seller': Seller, 'advert': Advertisement, 'vechicle': Vechicle}]
+            returns: array
+        '''
+        filtered_recs = []
+        if (self.year_from is not None and self.year_to is not None):
+            for rec in recs:
+                if (self.year_from <= rec['vehicle'].year 
+                    and self.year_to >= rec['vehicle'].year):
+                    filtered_recs.append(rec)
+            return filtered_recs
+        elif (self.year_from is not None):
+            for rec in recs:
+                if (self.year_from <= rec['vehicle'].year):
+                    filtered_recs.append(rec)
+            return filtered_recs
+        elif (self.year_to is not None):
+            for rec in recs:
+                if (self.year_to >= rec['vehicle'].year):
+                    filtered_recs.append(rec)
+            return filtered_recs
+        else:
+            return recs
+
+    def filter_data(self, data):
+        '''
+            Filter advert data by search criterias
+            Check sequence: town, make, model, year_range
+            
+            data: [{'seller': Seller, 'advert': Advertisement, 'vehicle': Vechicle}]
+            returns: filtered array
+
+        '''
+        recs = self._filter_cities(data)
+        recs = self._filter_make(recs)
+        recs = self._filter_model(recs)
+        recs = self._filter_year_range(recs)
+        return recs
 
     def __str__(self):
         return '{} {}'.format(self.make, self.model)

@@ -6,7 +6,7 @@ from django.test.utils import override_settings
 
 import datetime, dateparser
 
-from crawler.models import Seller, Advertisement, Vehicle, Subscriber, WebDriverSession
+from crawler.models import Seller, Advertisement, Vehicle, Subscriber, WebDriverSession, SearchCriteria
 from crawler.scraper.classes.options import Portals
 
 class SellerTest(TestCase):
@@ -146,3 +146,182 @@ class SubscriberTest(TestCase):
         Subscriber.notify_all(message)
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].body, message)
+    
+    def testSubscriberNotificationSingleCriteriaHasMatches(self): 
+        # validations
+        criteria = SearchCriteria.objects.create(make='foo',
+                                                 model='bar', 
+                                                 subscriber= self.subscriber0)
+        # message = "here goes message"
+        # data = {}
+        # criteria.subscriber = self.subscriber0
+        # subscriber.notify_instant_adverts(data)
+        # self.assertEqual(len(mail.outbox), 1)
+        # self.assertEqual(mail.outbox[0].body, message)
+
+    def testSubscriberNotificationSingleCriteriaNoMatches(self):
+        pass
+        
+    def testSubscriberNotificationMultipleCriteria(self):
+        pass
+   
+    def testSubscriberNotificationByYearRange(self):
+        pass
+
+class TestSearchCriteria(TestCase):
+
+    def setUp(self):
+        self.subscriber = Subscriber.objects.create(
+            name='Test0',
+            email='test@email.com')
+        self.criteria = SearchCriteria.objects.create(make='foo',
+                                                    model='bar',
+                                                    city="Mars",
+                                                    subscriber= self.subscriber)
+        self.seller = Seller.objects.create(phone_number='123')
+        self.advertisement = Advertisement.objects.create(
+            url = "http://autoplius.lt",
+            location = "Mars",
+            uid = 1000, 
+            seller = self.seller)
+        self.vehicle = Vehicle.objects.create(
+            make = "foo",
+            model = "bar", 
+            seller = self.seller,
+            year = dateparser.parse('2000-02-01'),
+            advertisement = self.advertisement)
+        self.data = [{
+            "seller" : self.seller, 
+            "advert" : self.advertisement,
+            "vehicle" : self.vehicle
+        }]
+
+    def testCityValid(self):
+        '''
+            Test search criteria city match 
+        '''
+        filtered_data = self.criteria._filter_cities(self.data)
+        self.assertEquals(len(filtered_data), 1)
+        self.assertIsNotNone(filtered_data[0]['seller'])
+        self.assertIsNotNone(filtered_data[0]['advert'])
+        self.assertIsNotNone(filtered_data[0]['vehicle'])
+    
+    def testCityInvalid(self):
+        '''
+            Test search criteria city dismatch
+        '''
+        self.criteria.city = "Other"
+        filtered_data = self.criteria._filter_cities(self.data)
+        self.assertEquals(len(filtered_data), 0)
+    
+    def testCityNotSet(self):
+        '''
+            Test search criteria city not set
+        '''
+        self.criteria.city = None
+        filtered_data = self.criteria._filter_cities(self.data)
+        self.assertEquals(len(filtered_data), 1)
+        self.assertIsNotNone(filtered_data[0]['seller'])
+        self.assertIsNotNone(filtered_data[0]['advert'])
+        self.assertIsNotNone(filtered_data[0]['vehicle'])
+    
+    def testMakeValid(self):
+        '''
+            Test search criteria vehicle make match 
+        '''
+        filtered_data = self.criteria._filter_make(self.data)
+        self.assertEquals(len(filtered_data), 1)
+        self.assertIsNotNone(filtered_data[0]['seller'])
+        self.assertIsNotNone(filtered_data[0]['advert'])
+        self.assertIsNotNone(filtered_data[0]['vehicle'])
+    
+    def testMakeNotSet(self): 
+        '''
+            Test search criteria make not sets
+        '''
+        self.criteria.make = None
+        filtered_data = self.criteria._filter_make(self.data)
+        self.assertEquals(len(filtered_data), 1)
+        self.assertIsNotNone(filtered_data[0]['seller'])
+        self.assertIsNotNone(filtered_data[0]['advert'])
+        self.assertIsNotNone(filtered_data[0]['vehicle'])
+    
+    def testMakeInvalid(self):
+        '''
+            Test search criteria make dismatch
+        '''
+        self.criteria.make = 'other'
+        filtered_data = self.criteria._filter_make(self.data)
+        self.assertEquals(len(filtered_data), 0)
+    
+    def testModelValid(self):
+        '''
+            Test search criteria vehicle make match 
+        '''
+        filtered_data = self.criteria._filter_model(self.data)
+        self.assertEquals(len(filtered_data), 1)
+        self.assertIsNotNone(filtered_data[0]['seller'])
+        self.assertIsNotNone(filtered_data[0]['advert'])
+        self.assertIsNotNone(filtered_data[0]['vehicle'])
+    
+    def testModelNotSet(self): 
+        '''
+            Test search criteria make not sets
+        '''
+        self.criteria.model = None
+        filtered_data = self.criteria._filter_model(self.data)
+        self.assertEquals(len(filtered_data), 1)
+        self.assertIsNotNone(filtered_data[0]['seller'])
+        self.assertIsNotNone(filtered_data[0]['advert'])
+        self.assertIsNotNone(filtered_data[0]['vehicle'])
+    
+    def testModelInvalid(self):
+        '''
+            Test search criteria make dismatch
+        '''
+        self.criteria.model = 'other'
+        filtered_data = self.criteria._filter_model(self.data)
+        self.assertEquals(len(filtered_data), 0)
+
+    def testYearFromSet(self):
+        '''
+            Test search criteria by year from
+        '''
+        self.criteria.year_from = dateparser.parse('2000-01-01')
+        filtered_data = self.criteria._filter_year_range(self.data)
+        self.assertEquals(len(filtered_data), 1)
+        self.assertIsNotNone(filtered_data[0]['seller'])
+        self.assertIsNotNone(filtered_data[0]['advert'])
+        self.assertIsNotNone(filtered_data[0]['vehicle'])
+    
+    def testYearToSet(self):
+        '''
+            Test search criteria by year to
+        '''
+        self.criteria.year_to = dateparser.parse('2001-02-01')
+        filtered_data = self.criteria._filter_year_range(self.data)
+        self.assertEquals(len(filtered_data), 1)
+        self.assertIsNotNone(filtered_data[0]['seller'])
+        self.assertIsNotNone(filtered_data[0]['advert'])
+        self.assertIsNotNone(filtered_data[0]['vehicle'])
+    
+    def testYearRangeSet(self):
+        '''
+            Test search criteria year range
+        '''
+        self.criteria.year_to = dateparser.parse('2001-02-01')
+        self.criteria.year_from = dateparser.parse('1999-02-01')
+        filtered_data = self.criteria._filter_year_range(self.data)
+        self.assertEquals(len(filtered_data), 1)
+        self.assertIsNotNone(filtered_data[0]['seller'])
+        self.assertIsNotNone(filtered_data[0]['advert'])
+        self.assertIsNotNone(filtered_data[0]['vehicle'])
+    
+    def testAllCriteriaArgsSet(self): 
+        self.criteria.year_to = dateparser.parse('2001-02-01')
+        self.criteria.year_from = dateparser.parse('1999-02-01')
+        filtered_data = self.criteria.filter_data(self.data)
+        self.assertEquals(len(filtered_data), 1)
+        self.assertIsNotNone(filtered_data[0]['seller'])
+        self.assertIsNotNone(filtered_data[0]['advert'])
+        self.assertIsNotNone(filtered_data[0]['vehicle'])
