@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_celery_beat',
-    'crawler'
+    'crawler', 
+    'dal',
+    'dal_select2'
 ]
 
 MIDDLEWARE = [

@@ -3,15 +3,18 @@ from django.db import models
 from django.utils import timezone 
 from model_utils import Choices
 
-import datetime, dateparser
+from crawler.resources.dataset import cities, fuels
+
+import datetime, dateparser, logging
 from enum import Enum
+
+logger = logging.getLogger(__name__)
 
 class Seller(models.Model):
     # Unique indentify seller by his phone number
     phone_number = models.TextField(unique = True, blank=False)    
     Field = Choices(
         ('number', 'NUMBER', 'Number'))
-    
     @staticmethod
     def create_from_dict(seller):
         '''
@@ -107,21 +110,11 @@ class Subscriber(models.Model):
 
     def notify(self, message):
         '''
-        Notifies particular subscriber
+            Notifies particular subscriber
         '''
-        # TODO
-        pass
-    
-    def notify_instant_adverts(self, data):
-        '''
-            Advert data - vehicle,
-            Tikrinimo seka : town, make, model, year_from, year_to
-        '''
-        
-        search_criterias = SearchCriteria.objects.filter(subscriber_pk=self.id)
-        # records = search_criterias.foo.filter_data(data)
-        email = EmailMessage('SKELBIMAI', message, to=Subscriber.get_subscribed_emails())
-        pass
+        email = EmailMessage('AUTOPLIUS ADVERTISEMENTS', message, to=self.email)
+        email.send()
+        logger.info('{} {} {} was notified'.format(self.name, self.surname, self.email))
 
     @staticmethod
     def notify_all(message):
@@ -147,12 +140,15 @@ class Subscriber(models.Model):
 
 class SearchCriteria(models.Model):
 
-    CITIES = Choices(('Vilnius', 'Vilnius'), ('Kaunas', 'Kaunas'))
+    CITIES = cities
+    FUELS = fuels
     make = models.CharField(max_length=100, null=True)
     model = models.CharField(max_length=100, null=True)
     year_from = models.DateField(null=True)
     year_to = models.DateField(null=True)
     city = models.CharField(max_length=100, null=True, choices=CITIES)
+    fuel = models.CharField(max_length=100, null=True, choices=FUELS)
+    enabled = models.BooleanField(default=True)
     subscriber = models.ForeignKey(Subscriber,
         on_delete=models.CASCADE,
         default=None)
@@ -174,6 +170,25 @@ class SearchCriteria(models.Model):
         else:
             # returns all records, because city was not set
             return recs
+    
+    def _filter_fuel(self, recs):
+        '''
+        returns filtered records by advert location
+
+        recs: [{'seller': Seller, 'advert': Advertisement, 'vehicle': Vechicle}]
+        returns: array
+        '''
+        filtered_recs = []
+        if (self.fuel is not None):
+            for rec in recs:
+                if (self.fuel is rec['vehicle'].fuel):
+                    filtered_recs.append(rec)
+            # returns records associated with that city
+            return filtered_recs
+        else:
+            # returns all records, because city was not set
+            return recs
+        pass
         
     def _filter_make(self, recs):
         '''
@@ -241,6 +256,7 @@ class SearchCriteria(models.Model):
 
         '''
         recs = self._filter_cities(data)
+        recs = self._filter_fuel(recs)
         recs = self._filter_make(recs)
         recs = self._filter_model(recs)
         recs = self._filter_year_range(recs)

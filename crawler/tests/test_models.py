@@ -150,8 +150,10 @@ class SubscriberTest(TestCase):
     def testSubscriberNotificationSingleCriteriaHasMatches(self): 
         # validations
         criteria = SearchCriteria.objects.create(make='foo',
-                                                 model='bar', 
+                                                 model='bar',
                                                  subscriber= self.subscriber0)
+                                                 
+        self.subscriber0.notify_instant_adverts('data')
         # message = "here goes message"
         # data = {}
         # criteria.subscriber = self.subscriber0
@@ -160,6 +162,7 @@ class SubscriberTest(TestCase):
         # self.assertEqual(mail.outbox[0].body, message)
 
     def testSubscriberNotificationSingleCriteriaNoMatches(self):
+
         pass
         
     def testSubscriberNotificationMultipleCriteria(self):
@@ -176,7 +179,8 @@ class TestSearchCriteria(TestCase):
             email='test@email.com')
         self.criteria = SearchCriteria.objects.create(make='foo',
                                                     model='bar',
-                                                    city="Mars",
+                                                    city='Mars',
+                                                    fuel='Dyzelinas',
                                                     subscriber= self.subscriber)
         self.seller = Seller.objects.create(phone_number='123')
         self.advertisement = Advertisement.objects.create(
@@ -186,7 +190,8 @@ class TestSearchCriteria(TestCase):
             seller = self.seller)
         self.vehicle = Vehicle.objects.create(
             make = "foo",
-            model = "bar", 
+            model = "bar",
+            fuel = 'Dyzelinas',
             seller = self.seller,
             year = dateparser.parse('2000-02-01'),
             advertisement = self.advertisement)
@@ -317,6 +322,35 @@ class TestSearchCriteria(TestCase):
         self.assertIsNotNone(filtered_data[0]['advert'])
         self.assertIsNotNone(filtered_data[0]['vehicle'])
     
+    def testFuelValid(self):
+        '''
+            Test search criteria vehicle make match 
+        '''
+        filtered_data = self.criteria._filter_fuel(self.data)
+        self.assertEquals(len(filtered_data), 1)
+        self.assertIsNotNone(filtered_data[0]['seller'])
+        self.assertIsNotNone(filtered_data[0]['advert'])
+        self.assertIsNotNone(filtered_data[0]['vehicle'])
+    
+    def testFuelNotSet(self):
+        '''
+            Test search criteria make not sets
+        '''
+        self.criteria.fuel = None
+        filtered_data = self.criteria._filter_model(self.data)
+        self.assertEquals(len(filtered_data), 1)
+        self.assertIsNotNone(filtered_data[0]['seller'])
+        self.assertIsNotNone(filtered_data[0]['advert'])
+        self.assertIsNotNone(filtered_data[0]['vehicle'])
+    
+    def testFuellInvalid(self):
+        '''
+            Test search criteria make dismatch
+        '''
+        self.criteria.fuel = 'other'
+        filtered_data = self.criteria._filter_fuel(self.data)
+        self.assertEquals(len(filtered_data), 0)
+
     def testAllCriteriaArgsSet(self): 
         self.criteria.year_to = dateparser.parse('2001-02-01')
         self.criteria.year_from = dateparser.parse('1999-02-01')
