@@ -112,9 +112,44 @@ class Subscriber(models.Model):
         '''
             Notifies particular subscriber
         '''
-        email = EmailMessage('AUTOPLIUS ADVERTISEMENTS', message, to=self.email)
+        email = EmailMessage('AUTOPLIUS ADVERTISEMENTS', message, to=[self.email])
         email.send()
         logger.info('{} {} {} was notified'.format(self.name, self.surname, self.email))
+    
+    def notify_instant_adverts(self, data):
+        '''
+            Advert data - vehicle,
+            Tikrinimo seka : town, make, model, year_from, year_to
+        '''
+        msg_head = "Matching advertisements were found depending on your criteria: \n "
+        msg_body = ""
+        search_criterias = SearchCriteria.objects.filter(subscriber_id=self.id)
+        if (search_criterias.count() == 0 and self.role is 'ADMIN' and self.subscribed):
+            for item in data:
+                msg_body += self.construct_msg_body(msg_body, item)
+            message = msg_head + msg_body
+            self.notify(message)
+        elif (search_criterias.count() > 0 and self.subscribed):
+            for criteria in search_criterias:
+                if (criteria.enabled): 
+                    filtered_data = criteria.filter_data(data)
+                    for item in filtered_data:
+                        msg_body += self.construct_msg_body(msg_body, item)
+                    if (len(filtered_data) > 0):
+                        msg_body += ' - - - - - - - - - - - \n'
+            if (msg_body != ''):
+                message = msg_head + msg_body
+                self.notify(message)
+    
+    def construct_msg_body(self, message, item):
+        tmp_msg = message
+        tmp_msg = tmp_msg + '{} '.format(item['vehicle'].make)
+        tmp_msg = tmp_msg + '{} '.format(item['vehicle'].model)
+        tmp_msg = tmp_msg + '{} '.format(item['vehicle'].year)
+        tmp_msg = tmp_msg + '{} '.format(item['vehicle'].fuel)
+        tmp_msg = tmp_msg + '{} '.format(item['advert'].url)
+        tmp_msg = tmp_msg + '\n'
+        return tmp_msg
 
     @staticmethod
     def notify_all(message):
@@ -163,7 +198,7 @@ class SearchCriteria(models.Model):
         filtered_recs = []
         if (self.city is not None):
             for rec in recs:
-                if (self.city is rec['advert'].location):
+                if (self.city == rec['advert'].location):
                     filtered_recs.append(rec)
             # returns records associated with that city
             return filtered_recs
@@ -181,14 +216,13 @@ class SearchCriteria(models.Model):
         filtered_recs = []
         if (self.fuel is not None):
             for rec in recs:
-                if (self.fuel is rec['vehicle'].fuel):
+                if (self.fuel == rec['vehicle'].fuel):
                     filtered_recs.append(rec)
             # returns records associated with that city
             return filtered_recs
         else:
             # returns all records, because city was not set
             return recs
-        pass
         
     def _filter_make(self, recs):
         '''
@@ -200,9 +234,9 @@ class SearchCriteria(models.Model):
         filtered_recs = []
         if (self.make is not None):
             for rec in recs:
-                if (self.make is rec['vehicle'].make):
+                if (self.make == rec['vehicle'].make):
                     filtered_recs.append(rec)
-                return filtered_recs
+            return filtered_recs
         else: 
             return recs
         
@@ -213,9 +247,9 @@ class SearchCriteria(models.Model):
         filtered_recs = []
         if (self.model is not None):
             for rec in recs:
-                if (self.model is rec['vehicle'].model):
+                if (self.model == rec['vehicle'].model):
                     filtered_recs.append(rec)
-                return filtered_recs
+            return filtered_recs
         else: 
             return recs
         

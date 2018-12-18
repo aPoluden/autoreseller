@@ -127,8 +127,31 @@ class SubscriberTest(TestCase):
 
     def setUp(self):
         self.email = 'test@email.com'
-        self.subscriber0 = Subscriber.objects.create(name='Test0', email=self.email)
+        self.seller = Seller.objects.create(phone_number='123')
+        self.subscriber0 = Subscriber.objects.create(name='Test0', email=self.email, role='ADMIN')
         self.subscriber1 = Subscriber.objects.create(name='Test0', subscribed=False)
+        self.criteria = SearchCriteria.objects.create(make='audi',
+            model='sto',
+            city='Mars',
+            fuel='Dyzelinas',
+            subscriber= self.subscriber0)
+        self.advertisement = Advertisement.objects.create(
+            url = "http://autoplius.lt",
+            location = "Mars",
+            uid = 1000, 
+            seller = self.seller)
+        self.vehicle = Vehicle.objects.create(
+            make = "foo",
+            model = "bar",
+            fuel = 'Dyzelinas',
+            seller = self.seller,
+            year = dateparser.parse('2000-02-01'),
+            advertisement = self.advertisement)
+        self.data = [{
+            "seller" : Seller.objects.all()[0], 
+            "advert" : Advertisement.objects.all()[0],
+            "vehicle" : Vehicle.objects.all()[0]
+        }]
 
     def testGetSubscribedEmails(self):
         '''
@@ -151,25 +174,41 @@ class SubscriberTest(TestCase):
         # validations
         criteria = SearchCriteria.objects.create(make='foo',
                                                  model='bar',
+                                                 city='Mars',
                                                  subscriber= self.subscriber0)
-                                                 
-        self.subscriber0.notify_instant_adverts('data')
-        # message = "here goes message"
-        # data = {}
-        # criteria.subscriber = self.subscriber0
-        # subscriber.notify_instant_adverts(data)
-        # self.assertEqual(len(mail.outbox), 1)
-        # self.assertEqual(mail.outbox[0].body, message)
+        self.subscriber0.notify_instant_adverts(self.data)
+        self.assertEqual(len(mail.outbox), 1)
+        # message body rewied manually 
 
     def testSubscriberNotificationSingleCriteriaNoMatches(self):
-
-        pass
+        self.subscriber0.notify_instant_adverts(self.data)
+        self.assertEqual(len(mail.outbox), 0)
         
-    def testSubscriberNotificationMultipleCriteria(self):
-        pass
-   
+    def testSubscriberNotificationMultipleCriteriaMatch(self):
+        SearchCriteria.objects.create(
+            fuel='Dyzelinas', 
+            subscriber= self.subscriber0)
+        SearchCriteria.objects.create(
+            fuel='Dyzelinas', 
+            subscriber= self.subscriber0)    
+        self.subscriber0.notify_instant_adverts(self.data)
+        self.assertEqual(len(mail.outbox), 1)
+        # message body rewied manually 
+
     def testSubscriberNotificationByYearRange(self):
-        pass
+        criteria0 = SearchCriteria.objects.create(
+            year_from = dateparser.parse('2000-01-01'), 
+            subscriber= self.subscriber0)
+        criteria1 = SearchCriteria.objects.create(
+            year_to = dateparser.parse('2000-03-01'), 
+            subscriber= self.subscriber0)
+        criteria2 = SearchCriteria.objects.create(
+            year_from = dateparser.parse('2000-01-01'),
+            year_to = dateparser.parse('2000-03-01'), 
+            subscriber= self.subscriber0)
+        self.subscriber0.notify_instant_adverts(self.data)
+        self.assertEqual(len(mail.outbox), 1)
+        # message body rewied manually 
 
 class TestSearchCriteria(TestCase):
 
@@ -196,9 +235,9 @@ class TestSearchCriteria(TestCase):
             year = dateparser.parse('2000-02-01'),
             advertisement = self.advertisement)
         self.data = [{
-            "seller" : self.seller, 
-            "advert" : self.advertisement,
-            "vehicle" : self.vehicle
+            "seller" : Seller.objects.all()[0], 
+            "advert" : Advertisement.objects.all()[0],
+            "vehicle" : Vehicle.objects.all()[0]
         }]
 
     def testCityValid(self):
@@ -292,7 +331,7 @@ class TestSearchCriteria(TestCase):
         '''
             Test search criteria by year from
         '''
-        self.criteria.year_from = dateparser.parse('2000-01-01')
+        self.criteria.year_from = datetime.date(2000, 1, 1)
         filtered_data = self.criteria._filter_year_range(self.data)
         self.assertEquals(len(filtered_data), 1)
         self.assertIsNotNone(filtered_data[0]['seller'])
@@ -303,7 +342,7 @@ class TestSearchCriteria(TestCase):
         '''
             Test search criteria by year to
         '''
-        self.criteria.year_to = dateparser.parse('2001-02-01')
+        self.criteria.year_to = datetime.date(2000, 2, 1)
         filtered_data = self.criteria._filter_year_range(self.data)
         self.assertEquals(len(filtered_data), 1)
         self.assertIsNotNone(filtered_data[0]['seller'])
@@ -314,8 +353,8 @@ class TestSearchCriteria(TestCase):
         '''
             Test search criteria year range
         '''
-        self.criteria.year_to = dateparser.parse('2001-02-01')
-        self.criteria.year_from = dateparser.parse('1999-02-01')
+        self.criteria.year_to = datetime.date(2000, 2, 1)
+        self.criteria.year_from = datetime.date(1999, 2, 1)
         filtered_data = self.criteria._filter_year_range(self.data)
         self.assertEquals(len(filtered_data), 1)
         self.assertIsNotNone(filtered_data[0]['seller'])
@@ -352,10 +391,12 @@ class TestSearchCriteria(TestCase):
         self.assertEquals(len(filtered_data), 0)
 
     def testAllCriteriaArgsSet(self): 
-        self.criteria.year_to = dateparser.parse('2001-02-01')
-        self.criteria.year_from = dateparser.parse('1999-02-01')
+        self.criteria.year_to = datetime.date(2001, 2, 1)
+        self.criteria.year_from = datetime.date(1999, 2, 1)
         filtered_data = self.criteria.filter_data(self.data)
         self.assertEquals(len(filtered_data), 1)
         self.assertIsNotNone(filtered_data[0]['seller'])
         self.assertIsNotNone(filtered_data[0]['advert'])
         self.assertIsNotNone(filtered_data[0]['vehicle'])
+    
+    
