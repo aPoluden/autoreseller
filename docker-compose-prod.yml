@@ -32,6 +32,8 @@ services:
   celery-worker:
     build:
       context: ./
+    volumes:
+      - ./:/app
     networks:
       - backend
     depends_on:
@@ -70,7 +72,7 @@ services:
           DISPLAY: :0
           XAUTHORITY: /tmp/xauth/Xauthority
       networks:
-        - backend  
+        - backend
 
   xvfb:
       image: quay.io/cvlibrary/xvfb
