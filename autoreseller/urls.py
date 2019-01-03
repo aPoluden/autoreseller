@@ -19,5 +19,6 @@ from crawler.views import CarMakeAutocompleteFromList
 
 urlpatterns = [
     path('models', CarMakeAutocompleteFromList.as_view(), name='model-list-autocomplete'),
+    path('crawler/', include('crawler.urls')),
     path('admin/', admin.site.urls)
 ]

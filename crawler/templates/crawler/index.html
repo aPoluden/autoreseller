@@ -1,0 +1,9 @@
+{% if advertisement_list %}
+    <ul>
+    {% for advert in advertisement_list %}
+        <li>{{ advert.uid }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No advertisements are available.</p>
+{% endif %}
