@@ -143,7 +143,6 @@ class DefaultRobot():
             Fetches instant car advert page list content
             retuns: html page content
         '''
-        logger.info("")
         if (self.browser is None):
             self._init_browser_session()
         self._visit_instant_car_advert_list()

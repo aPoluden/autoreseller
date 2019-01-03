@@ -3,9 +3,9 @@ from django.db import models
 from django.utils import timezone 
 from model_utils import Choices
 
-from crawler.resources.dataset import cities, fuels
+from crawler.resources.dataset import cities, fuels, car_series
 
-import datetime, dateparser, logging
+import datetime, dateparser, logging, re
 from enum import Enum
 
 logger = logging.getLogger(__name__)
@@ -124,9 +124,9 @@ class Subscriber(models.Model):
         msg_head = "Matching advertisements were found depending on your criteria: \n "
         msg_body = ""
         search_criterias = SearchCriteria.objects.filter(subscriber_id=self.id)
-        if (search_criterias.count() == 0 and self.role is 'ADMIN' and self.subscribed):
+        if (search_criterias.count() == 0 and self.role == 'administrator' and self.subscribed):
             for item in data:
-                msg_body += self.construct_msg_body(msg_body, item)
+                msg_body += self.construct_msg_body(item)
             message = msg_head + msg_body
             self.notify(message)
         elif (search_criterias.count() > 0 and self.subscribed):
@@ -134,15 +134,16 @@ class Subscriber(models.Model):
                 if (criteria.enabled): 
                     filtered_data = criteria.filter_data(data)
                     for item in filtered_data:
-                        msg_body += self.construct_msg_body(msg_body, item)
+                        msg_body += self.construct_msg_body(item)
                     if (len(filtered_data) > 0):
                         msg_body += ' - - - - - - - - - - - \n'
             if (msg_body != ''):
                 message = msg_head + msg_body
                 self.notify(message)
     
-    def construct_msg_body(self, message, item):
-        tmp_msg = message
+    def construct_msg_body(self, item):
+        tmp_msg = ''
+        tmp_msg = tmp_msg + '{} '.format(item['advert'].price)
         tmp_msg = tmp_msg + '{} '.format(item['vehicle'].make)
         tmp_msg = tmp_msg + '{} '.format(item['vehicle'].model)
         tmp_msg = tmp_msg + '{} '.format(item['vehicle'].year)
@@ -177,12 +178,12 @@ class SearchCriteria(models.Model):
 
     CITIES = cities
     FUELS = fuels
-    make = models.CharField(max_length=100, null=True)
-    model = models.CharField(max_length=100, null=True)
-    year_from = models.DateField(null=True)
-    year_to = models.DateField(null=True)
-    city = models.CharField(max_length=100, null=True, choices=CITIES)
-    fuel = models.CharField(max_length=100, null=True, choices=FUELS)
+    make = models.CharField(max_length=100, blank=True)
+    model = models.CharField(max_length=100, blank=True)
+    year_from = models.DateField(null=True, default=None, blank=True)
+    year_to = models.DateField(null=True, default=None, blank=True)
+    city = models.CharField(max_length=100, null=True, choices=CITIES, default=None, blank=True)
+    fuel = models.CharField(max_length=100, null=True, choices=FUELS, default=None, blank=True)
     enabled = models.BooleanField(default=True)
     subscriber = models.ForeignKey(Subscriber,
         on_delete=models.CASCADE,
@@ -245,9 +246,17 @@ class SearchCriteria(models.Model):
             returns filtered records by vechicle model
         ''' 
         filtered_recs = []
+        bmw_series_pattern = r'\d serija'
+        mb_series_pattern = r'[A-Z]* klasė'
         if (self.model is not None):
             for rec in recs:
-                if (self.model == rec['vehicle'].model):
+                if (re.match(bmw_series_pattern, self.model) or re.match(mb_series_pattern, self.model)):
+                    for seria in car_series[self.make]:
+                        if (seria.get(self.model)):
+                            if (seria[self.model].count(rec['vehicle'].model) > 0):
+                                filtered_recs.append(rec)
+                                break            
+                elif (self.model == rec['vehicle'].model):
                     filtered_recs.append(rec)
             return filtered_recs
         else: 
@@ -297,8 +306,8 @@ class SearchCriteria(models.Model):
         return recs
 
     def __str__(self):
-        return '{} {}'.format(self.make, self.model)
-
+        return '{} {} {}'.format(self.make, self.model, self.subscriber.email)
+    
 class CookieStore(models.Model):
     NAMES = Choices(
         ('instant', 'INSTANT', 'Instant'),

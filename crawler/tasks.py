@@ -64,7 +64,7 @@ def instant_advert_notification_task():
     instant_advert_urls = 'Hello, this is instant autoplius adverts for the moment:\n'
     scraper = AutoPCarScraper()
     adverts = scraper.get_instant_car_advert_data()
-    instant_advert_count = 0
+    data = []
     while has_adverts:
         try:
             advert_data = next(adverts)
@@ -82,7 +82,7 @@ def instant_advert_notification_task():
                     vehicle.save()
                     logger.info('Advert {} created'.format(advert_uid))
                     instant_advert_urls = instant_advert_urls  + advert_data['advert']['url'] + '\n'
-                    instant_advert_count += 1
+                    data.append({'seller': seller, 'vehicle': vehicle, 'advert' : advert})
                 else: 
                     # Advertisement exists
                     # TODO track advert changes
@@ -92,12 +92,19 @@ def instant_advert_notification_task():
             else:
                 # advertisements left to scrape
                 logger.info('Instant advert check task finished')
-                if instant_advert_count > 0:
-                    Subscriber.notify_all(instant_advert_urls)
+                if len(data) > 0:
+                    # notify subscribers with instant adverts
+                    logger.info('Instant advert notification started')
+                    subscribers = Subscriber.objects.all()
+                    for subscriber in subscribers:
+                        subscriber.notify_instant_adverts(data)
+                    logger.info('Instant advert notification finished')
                 has_adverts = False
         except Exception as e:
             # logger.warn('Advert {} processing fail'.format(advert_data['advert']['url']))
-            logger.error(e)
+            logger.error(str(e))
+            has_adverts = False
+
 
 def call_task_repeat(): 
     while True: 

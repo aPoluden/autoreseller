@@ -138,7 +138,8 @@ class SubscriberTest(TestCase):
         self.advertisement = Advertisement.objects.create(
             url = "http://autoplius.lt",
             location = "Mars",
-            uid = 1000, 
+            uid = 1000,
+            price = '1000 eu', 
             seller = self.seller)
         self.vehicle = Vehicle.objects.create(
             make = "foo",
@@ -192,6 +193,7 @@ class SubscriberTest(TestCase):
             fuel='Dyzelinas', 
             subscriber= self.subscriber0)    
         self.subscriber0.notify_instant_adverts(self.data)
+        import ipdb; ipdb.set_trace()
         self.assertEqual(len(mail.outbox), 1)
         # message body rewied manually 
 
@@ -399,4 +401,55 @@ class TestSearchCriteria(TestCase):
         self.assertIsNotNone(filtered_data[0]['advert'])
         self.assertIsNotNone(filtered_data[0]['vehicle'])
     
-    
+    def testMercedesBenzSeries(self):
+        # C klass
+        advertisement = Advertisement.objects.create(
+            location = "Mars",
+            uid = 1002, 
+            seller = self.seller)
+        vehicle = Vehicle.objects.create(
+            make = "Mercedes-Benz",
+            model = "CLS300",
+            fuel = 'Dyzelinas',
+            advertisement = advertisement,
+            year = dateparser.parse('2000-02-01'),
+            seller = self.seller)
+        criteria = SearchCriteria.objects.create(make='Mercedes-Benz',
+            model="CLS klasė",
+            subscriber= self.subscriber)
+        self.data.append({
+            "seller" : self.seller, 
+            "advert" : advertisement,
+            "vehicle" : vehicle
+        })
+        filtered_data = criteria.filter_data(self.data)
+        self.assertEquals(len(filtered_data), 1)
+        self.assertEquals(filtered_data[0]['seller'].phone_number, '123')
+        self.assertIsNotNone(filtered_data[0]['advert'].uid, 1002)
+        self.assertIsNotNone(filtered_data[0]['vehicle'].model, "CLS300")
+
+    def testBMWSeries(self):
+        advertisement = Advertisement.objects.create(
+            location = "Mars",
+            uid = 1003, 
+            seller = self.seller)
+        vehicle = Vehicle.objects.create(
+            make = "BMW",
+            model = "630 Gran Turismo",
+            fuel = 'Dyzelinas',
+            advertisement = advertisement,
+            year = dateparser.parse('2000-02-01'),
+            seller = self.seller)
+        criteria = SearchCriteria.objects.create(make='BMW',
+            model="6 serija",
+            subscriber= self.subscriber)
+        self.data.append({
+            "seller" : self.seller, 
+            "advert" : advertisement,
+            "vehicle" : vehicle
+        })
+        filtered_data = criteria.filter_data(self.data)
+        self.assertEquals(len(filtered_data), 1)
+        self.assertEquals(filtered_data[0]['seller'].phone_number, '123')
+        self.assertIsNotNone(filtered_data[0]['advert'].uid, 1003)
+        self.assertIsNotNone(filtered_data[0]['vehicle'].model, "630 Gran Turismo")
