@@ -32,8 +32,6 @@ services:
   celery-worker:
     build:
       context: ./
-    volumes:
-      - ./:/app
     networks:
       - backend
     depends_on:
